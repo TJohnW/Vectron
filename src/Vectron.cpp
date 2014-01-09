@@ -22,10 +22,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include <GLFW/glfw3.h>
-#include <cstdlib>
-#include <cstdio>
-#include <forward_list>
+#include "stdafx.h"
 #include "Zone.h"
 #include "Grid.h"
 
@@ -59,7 +56,7 @@ int main(void) {
         exit(EXIT_FAILURE);
     }
 
-    zones.push_front(new Zone());
+    zones.push_front( new Zone( 10, 10, 10 ) );
     Grid *g = new Grid();
 
     glfwMakeContextCurrent(window);

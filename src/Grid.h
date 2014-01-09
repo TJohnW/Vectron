@@ -22,11 +22,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include <GLFW/glfw3.h>
-#include <cstdlib>
-#include <cstdio>
-#include <forward_list>
-#include <cmath>
+#include "stdafx.h"
 
 class Grid {
 
