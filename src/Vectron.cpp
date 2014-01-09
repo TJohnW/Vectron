@@ -34,6 +34,7 @@ using namespace std;
 void error_callback( int error, const char *description );
 void key_callback( GLFWwindow *window, int key, int scancode, int action, 
     int mods );
+
 void mousepos_callback( GLFWwindow *window, double x, double y );
 void mousebtn_callback( GLFWwindow *window, int button, int action, int mods );
 
@@ -44,8 +45,20 @@ void window_size_callback(GLFWwindow* window, int width, int height);
 void px(double width, double height, double *pxWidth, double *pxHeight);
 
 void addZone();
+void drawCursor();
+
 
 forward_list<Zone*> zones;
+
+void drawCursor() {
+    glColor3f( 0, 0, 0 );
+    glBegin( GL_LINES );
+    glVertex2f( Input::mouseX - 12, Input::mouseY );
+    glVertex2f( Input::mouseX + 12, Input::mouseY );
+    glVertex2f( Input::mouseX, Input::mouseY + 12 );
+    glVertex2f( Input::mouseX, Input::mouseY - 12 );
+    glEnd();
+}
 
 int main(void) {
 
@@ -53,7 +66,7 @@ int main(void) {
     glfwSetErrorCallback(error_callback);
 
     if (!glfwInit())
-        exit(EXIT_FAILURE);
+        exit( EXIT_FAILURE );
 
     Screen::height = 480;
     Screen::width = 640;
@@ -61,7 +74,7 @@ int main(void) {
 
     if (!window) {
         glfwTerminate();
-        exit(EXIT_FAILURE);
+        exit( EXIT_FAILURE );
     }
 
     zones.push_front( new Zone( 400, 400, 10 ) );
@@ -95,12 +108,11 @@ int main(void) {
 
         g->draw( Screen::pxWidth, Screen::pxHeight, 23 );
 
-        //glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
         for( Zone *z : zones ) {
             z->draw();
         }
                 
-        //glfwSetCursorPos(window, 0,0);
+        drawCursor();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -142,7 +154,7 @@ void framebuffer_size_callback(GLFWwindow* window, int pxWidth, int pxHeight){
 
 void mousepos_callback( GLFWwindow *window, double x, double y ) {
     //Why dows GLFW use doubles if pixels are ints?
-    Input::updateMouse( x, y );
+    Input::updateMouse( x, Screen::height - y );
 }
 
 void mousebtn_callback( GLFWwindow *window, int button, int action, int mods ) {

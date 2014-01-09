@@ -37,8 +37,6 @@ void Input::clear( ) {
 }
 
 void Input::updateMouse( double newMouseX, double newMouseY ) {
-    cout << "Updating mouse from (" << mouseX << ", " << mouseY << ") to (" 
-        << newMouseX << ", " << newMouseY << ")\n";
     mouseDeltaX = newMouseX - mouseX;
     mouseDeltaY = newMouseY - mouseY;
     mouseX = newMouseX;
