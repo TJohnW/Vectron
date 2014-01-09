@@ -1,3 +1,5 @@
+#Visual Studio - call with CC=nmake
+#G++ = call with CC=g++
 FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
 LIBS = -lglfw3
 OPS = -std=c++11
