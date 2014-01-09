@@ -22,25 +22,32 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef STDAFX_H
-#define STDAFX_H
-//C runtime header files
-#include <cmath>
-#include <cstdlib>
+#ifndef NPUT_H
+#define INPUT_H
+#include "stdafx.h"
+/*\brief A simple state machine to hold the current input buttons in a place
+easily accessable from anywhere inside the program*/
+class Input {
+public:
+    /*!\brief Clears the input buffers to prepare for writing*/
+    static void clear( );
 
-//C++ runtime header files
-#include <fstream>
-#include <iostream>
+    /*!\brief Sets the mouse position and change in mouse position
 
-//STL files
-#include <forward_list>
+    \param [in] newMouseX The current x-position of the mouse, in screen
+    coordinates
+    \param [in] newMouseY The current y-position of the mouse, in screen
+    coordinates*/
+    static void updateMouse( double newMouseX, double newMouseY );
 
-//Other header fun
-#include <GLFW/glfw3.h>
+    /*!\brief An array of boolean flags, one for each key defined by GLFW
 
-#define PI      3.14169265
-#define TOOPI   6.28318531
+    See http://www.glfw.org/docs/3.0/group__keys.html for a complete listing*/
+    static bool keys[349];
 
-using namespace std;
+    /*\brief Variables for the x-position, y-position, x change, and y change
+    of the mouse*/
+    static double mouseX, mouseY, mouseDeltaX, mouseDeltaY;
+};
 
 #endif

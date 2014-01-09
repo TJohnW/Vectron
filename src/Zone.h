@@ -1,9 +1,9 @@
 /*
-**************************************************************************
+********************************************************************************
 Vectron - map editor for Armagetron Advanced.
 Copyright (C) 2014 	Tristan Whitcher 	(tristan.whitcher@gmail.com)
 				   	David Dubois 		(ddubois@jotunstudios.com)
-**************************************************************************
+********************************************************************************
 
 This file is part of Vectron.
 
@@ -21,6 +21,8 @@ You should have received a copy of the GNU General Public License
 along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
+#ifndef ZONE_H
+#define ZONE_H
 
 #include "stdafx.h"
 
@@ -34,3 +36,5 @@ private:
     float radius;
     int x, y;
 };
+
+#endif

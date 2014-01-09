@@ -1,8 +1,8 @@
 /*
 ********************************************************************************
 Vectron - map editor for Armagetron Advanced.
-Copyright (C) 2014 	Tristan Whitcher 	(tristan.whitcher@gmail.com)
-				   	David Dubois 		(ddubois@jotunstudios.com)
+Copyright (C) 2014  Tristan Whitcher    (tristan.whitcher@gmail.com)
+David Dubois        (ddubois@jotunstudios.com)
 ********************************************************************************
 
 This file is part of Vectron.
@@ -21,21 +21,26 @@ You should have received a copy of the GNU General Public License
 along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-#ifndef GRID_H
-#define GRID_H
 
-#include "stdafx.h"
+#include "Input.h"
 
-class Grid {
+bool Input::keys[349];
+double Input::mouseX = 0;
+double Input::mouseY = 0;
+double Input::mouseDeltaX = 0;
+double Input::mouseDeltaY = 0;
 
-public:
-    void draw(int width, int height, int pxSpacing);
+void Input::clear( ) {
+    for( int i = 0; i < 349; i++ ) {
+        keys[i] = false;
+    }
+}
 
-    //void drawCircle(float);
-
-private:
-    int x,y;
-
-};
-
-#endif
+void Input::updateMouse( double newMouseX, double newMouseY ) {
+    cout << "Updating mouse from (" << mouseX << ", " << mouseY << ") to (" 
+        << newMouseX << ", " << newMouseY << ")\n";
+    mouseDeltaX = newMouseX - mouseX;
+    mouseDeltaY = newMouseY - mouseY;
+    mouseX = newMouseX;
+    mouseY = newMouseY;
+}
