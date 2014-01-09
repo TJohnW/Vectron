@@ -53,10 +53,14 @@ forward_list<Zone*> zones;
 void drawCursor() {
     glColor3f( 0, 0, 0 );
     glBegin( GL_LINES );
-    glVertex2f( Input::mouseX - 12, Input::mouseY );
-    glVertex2f( Input::mouseX + 12, Input::mouseY );
-    glVertex2f( Input::mouseX, Input::mouseY + 12 );
-    glVertex2f( Input::mouseX, Input::mouseY - 12 );
+    glVertex2f( Input::mouseX - 7, Input::mouseY );
+    glVertex2f( Input::mouseX -1, Input::mouseY );
+    glVertex2f( Input::mouseX + 1, Input::mouseY );
+    glVertex2f( Input::mouseX + 7, Input::mouseY );
+    glVertex2f( Input::mouseX, Input::mouseY + 7 );
+    glVertex2f( Input::mouseX, Input::mouseY + 1 );
+    glVertex2f( Input::mouseX, Input::mouseY -1 );
+    glVertex2f( Input::mouseX, Input::mouseY - 7 );
     glEnd();
 }
 
