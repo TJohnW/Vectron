@@ -2,7 +2,7 @@
 ********************************************************************************
 Vectron - map editor for Armagetron Advanced.
 Copyright (C) 2014 	Tristan Whitcher 	(tristan.whitcher@gmail.com)
-				   	David Dubois 		(ddubois@jotunstudios.com)
+David Dubois 		(ddubois@jotunstudios.com)
 ********************************************************************************
 
 This file is part of Vectron.
@@ -22,19 +22,12 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "Zone.h"
+#ifndef SCREEN_H
+#define SCREEN_H
 
-Zone::Zone( int newX, int newY, float newRadius ) {
-    x = newX;
-    y = newY;
-    radius = newRadius;
-}
+class Screen {
+public:
+    static int width, height;
+};
 
-void Zone::draw() {
-    glColor3f( 1.0, 0.0, 0.0 );
-    glBegin( GL_LINE_LOOP );
-    for( float i = 0; i < TOOPI; i+= 0.1f ) {
-        glVertex2f( cos( i ) * radius + x, sin( i ) * radius + y );
-    }
-    glEnd( );
-}
+#endif
