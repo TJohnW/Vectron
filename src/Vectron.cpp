@@ -52,7 +52,7 @@ int main(void) {
     if (!glfwInit())
         exit(EXIT_FAILURE);
 
-    window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
+    window = glfwCreateWindow(640, 480, "Vectron Alpha 0.0.1", NULL, NULL);
 
     if (!window) {
         glfwTerminate();
@@ -65,6 +65,7 @@ int main(void) {
     glfwMakeContextCurrent(window);
     glfwSetKeyCallback(window, key_callback);
     glClearColor(1.0, 1.0, 1.0, 1.0);
+    glLineWidth(2.0f);
 
     while (!glfwWindowShouldClose(window)) {
 
@@ -94,7 +95,9 @@ int main(void) {
             z->draw();
         }
 
-        g->draw(width, height, 20);
+        g->draw(width, height, 23);
+        
+        //glfwSetCursorPos(window, 0,0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
