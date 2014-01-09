@@ -26,6 +26,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #include <cstdlib>
 #include <cstdio>
 #include <forward_list>
+#include "Zone.h"
 
 using namespace std;
 
@@ -57,29 +58,43 @@ int main(void) {
         exit(EXIT_FAILURE);
     }
 
+    zones.push_front(new Zone());
+
     glfwMakeContextCurrent(window);
     glfwSetKeyCallback(window, key_callback);
+    glClearColor(1.0, 1.0, 1.0, 1.0);
 
     while (!glfwWindowShouldClose(window)) {
 
-
         float ratio;
         int width, height;
+
         glfwGetFramebufferSize(window, &width, &height);
+
         ratio = width / (float) height;
+
         glViewport(0, 0, width, height);
+
         glClear(GL_COLOR_BUFFER_BIT);
+
         glMatrixMode(GL_PROJECTION);
+
         glLoadIdentity();
+
         glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
+
         glMatrixMode(GL_MODELVIEW);
+
         glLoadIdentity();
-        glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
+
+        //glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
         for( Zone *z : zones ) {
             z->draw();
         }
+
         glfwSwapBuffers(window);
         glfwPollEvents();
+
     }
 
     glfwDestroyWindow(window);

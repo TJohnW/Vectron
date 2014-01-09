@@ -22,20 +22,22 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include <GLFW/glfw3.h>
-#include <cstdlib>
-#include <cstdio>
-#include <forward_list>
-#include <cmath>
+#include "zone.h"
 
-class Zone {
 
-public:
-    void draw();
+const float DEG2RAD = 3.14159/180;
 
-    //void drawCircle(float);
+void drawCircle(float radius) {
+   glBegin(GL_LINE_LOOP);
+ 
+   for (int i=0; i < 360; i++) {
+      float degInRad = i*DEG2RAD;
+      glVertex2f(cos(degInRad)*radius,sin(degInRad)*radius);
+   }
+ 
+   glEnd();
+}
 
-private:
-    int x,y;
-
-};
+void Zone::draw() {
+    drawCircle(5.0);
+}
