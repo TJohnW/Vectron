@@ -36,47 +36,18 @@ void key_callback( GLFWwindow *window, int key, int scancode, int action,
     int mods );
 void mousepos_callback( GLFWwindow *window, double x, double y );
 void mousebtn_callback( GLFWwindow *window, int button, int action, int mods );
-void loadCursor();
 void drawCursor();
 
 forward_list<Zone*> zones;
 
-GLuint cursorTex;
-
-void loadCursor() {
-    glGenTextures( 1, &cursorTex );
-
-    glBindTexture( GL_TEXTURE_2D, cursorTex );
-    glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
-
-    // Read the file, call glTexImage2D with the right parameters
-    int w, h, c;
-    GLubyte *texData = stbi_load( "img/Cursor.png", &w, &h, &c, 0 );
-
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
-
-    if( c == 3 ) {
-        glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, 
-            GL_UNSIGNED_BYTE, texData );
-    } else if( c == 4 ) {
-        glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, 
-            GL_UNSIGNED_BYTE, texData );
-    }
-}
-
 void drawCursor() {
-    glEnable( GL_TEXTURE_2D );
-    glBindTexture( GL_TEXTURE_2D, cursorTex );
-    glBegin( GL_QUADS );
-    glVertex2f( Input::mouseX - 3, Input::mouseY - 3 );
-    glVertex2f( Input::mouseX - 3, Input::mouseY + 2 );
-    glVertex2f( Input::mouseX + 2, Input::mouseY + 2 );
-    glVertex2f( Input::mouseX + 2, Input::mouseY - 3 );
+    glColor3f( 0, 0, 0 );
+    glBegin( GL_LINES );
+    glVertex2f( Input::mouseX - 12, Input::mouseY );
+    glVertex2f( Input::mouseX + 12, Input::mouseY );
+    glVertex2f( Input::mouseX, Input::mouseY + 12 );
+    glVertex2f( Input::mouseX, Input::mouseY - 12 );
     glEnd();
-    glDisable( GL_TEXTURE_2D );
 }
 
 int main(void) {
@@ -103,8 +74,6 @@ int main(void) {
     glfwSetMouseButtonCallback( window, mousebtn_callback );
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glLineWidth(2.0f);
-
-    loadCursor();
 
     while (!glfwWindowShouldClose(window)) {
 
@@ -149,7 +118,7 @@ void key_callback( GLFWwindow *window, int key, int scancode, int action,
     int mods ) {
     if( key == GLFW_KEY_Z && action == GLFW_RELEASE ) {
         zones.push_front( 
-            new Zone( Input::mouseX, Screen::height - Input::mouseY, 10 ) );
+            new Zone( Input::mouseX, Input::mouseY, 10 ) );
     } else if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS ) {
         glfwSetWindowShouldClose( window, GL_TRUE );
     }
@@ -157,7 +126,7 @@ void key_callback( GLFWwindow *window, int key, int scancode, int action,
 
 void mousepos_callback( GLFWwindow *window, double x, double y ) {
     //Why dows GLFW use doubles if pixels are ints?
-    Input::updateMouse( x, y );
+    Input::updateMouse( x, Screen::height - y );
 }
 
 void mousebtn_callback( GLFWwindow *window, int button, int action, int mods ) {
