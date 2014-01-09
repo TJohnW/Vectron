@@ -27,6 +27,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #include <cstdio>
 #include <forward_list>
 #include "Zone.h"
+#include "Grid.h"
 
 using namespace std;
 
@@ -59,6 +60,7 @@ int main(void) {
     }
 
     zones.push_front(new Zone());
+    Grid *g = new Grid();
 
     glfwMakeContextCurrent(window);
     glfwSetKeyCallback(window, key_callback);
@@ -81,7 +83,7 @@ int main(void) {
 
         glLoadIdentity();
 
-        glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
+        glOrtho(0, width, 0, height, 1.f, -1.f);
 
         glMatrixMode(GL_MODELVIEW);
 
@@ -91,6 +93,8 @@ int main(void) {
         for( Zone *z : zones ) {
             z->draw();
         }
+
+        g->draw(width, height, 20);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

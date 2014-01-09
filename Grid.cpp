@@ -22,23 +22,22 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "zone.h"
+#include "Grid.h"
 
 
 const float DEG2RAD = 3.14159/180;
 
-void drawCircle(float radius) {
-    glColor3f(1.0, 0.0, 0.0);
-    glBegin(GL_LINE_LOOP);
- 
-    for (int i=0; i < 360; i++) {
-        float degInRad = i*DEG2RAD;
-        glVertex2f(cos(degInRad)*radius,sin(degInRad)*radius);
+void Grid::draw(int width, int height, int pxSpacing) {
+	glColor3i(229, 229, 229);
+    glBegin(GL_LINES);
+    for(int i=0; i < width; i+=pxSpacing) {
+    	glVertex2f(i, 0);
+    	glVertex2f(i, height);
     }
- 
-    glEnd();
-}
 
-void Zone::draw() {
-    drawCircle(0.5);
+    for(int j=0; j < height; j+=pxSpacing) {
+    	glVertex2f(0, j);
+    	glVertex2f(width, j);
+    }
+    glEnd();
 }
