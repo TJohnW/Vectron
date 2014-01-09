@@ -1,6 +1,9 @@
 #include <GLFW/glfw3.h>
 #include <cstdlib>
 #include <cstdio>
+#include <forward_list>
+
+using namespace std;
 
 static void error_callback(int error, const char* description) {
     fputs(description, stderr);
@@ -10,6 +13,10 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
 }
+
+void addZone();
+
+forward_list<Zone*> zones;
 
 int main(void) {
 
@@ -43,17 +50,11 @@ int main(void) {
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
         glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
-        glBegin(GL_TRIANGLES);
-        glColor3f(1.f, 0.f, 0.f);
-        glVertex3f(-0.6f, -0.4f, 0.f);
-        glColor3f(0.f, 1.f, 0.f);
-        glVertex3f(0.6f, -0.4f, 0.f);
-        glColor3f(0.f, 0.f, 1.f);
-        glVertex3f(0.f, 0.6f, 0.f);
-        glEnd();
+        for( Zone *z : zones ) {
+            z->draw();
+        }
         glfwSwapBuffers(window);
         glfwPollEvents();
-
     }
 
     glfwDestroyWindow(window);
