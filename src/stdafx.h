@@ -37,6 +37,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 //Other header fun
 #include <GLFW/glfw3.h>
+#include "stb_image.h"
 
 #define PI      3.14169265
 #define TOOPI   6.28318531

@@ -36,9 +36,48 @@ void key_callback( GLFWwindow *window, int key, int scancode, int action,
     int mods );
 void mousepos_callback( GLFWwindow *window, double x, double y );
 void mousebtn_callback( GLFWwindow *window, int button, int action, int mods );
-void addZone();
+void loadCursor();
+void drawCursor();
 
 forward_list<Zone*> zones;
+
+GLuint cursorTex;
+
+void loadCursor() {
+    glGenTextures( 1, &cursorTex );
+
+    glBindTexture( GL_TEXTURE_2D, cursorTex );
+    glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+
+    // Read the file, call glTexImage2D with the right parameters
+    int w, h, c;
+    GLubyte *texData = stbi_load( "img/Cursor.png", &w, &h, &c, 0 );
+
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+
+    if( c == 3 ) {
+        glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, 
+            GL_UNSIGNED_BYTE, texData );
+    } else if( c == 4 ) {
+        glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, 
+            GL_UNSIGNED_BYTE, texData );
+    }
+}
+
+void drawCursor() {
+    glEnable( GL_TEXTURE_2D );
+    glBindTexture( GL_TEXTURE_2D, cursorTex );
+    glBegin( GL_QUADS );
+    glVertex2f( Input::mouseX - 3, Input::mouseY - 3 );
+    glVertex2f( Input::mouseX - 3, Input::mouseY + 2 );
+    glVertex2f( Input::mouseX + 2, Input::mouseY + 2 );
+    glVertex2f( Input::mouseX + 2, Input::mouseY - 3 );
+    glEnd();
+    glDisable( GL_TEXTURE_2D );
+}
 
 int main(void) {
 
@@ -46,13 +85,13 @@ int main(void) {
     glfwSetErrorCallback(error_callback);
 
     if (!glfwInit())
-        exit(EXIT_FAILURE);
+        exit( EXIT_FAILURE );
 
     window = glfwCreateWindow(640, 480, "Vectron Alpha 0.0.2", NULL, NULL);
 
     if (!window) {
         glfwTerminate();
-        exit(EXIT_FAILURE);
+        exit( EXIT_FAILURE );
     }
 
     zones.push_front( new Zone( 10, 10, 10 ) );
@@ -64,6 +103,8 @@ int main(void) {
     glfwSetMouseButtonCallback( window, mousebtn_callback );
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glLineWidth(2.0f);
+
+    loadCursor();
 
     while (!glfwWindowShouldClose(window)) {
 
@@ -85,12 +126,11 @@ int main(void) {
         //draw the grid first
         g->draw( Screen::width, Screen::height, 23 );
 
-        //glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
         for( Zone *z : zones ) {
             z->draw();
         }
                 
-        //glfwSetCursorPos(window, 0,0);
+        drawCursor();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
