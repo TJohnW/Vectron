@@ -77,6 +77,8 @@ int main(void) {
         exit( EXIT_FAILURE );
     }
 
+    glfwSetInputMode( window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN );
+
     zones.push_front( new Zone( 400, 400, 10 ) );
     Grid *g = new Grid();
 
