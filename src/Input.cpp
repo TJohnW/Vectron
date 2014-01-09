@@ -23,6 +23,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "Input.h"
+#include "Screen.h"
+#include "Grid.h"
 
 bool Input::keys[349];
 double Input::mouseX = 0;
@@ -36,9 +38,14 @@ void Input::clear( ) {
     }
 }
 
+/*
+	Updated to handle snapping to grid. This applies to zone adding because the software
+	mouse is set to the snapped location.
+*/
+
 void Input::updateMouse( double newMouseX, double newMouseY ) {
     mouseDeltaX = newMouseX - mouseX;
     mouseDeltaY = newMouseY - mouseY;
-    mouseX = newMouseX;
-    mouseY = newMouseY;
+    mouseX = round(newMouseX / Grid::spacing) * Grid::spacing;
+    mouseY = round(newMouseY / Grid::spacing) * Grid::spacing;
 }
