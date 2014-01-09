@@ -154,7 +154,7 @@ void framebuffer_size_callback(GLFWwindow* window, int pxWidth, int pxHeight){
 
 void mousepos_callback( GLFWwindow *window, double x, double y ) {
     //Why dows GLFW use doubles if pixels are ints?
-    Input::updateMouse( x, Screen::height - y );
+    Input::updateMouse( x, y );
 }
 
 void mousebtn_callback( GLFWwindow *window, int button, int action, int mods ) {
