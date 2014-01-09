@@ -41,9 +41,6 @@ void mousebtn_callback( GLFWwindow *window, int button, int action, int mods );
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void window_size_callback(GLFWwindow* window, int width, int height);
 
-
-void px(double width, double height, double *pxWidth, double *pxHeight);
-
 void addZone();
 void drawCursor();
 
@@ -53,10 +50,14 @@ forward_list<Zone*> zones;
 void drawCursor() {
     glColor3f( 0, 0, 0 );
     glBegin( GL_LINES );
-    glVertex2f( Input::mouseX - 12, Input::mouseY );
-    glVertex2f( Input::mouseX + 12, Input::mouseY );
-    glVertex2f( Input::mouseX, Input::mouseY + 12 );
-    glVertex2f( Input::mouseX, Input::mouseY - 12 );
+    glVertex2f( Input::mouseX - 7, Input::mouseY );
+    glVertex2f( Input::mouseX -1, Input::mouseY );
+    glVertex2f( Input::mouseX + 1, Input::mouseY );
+    glVertex2f( Input::mouseX + 7, Input::mouseY );
+    glVertex2f( Input::mouseX, Input::mouseY + 7 );
+    glVertex2f( Input::mouseX, Input::mouseY + 1 );
+    glVertex2f( Input::mouseX, Input::mouseY -1 );
+    glVertex2f( Input::mouseX, Input::mouseY - 7 );
     glEnd();
 }
 
@@ -108,7 +109,7 @@ int main(void) {
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        g->draw( Screen::pxWidth, Screen::pxHeight, 10 );
+        g->draw( Screen::pxWidth, Screen::pxHeight );
 
         for( Zone *z : zones ) {
             z->draw();
@@ -133,7 +134,7 @@ void key_callback( GLFWwindow *window, int key, int scancode, int action,
     int mods ) {
     if( key == GLFW_KEY_Z && action == GLFW_RELEASE ) {
         zones.push_front( 
-            new Zone( Input::mouseX, Input::mouseY, 10 ) );
+            new Zone( Input::mouseX, Input::mouseY, 10 ));
     } else if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS ) {
         glfwSetWindowShouldClose( window, GL_TRUE );
     }

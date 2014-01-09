@@ -29,12 +29,13 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 class Grid {
 
 public:
-    void draw(int width, int height, int pxSpacing);
+    void draw(int width, int height);
+    static int spacing;
 
     //void drawCircle(float);
 
-private:
-    int x,y;
+private:	
+
 
 };
 

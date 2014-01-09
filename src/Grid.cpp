@@ -24,20 +24,25 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "Grid.h"
 
-
 const float DEG2RAD = 3.14159/180;
 
-void Grid::draw(int width, int height, int pxSpacing) {
+int Grid::spacing = 10;
+
+void Grid::draw(int width, int height) {
+
 	glColor3f(0.84f, 0.84f, 0.92f);
     glBegin(GL_LINES);
-    for(int i=0; i < width; i+=pxSpacing) {
+
+    for(int i=0; i < width; i+= Grid::spacing) {
     	glVertex2f(i, 0);
     	glVertex2f(i, height);
     }
 
-    for(int j=0; j < height; j+=pxSpacing) {
+    for(int j=0; j < height; j+= Grid::spacing) {
     	glVertex2f(0, j);
     	glVertex2f(width, j);
     }
+
     glEnd();
+    
 }
