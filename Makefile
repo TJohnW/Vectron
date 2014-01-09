@@ -4,13 +4,13 @@ FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit -framework CoreV
 LIBS = -lglfw3
 OPS = -std=c++11
 
+OBJECTS = Vectron.o Zone.o Grid.o Input.o Screen.o
+
 SRCPATH = src
 
-all: Vectron.o Zone.o Grid.o
-	g++ $(OPS) Zone.o Grid.o Vectron.o -o bin/Vectron $(LIBS) $(FRAMEWORK); \
+all: $(OBJECTS)
+	g++ $(OPS) $(OBJECTS) -o bin/Vectron $(LIBS) $(FRAMEWORK); \
 	rm *.o
-
-
 
 Vectron.o: $(SRCPATH)/Vectron.cpp
 	g++ $(OPS) -c $(SRCPATH)/Vectron.cpp
@@ -20,3 +20,9 @@ Zone.o: $(SRCPATH)/Zone.cpp
 
 Grid.o: $(SRCPATH)/Grid.cpp
 	g++ $(OPS) -c $(SRCPATH)/Grid.cpp
+
+Input.o: $(SRCPATH)/Input.cpp
+	g++ $(OPS) -c $(SRCPATH)/Input.cpp
+
+Screen.o: $(SRCPATH)/Screen.cpp
+	g++ $(OPS) -c $(SRCPATH)/Screen.cpp

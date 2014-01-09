@@ -27,7 +27,10 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 class Screen {
 public:
-    static int width, height;
+    static int width, height, pxWidth, pxHeight;
+    static double xVariation, yVariation;
+
+    static void computeVariation();
 };
 
 #endif

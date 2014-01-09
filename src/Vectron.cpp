@@ -36,6 +36,13 @@ void key_callback( GLFWwindow *window, int key, int scancode, int action,
     int mods );
 void mousepos_callback( GLFWwindow *window, double x, double y );
 void mousebtn_callback( GLFWwindow *window, int button, int action, int mods );
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void window_size_callback(GLFWwindow* window, int width, int height);
+
+
+void px(double width, double height, double *pxWidth, double *pxHeight);
+
 void addZone();
 
 forward_list<Zone*> zones;
@@ -48,6 +55,8 @@ int main(void) {
     if (!glfwInit())
         exit(EXIT_FAILURE);
 
+    Screen::height = 480;
+    Screen::width = 640;
     window = glfwCreateWindow(640, 480, "Vectron Alpha 0.0.2", NULL, NULL);
 
     if (!window) {
@@ -55,11 +64,26 @@ int main(void) {
         exit(EXIT_FAILURE);
     }
 
-    zones.push_front( new Zone( 10, 10, 10 ) );
+    zones.push_front( new Zone( 400, 400, 10 ) );
     Grid *g = new Grid();
 
     glfwMakeContextCurrent(window);
+
     glfwSetKeyCallback(window, key_callback);
+
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetWindowSizeCallback(window, window_size_callback);
+
+    /* Initial Before callback */
+
+    glfwGetFramebufferSize(window, &Screen::pxWidth, &Screen::pxHeight);
+    glViewport(0, 0, Screen::pxWidth, Screen::pxHeight);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, Screen::width, Screen::height, 0, 0, 1);
+
+
     glfwSetCursorPosCallback( window, mousepos_callback );
     glfwSetMouseButtonCallback( window, mousebtn_callback );
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -67,23 +91,9 @@ int main(void) {
 
     while (!glfwWindowShouldClose(window)) {
 
-        float ratio;
-
-        glfwGetFramebufferSize(window, &Screen::width, &Screen::height);
-        ratio = Screen::width / (float) Screen::height;
-        glViewport( 0, 0, Screen::width, Screen::height );
-
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        glOrtho( 0, Screen::width, 0, Screen::height, 1.f, -1.f );
-
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity( );
-
-        //draw the grid first
-        g->draw( Screen::width, Screen::height, 23 );
+        g->draw( Screen::pxWidth, Screen::pxHeight, 23 );
 
         //glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
         for( Zone *z : zones ) {
@@ -109,10 +119,25 @@ void key_callback( GLFWwindow *window, int key, int scancode, int action,
     int mods ) {
     if( key == GLFW_KEY_Z && action == GLFW_RELEASE ) {
         zones.push_front( 
-            new Zone( Input::mouseX, Screen::height - Input::mouseY, 10 ) );
+            new Zone( Input::mouseX, Input::mouseY, 10 ) );
     } else if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS ) {
         glfwSetWindowShouldClose( window, GL_TRUE );
     }
+}
+
+void window_size_callback(GLFWwindow* window, int width, int height) {
+    Screen::width = width;
+    Screen::height = height;
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, Screen::width, Screen::height, 0, 0, 1);
+}
+
+
+void framebuffer_size_callback(GLFWwindow* window, int pxWidth, int pxHeight){
+    Screen::pxWidth = pxWidth;
+    Screen::pxHeight = pxHeight;
+    glViewport(0, 0, pxWidth, pxHeight);
 }
 
 void mousepos_callback( GLFWwindow *window, double x, double y ) {
