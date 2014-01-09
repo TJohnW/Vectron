@@ -108,7 +108,7 @@ int main(void) {
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        g->draw( Screen::pxWidth, Screen::pxHeight, 23 );
+        g->draw( Screen::pxWidth, Screen::pxHeight, 10 );
 
         for( Zone *z : zones ) {
             z->draw();
