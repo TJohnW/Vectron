@@ -50,7 +50,7 @@ int main(void) {
     Grid *g = new Grid();
 
 
-    glfwSetKeyCallback(s.window, key_callback);
+    glfwSetKeyCallback(s.window, Input::_key);
 
     glfwSetCursorPosCallback( s.window, Input::_mousePos );
     glfwSetMouseButtonCallback( s.window, Input::_mouseButton );
@@ -90,12 +90,3 @@ void error_callback( int error, const char *description ) {
     fputs( description, stderr );
 }
 
-void key_callback( GLFWwindow *window, int key, int scancode, int action, 
-    int mods ) {
-    if( key == GLFW_KEY_Z && action == GLFW_RELEASE ) {
-        zones.push_front( 
-            new Zone( Input::mouseX/Grid::spacing, Input::mouseY/Grid::spacing, 1 ));
-    } else if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS ) {
-        glfwSetWindowShouldClose( window, GL_TRUE );
-    }
-}

@@ -56,6 +56,7 @@ public:
     static void _scroll( GLFWwindow *window, double x, double y );
     static void _mousePos( GLFWwindow *window, double x, double y );
     static void _mouseButton( GLFWwindow *window, int button, int action, int mods );
+    static void _key( GLFWwindow *window, int key, int scancode, int action, int mods );
     
 };
 

@@ -22,13 +22,13 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef MAPOBJECT_H
-#define MAPOBJECT_H
+#ifndef AAMAP_H
+#define AAMAP_H
 
 #include "stdafx.h"
 
-class MapObject {
-    virtual void update() = 0;
+class Aamap {
+    
 };
 
 #endif
