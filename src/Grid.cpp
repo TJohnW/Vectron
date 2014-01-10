@@ -35,22 +35,16 @@ void Grid::draw(int width, int height) {
 
     for(int i=0; i < width/2; i+= Grid::spacing) {
     	glVertex2f(i, -height/2);
-    	glVertex2f(i, height/2);
-    }
-    
-    for(int i=0; i > -width/2; i-= Grid::spacing) {
-        glVertex2f(i, -height/2);
-        glVertex2f(i, height/2);
+        glVertex2f( i, height / 2 );
+        glVertex2f( -i, -height / 2 );
+        glVertex2f( -i, height / 2 );
     }
 
     for(int j=0; j < height/2; j+= Grid::spacing) {
     	glVertex2f(-width/2, j);
-    	glVertex2f(width/2, j);
-    }
-
-    for(int j=0; j > -height/2; j-= Grid::spacing) {
-        glVertex2f(-width/2, j);
-        glVertex2f(width/2, j);
+        glVertex2f( width / 2, j );
+        glVertex2f( -width / 2, -j );
+        glVertex2f( width / 2, -j );
     }
 
     glEnd();
