@@ -51,3 +51,5 @@ void Zone::draw() {
     }
     glEnd( );
 }
+
+void Zone::update() {}
