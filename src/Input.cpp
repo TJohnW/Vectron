@@ -23,9 +23,6 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "Input.h"
-#include "Screen.h"
-#include "Grid.h"
-#include "Zone.h"
 
 bool Input::keys[349];
 double Input::mouseX = 0;
@@ -97,8 +94,7 @@ void Input::_mouseButton( GLFWwindow *window, int button, int action, int mods )
 
 void Input::_key( GLFWwindow *window, int key, int scancode, int action, int mods ) {
     if( key == GLFW_KEY_Z && action == GLFW_RELEASE ) {
-        zones.push_front( 
-            new Zone( Input::mouseX/Grid::spacing, Input::mouseY/Grid::spacing, 1 ));
+
     } else if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS ) {
         glfwSetWindowShouldClose( window, GL_TRUE );
     }
