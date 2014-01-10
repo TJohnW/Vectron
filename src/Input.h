@@ -24,6 +24,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef INPUT_H
 #define INPUT_H
+
 #include "stdafx.h"
 #include "Screen.h"
 #include "Grid.h"
@@ -31,6 +32,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 /*\brief A simple state machine to hold the current input buttons in a place
 easily accessable from anywhere inside the program*/
 class Input {
+
 public:
     /*!\brief Clears the input buffers to prepare for writing*/
     static void clear( );
@@ -43,6 +45,7 @@ public:
     coordinates
     \param [in] newMouseY The current y-position of the mouse, in screen
     coordinates*/
+    
     static void updateMouse( double newMouseX, double newMouseY );
 
     /*!\brief An array of boolean flags, one for each key defined by GLFW
@@ -64,3 +67,4 @@ public:
 };
 
 #endif
+

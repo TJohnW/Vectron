@@ -25,6 +25,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #define ZONE_H
 
 #include "stdafx.h"
+#include "Grid.h"
 
 #include "AamapObject.h"
 #include "Grid.h"

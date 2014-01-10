@@ -24,7 +24,6 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "Zone.h"
 
-
 /* These coordinates now better represent the actual location of the zone in the XML
     Which is vital. Now on zoom the zones will accomidate for the change in grid spacing
     but still retain their value as the same zone. After so much zoom, we need to redraw

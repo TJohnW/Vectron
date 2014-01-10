@@ -24,8 +24,11 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef SCREEN_H
 #define SCREEN_H
+
 #include "stdafx.h"
+
 class Screen {
+	
 public:
 
 	GLFWwindow* window;
