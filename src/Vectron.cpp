@@ -94,7 +94,6 @@ int main() {
 
     g = new Grid();
 
-
     glfwSetKeyCallback(s->window, Input::_key);
     glfwSetCursorPosCallback( s->window, Input::_mousePos );
     glfwSetMouseButtonCallback( s->window, Input::_mouseButton );
