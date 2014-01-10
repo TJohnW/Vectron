@@ -47,26 +47,10 @@ int main(void) {
 
     glfwSetErrorCallback(error_callback);
 
-
-    zones.push_front( new Zone( 4, 4, 1 ) );
-
     Grid *g = new Grid();
 
 
     glfwSetKeyCallback(s.window, key_callback);
-
-    glfwSetFramebufferSizeCallback(s.window, Screen::_framebuffer);
-    glfwSetWindowSizeCallback(s.window, Screen::_size);
-
-    /* Initial Before callback */
-
-    glfwGetFramebufferSize(s.window, &Screen::pxWidth, &Screen::pxHeight);
-    glViewport(0, 0, Screen::pxWidth, Screen::pxHeight);
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, Screen::width, 0, Screen::height, 0, 1);
-
 
     glfwSetCursorPosCallback( s.window, Input::_mousePos );
     glfwSetMouseButtonCallback( s.window, Input::_mouseButton );
@@ -81,6 +65,10 @@ int main(void) {
 
         g->draw( Screen::pxWidth, Screen::pxHeight );
 
+        /* Instead of looping through every type here, lets make a base object class
+           that every type extends upon and overrides / has its own draw() function */
+        /* This also simplifies the history because it allows for simple loop of objects
+            and then each object -> draw(). then to remove one just pop it off. */
         for( Zone *z : zones ) {
             z->draw();
         }

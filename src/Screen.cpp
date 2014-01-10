@@ -47,6 +47,17 @@ Screen::Screen(int width, int height) {
     }
 
     glfwMakeContextCurrent(this->window);
+    glfwSetFramebufferSizeCallback(this->window, Screen::_framebuffer);
+    glfwSetWindowSizeCallback(this->window, Screen::_size);
+
+    /* Initial Before callback */
+
+    glfwGetFramebufferSize(this->window, &Screen::pxWidth, &Screen::pxHeight);
+    glViewport(0, 0, Screen::pxWidth, Screen::pxHeight);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, Screen::width, 0, Screen::height, 0, 1);
 }
 
 
