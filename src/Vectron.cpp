@@ -67,6 +67,8 @@ int main(void) {
         for( Zone *z : zones ) {
             z->draw();
         }
+        Zone myZone = Zone(0, 0, 10);
+        myZone.draw();
                 
         Input::drawCursor();
 
