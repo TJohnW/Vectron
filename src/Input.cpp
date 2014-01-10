@@ -65,9 +65,9 @@ void Input::drawCursor() {
 void Input::_scroll( GLFWwindow *window, double x, double y ) {
     double zoomedSpacing;
     if(y > 0) {
-        zoomedSpacing = Grid::spacing += 2;
+        zoomedSpacing = Grid::spacing + 2;
     } else {
-        zoomedSpacing = Grid::spacing -= 2;
+        zoomedSpacing = Grid::spacing - 2;
     }
 
     // Handles Max Zoom and Min zoom values as 50 and 5 for now.

@@ -30,7 +30,7 @@ class Grid {
 
 public:
     void draw(int width, int height);
-    static double spacing;
+    static int spacing;
 
     //void drawCircle(float);
 

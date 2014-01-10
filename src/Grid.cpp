@@ -26,21 +26,21 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 const float DEG2RAD = 3.14159/180;
 
-double Grid::spacing = 10;
+int Grid::spacing = 10;
 
 void Grid::draw(int width, int height) {
 
 	glColor3f(0.84f, 0.84f, 0.92f);
     glBegin(GL_LINES);
 
-    for(int i=-width/2; i < width/2; i+= Grid::spacing) {
-    	glVertex2f(i, -height/2);
-    	glVertex2f(i, height/2);
+    for( float i = -width / 2.0f; i < width / 2.0f; i += Grid::spacing ) {
+        glVertex2f( i, -height / 2.0f );
+        glVertex2f( i, height / 2.0f );
     }
 
-    for(int j=-height/2; j < height/2; j+= Grid::spacing) {
-    	glVertex2f(-width/2, j);
-    	glVertex2f(width/2, j);
+    for( float j = -height / 2.0f; j < height / 2.0f; j += Grid::spacing ) {
+        glVertex2f( -width / 2.0f, j );
+        glVertex2f( width / 2.0f, j );
     }
 
     glEnd();
