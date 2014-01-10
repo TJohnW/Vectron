@@ -33,14 +33,14 @@ void Grid::draw(int width, int height) {
 	glColor3f(0.84f, 0.84f, 0.92f);
     glBegin(GL_LINES);
 
-    for(int i=0; i < width; i+= Grid::spacing) {
-    	glVertex2f(i, 0);
-    	glVertex2f(i, height);
+    for(int i=-width/2; i < width/2; i+= Grid::spacing) {
+    	glVertex2f(i, -height/2);
+    	glVertex2f(i, height/2);
     }
 
-    for(int j=0; j < height; j+= Grid::spacing) {
-    	glVertex2f(0, j);
-    	glVertex2f(width, j);
+    for(int j=-height/2; j < height/2; j+= Grid::spacing) {
+    	glVertex2f(-width/2, j);
+    	glVertex2f(width/2, j);
     }
 
     glEnd();

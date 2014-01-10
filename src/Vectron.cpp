@@ -63,6 +63,7 @@ int main(void) {
            that every type extends upon and overrides / has its own draw() function */
         /* This also simplifies the history because it allows for simple loop of objects
             and then each object -> draw(). then to remove one just pop it off. */
+        
         for( Zone *z : zones ) {
             z->draw();
         }

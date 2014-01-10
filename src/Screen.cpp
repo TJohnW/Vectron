@@ -57,7 +57,7 @@ Screen::Screen(int width, int height) {
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, Screen::width, 0, Screen::height, 0, 1);
+    glOrtho(-Screen::width/2, Screen::width/2, -Screen::height/2, Screen::height/2, 0, 1);
 }
 
 
