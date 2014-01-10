@@ -24,8 +24,6 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "Screen.h"
 
-GLFWwindow* Screen::window;
-
 int Screen::height = 0;
 int Screen::width = 0;
 
@@ -34,36 +32,36 @@ int Screen::pxWidth = 0;
 
 Screen::Screen(int width, int height) {
 
-	glfwSetErrorCallback(error_callback);
+	//glfwSetErrorCallback(error_callback);
     if (!glfwInit())
         exit( EXIT_FAILURE );
 
-    this.width = width;
-    this.height = height;
+    Screen::width = width;
+    Screen::height = height;
 
-    this.window = glfwCreateWindow(width, height, "Vectron Alpha 0.0.2", NULL, NULL);
+    this->window = glfwCreateWindow(width, height, "Vectron Alpha 0.0.2", NULL, NULL);
 
-    if (!this.window) {
+    if (!this->window) {
         glfwTerminate();
         exit( EXIT_FAILURE );
     }
 
-    glfwMakeContextCurrent(this.window);
+    glfwMakeContextCurrent(this->window);
 }
 
 
 void Screen::_size(GLFWwindow* window, int width, int height) {
-    this.width = width;
-    this.height = height;
+    Screen::width = width;
+    Screen::height = height;
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, this.width, 0, this.height, 0, 1);
+    glOrtho(0, Screen::width, 0, Screen::height, 0, 1);
 }
 
 
 void Screen::_framebuffer(GLFWwindow* window, int pxWidth, int pxHeight){
-    this.pxWidth = pxWidth;
-    this.pxHeight = pxHeight;
+    Screen::pxWidth = pxWidth;
+    Screen::pxHeight = pxHeight;
     glViewport(0, 0, pxWidth, pxHeight);
 }
 

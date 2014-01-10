@@ -32,6 +32,8 @@ public:
     /*!\brief Clears the input buffers to prepare for writing*/
     static void clear( );
 
+    static void drawCursor();
+
     /*!\brief Sets the mouse position and change in mouse position
 
     \param [in] newMouseX The current x-position of the mouse, in screen

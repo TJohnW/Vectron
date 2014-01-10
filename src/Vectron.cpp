@@ -41,20 +41,6 @@ void drawCursor();
 
 forward_list<Zone*> zones;
 
-void drawCursor() {
-    glColor3f( 0, 0, 0 );
-    glBegin( GL_LINES );
-    glVertex2f( Input::mouseX - 7, Input::mouseY );
-    glVertex2f( Input::mouseX -1, Input::mouseY );
-    glVertex2f( Input::mouseX + 1, Input::mouseY );
-    glVertex2f( Input::mouseX + 7, Input::mouseY );
-    glVertex2f( Input::mouseX, Input::mouseY + 7 );
-    glVertex2f( Input::mouseX, Input::mouseY + 1 );
-    glVertex2f( Input::mouseX, Input::mouseY -1 );
-    glVertex2f( Input::mouseX, Input::mouseY - 7 );
-    glEnd();
-}
-
 int main(void) {
 
     Screen s = Screen(640, 480);
@@ -63,23 +49,23 @@ int main(void) {
 
 
     zones.push_front( new Zone( 4, 4, 1 ) );
-    
+
     Grid *g = new Grid();
 
 
     glfwSetKeyCallback(s.window, key_callback);
 
-    glfwSetFramebufferSizeCallback(s.window, s._framebuffer);
-    glfwSetWindowSizeCallback(s.window, s._size);
+    glfwSetFramebufferSizeCallback(s.window, Screen::_framebuffer);
+    glfwSetWindowSizeCallback(s.window, Screen::_size);
 
     /* Initial Before callback */
 
-    glfwGetFramebufferSize(s.window, &s.pxWidth, &s.pxHeight);
-    glViewport(0, 0, s.pxWidth, s.pxHeight);
+    glfwGetFramebufferSize(s.window, &Screen::pxWidth, &Screen::pxHeight);
+    glViewport(0, 0, Screen::pxWidth, Screen::pxHeight);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, s.width, 0, s.height, 0, 1);
+    glOrtho(0, Screen::width, 0, Screen::height, 0, 1);
 
 
     glfwSetCursorPosCallback( s.window, Input::_mousePos );
@@ -93,13 +79,13 @@ int main(void) {
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        g->draw( s.pxWidth, s.pxHeight );
+        g->draw( Screen::pxWidth, Screen::pxHeight );
 
         for( Zone *z : zones ) {
             z->draw();
         }
                 
-        drawCursor();
+        Input::drawCursor();
 
         glfwSwapBuffers(s.window);
         glfwPollEvents();
@@ -110,6 +96,8 @@ int main(void) {
     exit(EXIT_SUCCESS);
 }
 
+/* Where should we put error handling? */
+
 void error_callback( int error, const char *description ) {
     fputs( description, stderr );
 }
@@ -118,8 +106,8 @@ void key_callback( GLFWwindow *window, int key, int scancode, int action,
     int mods ) {
     if( key == GLFW_KEY_Z && action == GLFW_RELEASE ) {
         zones.push_front( 
-            new Zone( Input::mouseX/Grid::spacing, Input::mouseY/Grid::spacing, 10/Grid::spacing ));
+            new Zone( Input::mouseX/Grid::spacing, Input::mouseY/Grid::spacing, 1 ));
     } else if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS ) {
-        glfwSetWindowShouldClose( s.window, GL_TRUE );
+        glfwSetWindowShouldClose( window, GL_TRUE );
     }
 }

@@ -32,10 +32,10 @@ public:
 
 	Screen (int width, int height);
 
-    int width, height, pxWidth, pxHeight;
+    static int width, height, pxWidth, pxHeight;
 
-    void _framebuffer(GLFWwindow* window, int width, int height);
-	void _size(GLFWwindow* window, int width, int height);
+    static void _framebuffer(GLFWwindow* window, int width, int height);
+	static void _size(GLFWwindow* window, int width, int height);
 };
 
 #endif
