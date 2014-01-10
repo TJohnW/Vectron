@@ -35,12 +35,6 @@ void error_callback( int error, const char *description );
 void key_callback( GLFWwindow *window, int key, int scancode, int action, 
     int mods );
 
-void mousepos_callback( GLFWwindow *window, double x, double y );
-void mousebtn_callback( GLFWwindow *window, int button, int action, int mods );
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void window_size_callback(GLFWwindow* window, int width, int height);
-
 void addZone();
 void drawCursor();
 
@@ -63,53 +57,43 @@ void drawCursor() {
 
 int main(void) {
 
-    GLFWwindow* window;
+    Screen s = Screen(640, 480);
+
     glfwSetErrorCallback(error_callback);
 
-    if (!glfwInit())
-        exit( EXIT_FAILURE );
 
-    Screen::height = 480;
-    Screen::width = 640;
-    window = glfwCreateWindow(640, 480, "Vectron Alpha 0.0.2", NULL, NULL);
-
-    if (!window) {
-        glfwTerminate();
-        exit( EXIT_FAILURE );
-    }
-
-    glfwSetInputMode( window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN );
-
-    zones.push_front( new Zone( 400, 400, 10 ) );
+    zones.push_front( new Zone( 4, 4, 1 ) );
+    
     Grid *g = new Grid();
 
-    glfwMakeContextCurrent(window);
 
-    glfwSetKeyCallback(window, key_callback);
+    glfwSetKeyCallback(s.window, key_callback);
 
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSetWindowSizeCallback(window, window_size_callback);
+    glfwSetFramebufferSizeCallback(s.window, s._framebuffer);
+    glfwSetWindowSizeCallback(s.window, s._size);
 
     /* Initial Before callback */
 
-    glfwGetFramebufferSize(window, &Screen::pxWidth, &Screen::pxHeight);
-    glViewport(0, 0, Screen::pxWidth, Screen::pxHeight);
+    glfwGetFramebufferSize(s.window, &s.pxWidth, &s.pxHeight);
+    glViewport(0, 0, s.pxWidth, s.pxHeight);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, Screen::width, Screen::height, 0, 0, 1);
+    glOrtho(0, s.width, 0, s.height, 0, 1);
 
 
-    glfwSetCursorPosCallback( window, mousepos_callback );
-    glfwSetMouseButtonCallback( window, mousebtn_callback );
+    glfwSetCursorPosCallback( s.window, Input::_mousePos );
+    glfwSetMouseButtonCallback( s.window, Input::_mouseButton );
+    glfwSetScrollCallback( s.window, Input::_scroll );
+
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glLineWidth(2.0f);
 
-    while (!glfwWindowShouldClose(window)) {
+    while (!glfwWindowShouldClose(s.window)) {
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        g->draw( Screen::pxWidth, Screen::pxHeight );
+        g->draw( s.pxWidth, s.pxHeight );
 
         for( Zone *z : zones ) {
             z->draw();
@@ -117,11 +101,11 @@ int main(void) {
                 
         drawCursor();
 
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(s.window);
         glfwPollEvents();
     }
 
-    glfwDestroyWindow(window);
+    glfwDestroyWindow(s.window);
     glfwTerminate();
     exit(EXIT_SUCCESS);
 }
@@ -134,32 +118,8 @@ void key_callback( GLFWwindow *window, int key, int scancode, int action,
     int mods ) {
     if( key == GLFW_KEY_Z && action == GLFW_RELEASE ) {
         zones.push_front( 
-            new Zone( Input::mouseX, Input::mouseY, 10 ));
+            new Zone( Input::mouseX/Grid::spacing, Input::mouseY/Grid::spacing, 10/Grid::spacing ));
     } else if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS ) {
-        glfwSetWindowShouldClose( window, GL_TRUE );
+        glfwSetWindowShouldClose( s.window, GL_TRUE );
     }
-}
-
-void window_size_callback(GLFWwindow* window, int width, int height) {
-    Screen::width = width;
-    Screen::height = height;
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, Screen::width, Screen::height, 0, 0, 1);
-}
-
-
-void framebuffer_size_callback(GLFWwindow* window, int pxWidth, int pxHeight){
-    Screen::pxWidth = pxWidth;
-    Screen::pxHeight = pxHeight;
-    glViewport(0, 0, pxWidth, pxHeight);
-}
-
-void mousepos_callback( GLFWwindow *window, double x, double y ) {
-    //Why dows GLFW use doubles if pixels are ints?
-    Input::updateMouse( x, y );
-}
-
-void mousebtn_callback( GLFWwindow *window, int button, int action, int mods ) {
-
 }

@@ -26,7 +26,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 const float DEG2RAD = 3.14159/180;
 
-int Grid::spacing = 10;
+double Grid::spacing = 10;
 
 void Grid::draw(int width, int height) {
 

@@ -22,7 +22,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef NPUT_H
+#ifndef INPUT_H
 #define INPUT_H
 #include "stdafx.h"
 /*\brief A simple state machine to hold the current input buttons in a place
@@ -48,6 +48,13 @@ public:
     /*\brief Variables for the x-position, y-position, x change, and y change
     of the mouse*/
     static double mouseX, mouseY, mouseDeltaX, mouseDeltaY;
+
+    /* Moving callbacks for mouse handling to the input class */
+
+    static void _scroll( GLFWwindow *window, double x, double y );
+    static void _mousePos( GLFWwindow *window, double x, double y );
+    static void _mouseButton( GLFWwindow *window, int button, int action, int mods );
+    
 };
 
 #endif

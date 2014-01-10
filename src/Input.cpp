@@ -49,3 +49,33 @@ void Input::updateMouse( double newMouseX, double newMouseY ) {
     mouseX = round(newMouseX / Grid::spacing) * Grid::spacing;
     mouseY = round(newMouseY / Grid::spacing) * Grid::spacing;
 }
+
+void Input::_scroll( GLFWwindow *window, double x, double y ) {
+
+    double zoomedSpacing;
+    if(y > 0) {
+        zoomedSpacing = Grid::spacing += 2;
+    } else {
+        zoomedSpacing = Grid::spacing -= 2;
+    }
+
+    // Handles Max Zoom and Min zoom values as 50 and 5 for now.
+    if(zoomedSpacing > 50) {
+        Grid::spacing = 50;
+    } else if(zoomedSpacing < 5) {
+        Grid::spacing = 5;
+    } else {
+        Grid::spacing = zoomedSpacing;
+    }
+    
+}
+
+void Input::_mousePos( GLFWwindow *window, double x, double y ) {
+    //Why dows GLFW use doubles if pixels are ints?
+    Input::updateMouse( x, Screen::height - y );
+}
+
+void Input::_mouseButton( GLFWwindow *window, int button, int action, int mods ) {
+
+}
+
