@@ -45,6 +45,7 @@ public:
     coordinates
     \param [in] newMouseY The current y-position of the mouse, in screen
     coordinates*/
+    
     static void updateMouse( double newMouseX, double newMouseY );
 
     /*!\brief An array of boolean flags, one for each key defined by GLFW

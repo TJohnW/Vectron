@@ -32,12 +32,6 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 void error_callback( int error, const char *description );
-void key_callback( GLFWwindow *window, int key, int scancode, int action, 
-    int mods );
-
-void addZone();
-void drawCursor();
-
 
 forward_list<Zone*> zones;
 
