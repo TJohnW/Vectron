@@ -78,7 +78,7 @@ void Screen::_framebuffer(GLFWwindow* window, int pxWidth, int pxHeight){
     Screen::pxWidth = pxWidth;
     Screen::pxHeight = pxHeight;
     glViewport(0, 0, pxWidth, pxHeight);
-    glOrtho(-Screen::width/2, Screen::width/2, -Screen::height,
+    glOrtho(-Screen::width/2, Screen::width/2, -Screen::height/2,
         Screen::height/2, 0, 1);
 }
 
