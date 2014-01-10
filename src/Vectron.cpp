@@ -56,7 +56,7 @@ void update() {
         editedWall->update();
     }
     if( Input::keys[GLFW_KEY_Z] ) {
-        Zone *z = new Zone( Input::mouseX, Input::mouseY, 30 );
+        Zone *z = new Zone( Input::mouseX, Input::mouseY, 1);
         editedZone = z;
         zones.push_front( z );
         Input::keys[GLFW_KEY_Z] = false;
@@ -77,7 +77,7 @@ void draw() {
     for( Zone *z : zones ) {
         z->draw();
     }
-    Zone myZone = Zone(0, 0, 10);
+    Zone myZone = Zone(0, 0, 3);
     myZone.draw();
     Input::drawCursor();
 

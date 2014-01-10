@@ -66,7 +66,7 @@ void Screen::_size(GLFWwindow* window, int width, int height) {
     Screen::height = height;
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, Screen::width, 0, Screen::height, 0, 1);
+    glOrtho(-Screen::width/2, Screen::width/2, -Screen::height, Screen::height/2, 0, 1);
 }
 
 
