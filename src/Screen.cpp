@@ -39,7 +39,8 @@ Screen::Screen(int width, int height) {
     Screen::width = width;
     Screen::height = height;
 
-    this->window = glfwCreateWindow(width, height, "Vectron Alpha 0.0.2", NULL, NULL);
+    this->window = glfwCreateWindow(width, height, "Vectron Alpha 0.0.2", NULL, 
+        NULL);
 
     if (!this->window) {
         glfwTerminate();
@@ -57,7 +58,8 @@ Screen::Screen(int width, int height) {
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-Screen::width/2, Screen::width/2, -Screen::height/2, Screen::height/2, 0, 1);
+    glOrtho(-Screen::width/2, Screen::width/2, -Screen::height/2,
+        Screen::height/2, 0, 1);
 }
 
 
@@ -66,7 +68,8 @@ void Screen::_size(GLFWwindow* window, int width, int height) {
     Screen::height = height;
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-Screen::width/2, Screen::width/2, -Screen::height, Screen::height/2, 0, 1);
+    glOrtho(-Screen::width/2, Screen::width/2, -Screen::height/2,
+        Screen::height/2, 0, 1);
     glViewport(0, 0, Screen::pxWidth, Screen::pxHeight);
 }
 
@@ -75,6 +78,7 @@ void Screen::_framebuffer(GLFWwindow* window, int pxWidth, int pxHeight){
     Screen::pxWidth = pxWidth;
     Screen::pxHeight = pxHeight;
     glViewport(0, 0, pxWidth, pxHeight);
-    glOrtho(-Screen::width/2, Screen::width/2, -Screen::height, Screen::height/2, 0, 1);
+    glOrtho(-Screen::width/2, Screen::width/2, -Screen::height,
+        Screen::height/2, 0, 1);
 }
 
