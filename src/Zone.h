@@ -27,12 +27,14 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdafx.h"
 
 #include "AamapObject.h"
+#include "Grid.h"
 
 class Zone : AamapObject {
 
 public:
     Zone( int newX, int newY, float newRadius );
     void draw();
+    void update();
 
 private:
     float radius;

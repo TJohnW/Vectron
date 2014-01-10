@@ -28,11 +28,11 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdafx.h"
 
 #include "Input.h"
-#include "MapObject.h"
+#include "AamapObject.h"
 #include "WallPoint.h"
 
 class Wall :
-    public MapObject {
+    public AamapObject {
 public:
     Wall();
     void update();

@@ -23,7 +23,6 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "Zone.h"
-#include "Grid.h"
 
 
 /* These coordinates now better represent the actual location of the zone in the XML
@@ -53,3 +52,5 @@ void Zone::draw() {
     }
     glEnd( );
 }
+
+void Zone::update() {}

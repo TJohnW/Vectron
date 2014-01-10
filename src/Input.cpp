@@ -23,9 +23,6 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "Input.h"
-#include "Screen.h"
-#include "Grid.h"
-#include "Zone.h"
 
 bool Input::keys[349];
 double Input::mouseX = 0;
@@ -66,7 +63,6 @@ void Input::drawCursor() {
 }
 
 void Input::_scroll( GLFWwindow *window, double x, double y ) {
-
     double zoomedSpacing;
     if(y > 0) {
         zoomedSpacing = Grid::spacing += 2;
@@ -81,8 +77,7 @@ void Input::_scroll( GLFWwindow *window, double x, double y ) {
         Grid::spacing = 5;
     } else {
         Grid::spacing = zoomedSpacing;
-    }
-    
+    }    
 }
 
 void Input::_mousePos( GLFWwindow *window, double x, double y ) {
@@ -95,12 +90,16 @@ void Input::_mouseButton( GLFWwindow *window, int button, int action, int mods )
 
 }
 
-void Input::_key( GLFWwindow *window, int key, int scancode, int action, int mods ) {
+void Input::_key( GLFWwindow *window, int key, int scancode, int action, 
+    int mods ) {
     if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS ) {
         glfwSetWindowShouldClose( window, GL_TRUE );
     }
     if( action == GLFW_PRESS ) {
         keys[key] = true;
+        if( key == GLFW_KEY_Z ) {
+            cout << "Pressed the z!\n";
+        }
     } else if( action == GLFW_RELEASE ) {
         keys[key] = false;
     }

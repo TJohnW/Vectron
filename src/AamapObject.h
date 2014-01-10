@@ -28,7 +28,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdafx.h"
 
 class AamapObject {
-    
+public:
+    virtual void update() = 0;
 };
 
 #endif
