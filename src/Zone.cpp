@@ -34,7 +34,8 @@ Zone::Zone( int newX, int newY, float newRadius ) {
     x = newX;
     y = newY;
     radius = newRadius;
-}
+    cout << "Zone at (" << x << ", " << y << ")" << endl;
+ }
 
 
 /*
@@ -46,8 +47,8 @@ void Zone::draw() {
     glColor3f( 1.0, 0.0, 0.0 );
     glBegin( GL_LINE_LOOP );
     for( float i = 0; i < TOOPI; i+= 0.1f ) {
-        glVertex2f( cos( i ) * radius*Grid::spacing + x*Grid::spacing, 
-            sin( i ) * radius*Grid::spacing + y*Grid::spacing );
+        glVertex2f( cos( i ) * radius*Grid::spacing + (x + Screen::panX)*Grid::spacing, 
+            sin( i ) * radius*Grid::spacing + (y + Screen::panY)*Grid::spacing);
     }
     glEnd( );
 }

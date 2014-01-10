@@ -29,6 +29,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "AamapObject.h"
 #include "Grid.h"
+#include "Screen.h"
 
 class Zone : AamapObject {
 
@@ -36,6 +37,8 @@ public:
     Zone( int newX, int newY, float newRadius );
     void draw();
     void update();
+
+    bool _create();
 
 private:
     float radius;

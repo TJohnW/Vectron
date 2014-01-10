@@ -28,10 +28,14 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdafx.h"
 
 #include "AamapObject.h"
+#include "Grid.h"
 
 class Aamap {
+
 public:
     static forward_list<AamapObject*> objects;
+    static Grid *g;
+
 };
 
 #endif

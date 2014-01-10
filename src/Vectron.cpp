@@ -34,66 +34,13 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 void error_callback( int error, const char *description );
-void key_callback( GLFWwindow *window, int key, int scancode, int action, 
-    int mods );
 
-void addZone();
-void drawCursor();
-void update();
-void draw();
-
-forward_list<Zone*> zones;
-
-Grid *g;
 Screen *s;
-Zone *editedZone;
-Wall *editedWall;
-
-void update() {
-    if( editedZone != NULL ) {
-        editedZone->update( );
-    } else if( editedWall != NULL ) {
-        editedWall->update();
-    }
-    if( Input::keys[GLFW_KEY_Z] ) {
-        Zone *z = new Zone( Input::mouseX / Grid::spacing, 
-            Input::mouseY / Grid::spacing, 1 );
-        editedZone = z;
-        zones.push_front( z );
-        Input::keys[GLFW_KEY_Z] = false;
-    }
-}
-
-void draw() {
-    glClear( GL_COLOR_BUFFER_BIT );
-
-    g->draw( Screen::pxWidth, Screen::pxHeight );
-
-    /* Instead of looping through every type here, lets make a base object
-    class that every type extends upon and overrides / has its own draw()
-    function */
-    /* This also simplifies the history because it allows for simple loop of
-    objects and then each object -> draw(). then to remove one just pop
-    it off. */
-    for( Zone *z : zones ) {
-        z->draw();
-    }
-    Zone myZone = Zone(0, 0, 3);
-    myZone.draw();
-    Input::drawCursor();
-
-
-    glfwSwapBuffers( s->window );
-}
 
 int main() {
-
     s = new Screen(640, 480);
 
     glfwSetErrorCallback(error_callback);
-
-    g = new Grid();
-
     glfwSetKeyCallback(s->window, Input::_key);
     glfwSetCursorPosCallback( s->window, Input::_mousePos );
     glfwSetMouseButtonCallback( s->window, Input::_mouseButton );
@@ -102,11 +49,12 @@ int main() {
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glLineWidth(2.0f);
 
-
     while( !glfwWindowShouldClose( s->window ) ) {
-        update();
-        draw();
-       
+        glClear( GL_COLOR_BUFFER_BIT );
+
+        s->draw();
+
+        glfwSwapBuffers( s->window );
         glfwPollEvents();
     }
 

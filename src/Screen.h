@@ -26,6 +26,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #define SCREEN_H
 
 #include "stdafx.h"
+#include "Input.h"
+#include "Aamap.h"
 
 class Screen {
 	
@@ -35,10 +37,27 @@ public:
 
 	Screen (int width, int height);
 
+	void draw();
+
     static int width, height, pxWidth, pxHeight;
+
+    static int panX, panY;
+
+    static int mapX(double mouseX); //returns the actual location of the x coordinate of the mouse
+    static int mapY(double mouseY); // ^^ but y
+
+    static void _up(); //panning
+    static void _down(); //panning
+    static void _right(); //panning
+    static void _left(); //panning
+
+    static void _mouse(GLFWwindow* window); //panning
+    static void _center(); //panning pan map coordinates back to center
+
 
     static void _framebuffer(GLFWwindow* window, int width, int height);
 	static void _size(GLFWwindow* window, int width, int height);
+
 };
 
 #endif

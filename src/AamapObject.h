@@ -29,7 +29,10 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 class AamapObject {
 public:
+
     virtual void update() = 0;
+    virtual void draw() = 0;
+    virtual string _xml() = 0;
 };
 
 #endif

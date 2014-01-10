@@ -63,21 +63,31 @@ void Input::drawCursor() {
 }
 
 void Input::_scroll( GLFWwindow *window, double x, double y ) {
+
     int zoomedSpacing = Grid::spacing;
+
+    int diffX = Screen::mapX(Input::mouseX) - (Screen::panX);
+    int diffY = Screen::mapY(Input::mouseY) - (Screen::panY);
+
+    if(zoomedSpacing + 2 > 50 && y > 0) {
+        Grid::spacing = 50;
+        return;
+    } else if(zoomedSpacing - 2 < 5 && y < 0) {
+        Grid::spacing = 5;
+        return;
+    }
     if(y > 0) {
-        zoomedSpacing += 2;
+        //Zoom in
+        zoomedSpacing += 1;
     } else {
-        zoomedSpacing -= 2;
+        zoomedSpacing -= 1;
     }
 
-    // Handles Max Zoom and Min zoom values as 50 and 5 for now.
-    if(zoomedSpacing > 50) {
-        Grid::spacing = 50;
-    } else if(zoomedSpacing < 5) {
-        Grid::spacing = 5;
-    } else {
-        Grid::spacing = zoomedSpacing;
-    }    
+    Grid::spacing = zoomedSpacing;
+
+    // Handles Max Zoom and Min zoom values as 50 and 5 for now
+
+
 }
 
 void Input::_mousePos( GLFWwindow *window, double x, double y ) {
@@ -90,8 +100,7 @@ void Input::_mouseButton( GLFWwindow *window, int button, int action, int mods )
 
 }
 
-void Input::_key( GLFWwindow *window, int key, int scancode, int action, 
-    int mods ) {
+void Input::_key( GLFWwindow *window, int key, int scancode, int action, int mods ) {
     if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS ) {
         glfwSetWindowShouldClose( window, GL_TRUE );
     }
@@ -102,6 +111,50 @@ void Input::_key( GLFWwindow *window, int key, int scancode, int action,
         }
     } else if( action == GLFW_RELEASE ) {
         keys[key] = false;
+    }
+    Input::_dispatch(window);
+}
+
+void Input::_dispatch(GLFWwindow *window) {
+
+    if( Input::keys[GLFW_KEY_Z])
+    {
+        Aamap::push(new Zone());
+        //Zone *z = new Zone( Screen::mapX(Input::mouseX), Screen::mapY(Input::mouseY), 1 );
+        //editedZone = z;
+        //zones.push_front( z );
+        //Zone::_create();
+        Input::keys[GLFW_KEY_Z] = false;
+    }
+    else if ( Input::keys[GLFW_KEY_UP])
+    {
+        Screen::_up();
+        Input::keys[GLFW_KEY_UP] = false;
+    }
+    else if ( Input::keys[GLFW_KEY_DOWN])
+    {
+        Screen::_down();
+        Input::keys[GLFW_KEY_DOWN] = false;
+    }
+    else if ( Input::keys[GLFW_KEY_LEFT])
+    {
+        Screen::_left();
+        Input::keys[GLFW_KEY_LEFT] = false;
+    }
+    else if ( Input::keys[GLFW_KEY_RIGHT])
+    {
+        Screen::_right();
+        Input::keys[GLFW_KEY_RIGHT] = false;
+    }
+    else if ( Input::keys[GLFW_KEY_SPACE] && Input::keys[GLFW_KEY_LEFT_CONTROL])
+    {
+        Screen::_mouse(window);
+        Input::keys[GLFW_KEY_UP] = false;
+    }
+    else if (Input::keys[GLFW_KEY_SPACE])
+    {
+        Screen::_center();
+        Input::keys[GLFW_KEY_UP] = false;
     }
 }
 
