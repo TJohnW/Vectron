@@ -93,10 +93,14 @@ void Input::_mouseButton( GLFWwindow *window, int button, int action, int mods )
 }
 
 void Input::_key( GLFWwindow *window, int key, int scancode, int action, int mods ) {
-    if( key == GLFW_KEY_Z && action == GLFW_RELEASE ) {
-
-    } else if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS ) {
+    
+    if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS ) {
         glfwSetWindowShouldClose( window, GL_TRUE );
+    }
+    if( action == GLFW_PRESS ) {
+        keys[key] = true;
+    } else if( action == GLFW_RELEASE ) {
+        keys[key] = false;
     }
 }
 

@@ -28,11 +28,11 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdafx.h"
 #include "Screen.h"
 #include "Grid.h"
-#include "Zone.h"
 
 /*\brief A simple state machine to hold the current input buttons in a place
 easily accessable from anywhere inside the program*/
 class Input {
+
 public:
     /*!\brief Clears the input buffers to prepare for writing*/
     static void clear( );
@@ -66,3 +66,4 @@ public:
 };
 
 #endif
+
