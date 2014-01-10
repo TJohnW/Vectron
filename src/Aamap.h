@@ -27,8 +27,11 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "stdafx.h"
 
+#include "AamapObject.h"
+
 class Aamap {
-    
+public:
+    static forward_list<AamapObject*> objects;
 };
 
 #endif

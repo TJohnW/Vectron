@@ -25,6 +25,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef INPUT_H
 #define INPUT_H
 #include "stdafx.h"
+#include "Aamap.h"
+
 /*\brief A simple state machine to hold the current input buttons in a place
 easily accessable from anywhere inside the program*/
 class Input {
