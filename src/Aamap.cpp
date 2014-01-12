@@ -47,7 +47,7 @@ void Aamap::update() {
     if( Input::keys[GLFW_KEY_Z] ) {
         //spawn a zone!
         if(!toolActive) {
-            Zone *z = new Zone( Input::mouseMapX, Input::mouseMapY, 5 );
+            Zone *z = new Zone( Input::mouseMapX, Input::mouseMapY, 0.5 );
             toolActive = true;
             objects.push_front( z );
             curObj = z;
