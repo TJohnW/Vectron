@@ -32,7 +32,7 @@ public:
 
     virtual void update() = 0;
     virtual void draw() = 0;
-    virtual string _xml() = 0;
+    //virtual string _xml() = 0;
 };
 
 #endif

@@ -34,7 +34,7 @@ Zone::Zone( int newX, int newY, float newRadius ) {
     x = newX;
     y = newY;
     radius = newRadius;
-    cout << "Zone at (" << x << ", " << y << ")" << endl;
+    //cout << "Zone at (" << x << ", " << y << ")" << endl;
  }
 
 

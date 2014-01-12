@@ -119,7 +119,7 @@ void Input::_dispatch(GLFWwindow *window) {
 
     if( Input::keys[GLFW_KEY_Z])
     {
-        Aamap::push(new Zone());
+        //Aamap::push(new Zone());
         //Zone *z = new Zone( Screen::mapX(Input::mouseX), Screen::mapY(Input::mouseY), 1 );
         //editedZone = z;
         //zones.push_front( z );

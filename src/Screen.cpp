@@ -65,10 +65,8 @@ Screen::Screen(int width, int height) {
 }
 
 void Screen::draw() {
-    //for( Zone *z : zones ) {
-     //   z->draw();
-   // }
-    Aamap::g->draw(Screen::width, Screen::height);
+	
+	Aamap::render(Screen::width, Screen::height);
     Input::drawCursor();
 }
 

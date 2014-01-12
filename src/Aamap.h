@@ -29,12 +29,15 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "AamapObject.h"
 #include "Grid.h"
+#include "Zone.h"
 
 class Aamap {
 
 public:
     static forward_list<AamapObject*> objects;
-    static Grid *g;
+    static Grid *grid;
+
+    static void render(int width, int height);
 
 };
 
