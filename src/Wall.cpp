@@ -96,6 +96,9 @@ void Wall::addPoint( double x, double y ) {
 
 /*
  *  Can we store the points in a normal type of list instead of this?
+ *
+ * Not really, since editedPoint points back to the previous point, which isn't
+ * a thing normal lists do
  */
 void Wall::resize(double factor) {
      WallPoint *curPoint = front;

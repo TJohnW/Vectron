@@ -46,40 +46,40 @@ void Aamap::update() {
     }
     if( Input::keys[GLFW_KEY_Z] ) {
         //spawn a zone!
-        if(!Aamap::toolActive) {
+        if(!toolActive) {
             Zone *z = new Zone( Input::mouseMapX, Input::mouseMapY, 5 );
             toolActive = true;
             objects.push_front( z );
             curObj = z;
             z->ZoneFinishedFunc = []() -> void { 
                 curObj = NULL;
-                Aamap::toolActive = false;
+                toolActive = false;
             };
         }
         Input::keys[GLFW_KEY_Z] = false;
     } else if( Input::keys[GLFW_KEY_W] ) {
         //Spawn a wall!
-        if(!Aamap::toolActive) {
+        if(!toolActive) {
             Wall *w = new Wall();
             objects.push_front( w );
             curObj = w;
             w->WallFinishedFunc = []() -> void {
                 curObj = NULL;
-                Aamap::toolActive = false;
+                toolActive = false;
             };
         }
         Input::keys[GLFW_KEY_W] = false;
     } else if( Input::keys[GLFW_KEY_EQUAL]) {
-        if(!Aamap::toolActive && sizeFactor < 16) {
+        if(!toolActive && sizeFactor < 16) {
             cout << "equal" << endl;
-            Aamap::resize(2);
+            resize(2);
             sizeFactor *= 2;
             Input::keys[GLFW_KEY_EQUAL] = false;
         }
     } else if( Input::keys[GLFW_KEY_MINUS]) {
-        if(!Aamap::toolActive && sizeFactor > 0.25) {
+        if(!toolActive && sizeFactor > 0.25) {
             cout << "mins" << endl;
-            Aamap::resize(0.5);
+            resize(0.5);
             sizeFactor *= 0.5;
             Input::keys[GLFW_KEY_MINUS] = false;
         }
