@@ -50,6 +50,8 @@ int main() {
     glLineWidth(2.0f);
 
     while( !glfwWindowShouldClose( s->window ) ) {
+        s->update();
+
         glClear( GL_COLOR_BUFFER_BIT );
 
         s->draw();

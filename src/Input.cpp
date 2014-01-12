@@ -54,7 +54,7 @@ void Input::updateMouse( double newMouseX, double newMouseY ) {
 void Input::_mousePos( GLFWwindow *window, double x, double y ) {
     //Why dows GLFW use doubles if pixels are ints?
     //Because high-dpi monitors they scale to a screen size not pixel size
-    //Input::updateMouse( x - Screen::width/2 , Screen::height/2 - y );
+    Input::updateMouse( x - ScreenVars::width/2 , ScreenVars::height/2 - y );
 }
 
 void Input::_mouseButton( GLFWwindow *window, int button, int action, int mods ) {

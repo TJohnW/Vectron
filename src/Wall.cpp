@@ -26,6 +26,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 Wall::Wall() {
     length = 0;
+    editedPoint = new WallPoint( Input::mouseX, Input::mouseY );
     addPoint( Input::mouseX, Input::mouseY );
 }
 
@@ -46,7 +47,7 @@ void Wall::update() {
 }
 
 void Wall::draw() {
-    glColor3f( 1, 1, 1 );
+    glColor3f( 0, 0, 0 );
     glBegin( GL_LINES );
     WallPoint *curPoint = front;
     while( curPoint != editedPoint->next ) {
