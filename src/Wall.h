@@ -38,12 +38,14 @@ public:
     void update();
     void draw();
 
+    void( *WallFinishedFunc )();
+
 private:
     void addPoint( int x, int y );
 
     bool editing;
     int length;
-    WallPoint *front, *back;
+    WallPoint *front;
     WallPoint *editedPoint;
 };
 

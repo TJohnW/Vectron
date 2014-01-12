@@ -33,65 +33,82 @@ int Screen::pxWidth = 0;
 int Screen::panX = 0;
 int Screen::panY = 0;
 
-Screen::Screen(int width, int height) {
+Screen::Screen(int newWidth, int newHeight) {
 
 	//glfwSetErrorCallback(error_callback);
     if (!glfwInit())
         exit( EXIT_FAILURE );
 
-    Screen::width = width;
-    Screen::height = height;
+    width = newWidth;
+    height = newHeight;
 
-    this->window = glfwCreateWindow(width, height, "Vectron Alpha 0.0.2", NULL, NULL);
+    window = glfwCreateWindow(width, height, "Vectron Alpha 0.0.2", NULL, NULL);
 
-    if (!this->window) {
+    if (!window) {
         glfwTerminate();
         exit( EXIT_FAILURE );
     }
 
-    glfwMakeContextCurrent(this->window);
-    glfwSetFramebufferSizeCallback(this->window, Screen::_framebuffer);
-    glfwSetWindowSizeCallback(this->window, Screen::_size);
+    glfwMakeContextCurrent(window);
+    glfwSetFramebufferSizeCallback(window, _framebuffer);
+    glfwSetWindowSizeCallback(window, Screen::_size);
 
     /* Initial Before callback */
 
-    glfwGetFramebufferSize(this->window, &Screen::pxWidth, &Screen::pxHeight);
-    glViewport(0, 0, Screen::pxWidth, Screen::pxHeight);
+    glfwGetFramebufferSize(window, &pxWidth, &pxHeight);
+    glViewport(0, 0, pxWidth, pxHeight);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-Screen::width/2, Screen::width/2, -Screen::height/2,
-        Screen::height/2, 0, 1);
+    glOrtho(-width/2, width/2, -height/2, height/2, 0, 1);
 }
 
 void Screen::draw() {
-	
-	Aamap::render(Screen::width, Screen::height);
-    Input::drawCursor();
+    grid.draw( width, height );
+	map.render();
+    mouse.draw();
 }
 
-int Screen::mapX(double mouseX) {
-    return mouseX / Grid::spacing - Screen::panX;
-}
+void Screen::update( ) {
+    if( Input::keys[GLFW_KEY_UP] ) {
+        _up( );
+        Input::keys[GLFW_KEY_UP] = false;
+    } else if( Input::keys[GLFW_KEY_DOWN] ) {
+        _down( );
+        Input::keys[GLFW_KEY_DOWN] = false;
+    } else if( Input::keys[GLFW_KEY_LEFT] ) {
+        _left( );
+        Input::keys[GLFW_KEY_LEFT] = false;
+    } else if( Input::keys[GLFW_KEY_RIGHT] ) {
+        _right( );
+        Input::keys[GLFW_KEY_RIGHT] = false;
+    } else if( Input::keys[GLFW_KEY_SPACE] &&
+        Input::keys[GLFW_KEY_LEFT_CONTROL] ) {
+        _mouse( window );
+        Input::keys[GLFW_KEY_SPACE] = false;
+    } else if( Input::keys[GLFW_KEY_SPACE] ) {
+        _center( );
+        Input::keys[GLFW_KEY_SPACE] = false;
+    }
 
-int Screen::mapY(double mouseY) {
-    return mouseY / Grid::spacing - Screen::panY;
+    map.update();
+    mouse.update();
 }
 
 void Screen::_up() {
-    Screen::panY -= 1;
+    panY -= 1;
 }
 
 void Screen::_down() {
-    Screen::panY += 1;
+    panY += 1;
 }
 
 void Screen::_right() {
-    Screen::panX -= 1;
+    panX -= 1;
 }
 
 void Screen::_left() {
-    Screen::panX += 1;
+    panX += 1;
 }
 
 /*
@@ -99,10 +116,10 @@ void Screen::_left() {
  *  Called on LEFTCTRL + SPACE
  */
 void Screen::_mouse(GLFWwindow* window) {
-    Screen::panX = -1*Screen::mapX(Input::mouseX);
-    Screen::panY = -1*Screen::mapY(Input::mouseY);
+    panX = -1 * mapX(Input::mouseX);
+    panY = -1 * mapY(Input::mouseY);
     Input::updateMouse(0, 0);
-    glfwSetCursorPos(window, Screen::width/2, Screen::height/2); // Center mouse after panning to it
+    glfwSetCursorPos(window, width/2, height/2); // Center mouse after panning to it
 }
 
 /*
@@ -110,24 +127,23 @@ void Screen::_mouse(GLFWwindow* window) {
  *  Called on SPACE
  */
 void Screen::_center() {
-    Screen::panX = 0;
-    Screen::panY = 0;
+    panX = 0;
+    panY = 0;
 }
 
-void Screen::_size(GLFWwindow* window, int width, int height) {
-    Screen::width = width;
-    Screen::height = height;
+void Screen::_size(GLFWwindow* window, int newWidth, int newHeight) {
+    width = newWidth;
+    height = newHeight;
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-Screen::width/2, Screen::width/2, -Screen::height/2, Screen::height/2, 0, 1);
-    glViewport(0, 0, Screen::pxWidth, Screen::pxHeight);
-}
-
-
-void Screen::_framebuffer(GLFWwindow* window, int pxWidth, int pxHeight){
-    Screen::pxWidth = pxWidth;
-    Screen::pxHeight = pxHeight;
+    glOrtho(-width/2, width/2, -height/2, height/2, 0, 1);
     glViewport(0, 0, pxWidth, pxHeight);
-    glOrtho(-Screen::width/2, Screen::width/2, -Screen::height/2, Screen::height/2, 0, 1);
 }
 
+
+void Screen::_framebuffer(GLFWwindow* window, int newPxWidth, int newPxHeight){
+    pxWidth = newPxWidth;
+    pxHeight = newPxHeight;
+    glViewport(0, 0, pxWidth, pxHeight);
+    glOrtho(-width/2, width/2, -height/2, height/2, 0, 1);
+}

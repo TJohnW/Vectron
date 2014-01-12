@@ -25,11 +25,11 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #define ZONE_H
 
 #include "stdafx.h"
-#include "Grid.h"
 
 #include "AamapObject.h"
-#include "Grid.h"
-#include "Screen.h"
+//#include "Grid.h"
+#include "Input.h"
+//#include "Screen.h"
 
 class Zone : public AamapObject {
 
@@ -38,7 +38,7 @@ public:
     void draw();
     void update();
 
-    bool _create();
+    void( *ZoneFinishedFunc )();
 
 private:
     float radius;

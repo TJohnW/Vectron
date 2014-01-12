@@ -21,30 +21,23 @@ You should have received a copy of the GNU General Public License
 along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
+#include "Mouse.h"
 
-#include "Aamap.h"
-
-void Aamap::render() {
-    for( AamapObject *o : objects ) {
-    	o->draw();
-   	}
+void Mouse::draw() {
+    glColor3f( 0, 0, 0 );
+    glBegin( GL_LINES );
+    glVertex2f( xPos - 7, yPos );
+    glVertex2f( xPos - 1, yPos );
+    glVertex2f( xPos + 1, yPos );
+    glVertex2f( xPos + 7, yPos );
+    glVertex2f( xPos, yPos + 7 );
+    glVertex2f( xPos, yPos + 1 );
+    glVertex2f( xPos, yPos - 1 );
+    glVertex2f( xPos, yPos - 7 );
+    glEnd( );
 }
 
-void Aamap::update() {
-    if( curObj != NULL ) {
-        curObj->update();
-    }
-    if( Input::keys[GLFW_KEY_Z] ) {
-        //spawn a grid!
-        Zone *z = new Zone( Input::mouseX, Input::mouseY, 5 );
-        objects.push_front( z );
-        curObj = z;
-        z->ZoneFinishedFunc = []() -> void { curObj = NULL; };
-    } else if( Input::keys[GLFW_KEY_W] ) {
-        //Spawn a wall!
-        Wall *w = new Wall();
-        objects.push_front( w );
-        curObj = w;
-        w->WallFinishedFunc = []() -> void { curObj = NULL; };
-    }
+void Mouse::update() {
+    xPos = Input::mouseX;
+    yPos = Input::mouseY;
 }

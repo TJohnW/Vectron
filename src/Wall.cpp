@@ -32,6 +32,17 @@ Wall::Wall() {
 void Wall::update() {
     editedPoint->x = Input::mouseX;
     editedPoint->y = Input::mouseY;
+    if( Input::mouse0 ) {
+        //make editedPoint a real point
+        addPoint( editedPoint->x, editedPoint->y );
+        //prevent bugs from holding down the mouse over multiple frames
+        Input::mouse0 = false;
+    } else if( Input::mouse1 ) {
+        //make EditedPoint a real point
+        addPoint( editedPoint->x, editedPoint->y );
+        //Make editedPoint change no longer
+        WallFinishedFunc();
+    }
 }
 
 void Wall::draw() {
@@ -53,6 +64,7 @@ void Wall::addPoint( int x, int y ) {
     //We know the front and the back
     //Add to the back
     //editedPoint is ALWAYS the last point, until Wall::editing is false
+    WallPoint *p;
     switch( length ) {
     case 0:
         front = new WallPoint( x, y );
@@ -61,14 +73,14 @@ void Wall::addPoint( int x, int y ) {
         length++;
         break;
     case 1:
-        WallPoint *p = new WallPoint( x, y );
+        p = new WallPoint( x, y );
         front->next = p;
         p->next = editedPoint;
         editedPoint->next = p;
         length++;
         break;
     default:
-        WallPoint *p = new WallPoint( x, y );
+        p = new WallPoint( x, y );
         p->next = editedPoint;
         editedPoint->next->next = p;
         editedPoint->next = p;

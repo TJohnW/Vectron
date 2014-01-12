@@ -27,22 +27,23 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "stdafx.h"
 
-#include "AamapObject.h"
-#include "Grid.h"
+#include "Input.h"
+#include "Wall.h"
 #include "Zone.h"
 
 class Aamap {
 
 public:
-    static forward_list<AamapObject*> objects;
-    static Grid *grid;
+    forward_list<AamapObject*> objects;
 
-    static void render(int width, int height);
-    static void update();
+    void render();
+    void update();
 
 private:
+    //Made static so that my function pointers will work
+    //The alternative was a static function and this being static
+    //I took the path of least static
     static AamapObject *curObj;
-
 };
 
 #endif

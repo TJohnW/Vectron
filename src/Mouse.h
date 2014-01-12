@@ -22,29 +22,25 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "Aamap.h"
+#ifndef MOUSE_H
+#define MOUSE_H
 
-void Aamap::render() {
-    for( AamapObject *o : objects ) {
-    	o->draw();
-   	}
-}
+#include "stdafx.h"
 
-void Aamap::update() {
-    if( curObj != NULL ) {
-        curObj->update();
-    }
-    if( Input::keys[GLFW_KEY_Z] ) {
-        //spawn a grid!
-        Zone *z = new Zone( Input::mouseX, Input::mouseY, 5 );
-        objects.push_front( z );
-        curObj = z;
-        z->ZoneFinishedFunc = []() -> void { curObj = NULL; };
-    } else if( Input::keys[GLFW_KEY_W] ) {
-        //Spawn a wall!
-        Wall *w = new Wall();
-        objects.push_front( w );
-        curObj = w;
-        w->WallFinishedFunc = []() -> void { curObj = NULL; };
-    }
-}
+#include "AamapObject.h"
+#include "Input.h"
+
+/*!\brief */
+class Mouse : 
+    public AamapObject {
+
+public:
+    void draw();
+    void update();
+
+private:
+    int xPos, yPos;
+
+};
+
+#endif

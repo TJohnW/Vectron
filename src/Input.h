@@ -26,19 +26,19 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #define INPUT_H
 
 #include "stdafx.h"
-#include "Screen.h"
+
 #include "Grid.h"
 
 /*\brief A simple state machine to hold the current input buttons in a place
-easily accessable from anywhere inside the program*/
+easily accessable from anywhere inside the program
+
+A SIMPLE STATE MACHINE*/
 class Input {
 
 public:
     /*!\brief Clears the input buffers to prepare for writing*/
     static void clear( );
-
-    static void drawCursor();
-
+    
     /*!\brief Sets the mouse position and change in mouse position
 
     \param [in] newMouseX The current x-position of the mouse, in screen
@@ -53,6 +53,10 @@ public:
     See http://www.glfw.org/docs/3.0/group__keys.html for a complete listing*/
     static bool keys[349];
 
+    static bool mouse0;
+    static bool mouse1;
+    static bool mouse2;
+
     /*\brief Variables for the x-position, y-position, x change, and y change
     of the mouse*/
     static double mouseX, mouseY, mouseDeltaX, mouseDeltaY;
@@ -61,10 +65,13 @@ public:
 
     static void _scroll( GLFWwindow *window, double x, double y );
     static void _mousePos( GLFWwindow *window, double x, double y );
-    static void _mouseButton( GLFWwindow *window, int button, int action, int mods );
-    static void _key( GLFWwindow *window, int key, int scancode, int action, int mods );
+    static void _mouseButton( GLFWwindow *window, int button, int action, 
+        int mods );
+    static void _key( GLFWwindow *window, int key, int scancode, int action, 
+        int mods );
 
-    static void _dispatch( GLFWwindow *window ); //Dispatches events to classes to handle.
+    static void _dispatch( GLFWwindow *window ); //Dispatches events to classes
+        //to handle.
     
 };
 

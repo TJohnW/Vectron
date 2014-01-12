@@ -44,7 +44,7 @@ int main() {
     glfwSetKeyCallback(s->window, Input::_key);
     glfwSetCursorPosCallback( s->window, Input::_mousePos );
     glfwSetMouseButtonCallback( s->window, Input::_mouseButton );
-    glfwSetScrollCallback( s->window, Input::_scroll );
+    glfwSetScrollCallback( s->window, Grid::_scroll );
 
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glLineWidth(2.0f);

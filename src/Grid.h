@@ -26,17 +26,19 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "stdafx.h"
 
+#include "Input.h"
+#include "Screen.h"
+
 class Grid {
 
 public:
     void draw(int width, int height);
-    static int spacing;
+    static int spacing, panX, panY;
+    static void _scroll( GLFWwindow *window, double x, double y );
+    static int mapX( double pos );
+    static int mapY( double pos );
 
     //void drawCircle(float);
-
-private:	
-
-
 };
 
 #endif
