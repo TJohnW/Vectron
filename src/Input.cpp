@@ -27,6 +27,10 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 bool Input::keys[349];
 double Input::mouseX = 0;
 double Input::mouseY = 0;
+
+int Input::mouseMapX = 0;
+int Input::mouseMapY = 0;
+
 double Input::mouseDeltaX = 0;
 double Input::mouseDeltaY = 0;
 bool Input::mouse0 = false;
@@ -49,6 +53,8 @@ void Input::updateMouse( double newMouseX, double newMouseY ) {
     mouseDeltaY = newMouseY - mouseY;
     mouseX = round( newMouseX / ScreenVars::spacing ) * ScreenVars::spacing;
     mouseY = round( newMouseY / ScreenVars::spacing ) * ScreenVars::spacing;
+    mouseMapX = mouseX / ScreenVars::spacing - ScreenVars::panX;
+    mouseMapY = mouseY / ScreenVars::spacing - ScreenVars::panY;
 }
 
 void Input::_mousePos( GLFWwindow *window, double x, double y ) {

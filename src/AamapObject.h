@@ -32,7 +32,13 @@ public:
 
     virtual void update() = 0;
     virtual void draw() = 0;
+
+    virtual void resize(double factor) = 0;
     //virtual string _xml() = 0;
+    /*
+     *	Need some functions here for every object to resize x2 or /2 in size.
+     *
+     */
 };
 
 #endif

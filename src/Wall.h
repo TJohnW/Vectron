@@ -37,11 +37,12 @@ public:
     Wall();
     void update();
     void draw();
+    void resize(double factor);
 
     void( *WallFinishedFunc )();
 
 private:
-    void addPoint( int x, int y );
+    void addPoint( double x, double y );
 
     bool editing;
     int length;

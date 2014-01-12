@@ -26,13 +26,14 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 Wall::Wall() {
     length = 0;
-    editedPoint = new WallPoint( Input::mouseX, Input::mouseY );
-    addPoint( Input::mouseX, Input::mouseY );
+    editedPoint = new WallPoint( Input::mouseMapX, Input::mouseMapY );
+    addPoint( Input::mouseMapX, Input::mouseMapY );
 }
 
 void Wall::update() {
-    editedPoint->x = Input::mouseX;
-    editedPoint->y = Input::mouseY;
+    editedPoint->x = Input::mouseMapX;
+    editedPoint->y = Input::mouseMapY;
+
     if( Input::mouse0 ) {
         //make editedPoint a real point
         addPoint( editedPoint->x, editedPoint->y );
@@ -51,19 +52,21 @@ void Wall::draw() {
     glBegin( GL_LINES );
     WallPoint *curPoint = front;
     while( curPoint != editedPoint->next ) {
-        glVertex2f( curPoint->x * ScreenVars::spacing, 
-            curPoint->y * ScreenVars::spacing );
-        glVertex2f( curPoint->next->x * ScreenVars::spacing, 
-            curPoint->next->y * ScreenVars::spacing );
+        glVertex2f( (curPoint->x + ScreenVars::panX) * ScreenVars::spacing,
+                    (curPoint->y + ScreenVars::panY) * ScreenVars::spacing);
+        glVertex2f( (curPoint->next->x + ScreenVars::panX) * ScreenVars::spacing,
+                    (curPoint->next->y + ScreenVars::panY) * ScreenVars::spacing);
         curPoint = curPoint->next;
     }
-    glColor3f( 0.8f, 0.8f, 0.8f );
-    glVertex2f( editedPoint->x, editedPoint->y );
-    glVertex2f( editedPoint->next->x, editedPoint->next->y );
+    glColor3f( 0.6f, 0.6f, 0.6f );
+    glVertex2f( (editedPoint->x + ScreenVars::panX) * ScreenVars::spacing,
+                (editedPoint->y + ScreenVars::panY) * ScreenVars::spacing);
+    glVertex2f( (editedPoint->next->x + ScreenVars::panX) * ScreenVars::spacing,
+                (editedPoint->next->y + ScreenVars::panY) * ScreenVars::spacing);
     glEnd();
 }
 
-void Wall::addPoint( int x, int y ) {
+void Wall::addPoint( double x, double y ) {
     //We know the front and the back
     //Add to the back
     //editedPoint is ALWAYS the last point, until Wall::editing is false
@@ -89,4 +92,18 @@ void Wall::addPoint( int x, int y ) {
         editedPoint->next = p;
         length++;
     }
+}
+
+/*
+ *  Can we store the points in a normal type of list instead of this?
+ */
+void Wall::resize(double factor) {
+     WallPoint *curPoint = front;
+     while( curPoint != editedPoint->next ) {
+        curPoint->x *= factor;
+        curPoint->y *= factor;
+        curPoint = curPoint->next;
+     }
+     curPoint->next->x *= factor;
+     curPoint->next->y *= factor;
 }

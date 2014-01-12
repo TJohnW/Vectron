@@ -24,7 +24,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "WallPoint.h"
 
-WallPoint::WallPoint( int newX, int newY ) {
+WallPoint::WallPoint( double newX, double newY ) {
     x = newX;
     y = newY;
+
 }

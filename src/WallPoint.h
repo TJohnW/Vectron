@@ -29,9 +29,9 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 class WallPoint {
 public:
-    WallPoint( int newX, int newY );
+    WallPoint( double newX, double newY );
 
-    int x, y;
+    double x, y;
     WallPoint *next;
 };
 

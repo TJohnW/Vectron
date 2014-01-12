@@ -31,8 +31,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #include "Input.h"
 
 /*!\brief */
-class Mouse : 
-    public AamapObject {
+class Mouse {   // WHy does mouse extend aamapobject??
 
 public:
     void draw();

@@ -35,15 +35,22 @@ class Aamap {
 
 public:
     forward_list<AamapObject*> objects;
-
+	static bool toolActive;
     void render();
     void update();
+
+    void resize(double factor);
+
+    //This is true when a tool is in use
 
 private:
     //Made static so that my function pointers will work
     //The alternative was a static function and this being static
     //I took the path of least static
     static AamapObject *curObj;
+    static double sizeFactor;
+
+
 };
 
 #endif

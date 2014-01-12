@@ -31,7 +31,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
     same somehow Not sure how yet though.
 */
 
-Zone::Zone( int newX, int newY, float newRadius ) {
+Zone::Zone( double newX, double newY, float newRadius ) {
     x = newX;
     y = newY;
     radius = newRadius;
@@ -56,11 +56,18 @@ void Zone::draw() {
 }
 
 void Zone::update() {
-    int xDist = Input::mouseX - x;
-    int yDist = Input::mouseY - y;
-    radius = sqrt( xDist * xDist + yDist* yDist ) / ScreenVars::spacing;
+    int xDist = Input::mouseMapX - x;
+    int yDist = Input::mouseMapY - y;
+    radius = sqrt( xDist * xDist + yDist* yDist );
+    if(radius < 1) radius = 0.5;
     if( Input::mouse0 ) {
         ZoneFinishedFunc();
     }
     cout << "Zone radius is " << radius << "\n";
+}
+
+void Zone::resize(double factor) {
+    radius *= factor;
+    x *= factor;
+    y *= factor;
 }

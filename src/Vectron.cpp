@@ -38,7 +38,7 @@ void error_callback( int error, const char *description );
 Screen *s;
 
 int main() {
-    s = new Screen(640, 480);
+    s = new Screen(1280, 800);
 
     glfwSetErrorCallback(error_callback);
     glfwSetKeyCallback(s->window, Input::_key);

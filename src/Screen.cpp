@@ -35,6 +35,7 @@ Screen::Screen(int newWidth, int newHeight) {
 
     window = glfwCreateWindow( ScreenVars::width, ScreenVars::height, 
         "Vectron Alpha 0.0.5", NULL, NULL );
+    //ScreenVars::width -= 100;
 
     if (!window) {
         glfwTerminate();
@@ -53,6 +54,7 @@ Screen::Screen(int newWidth, int newHeight) {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho( -ScreenVars::width / 2, ScreenVars::width / 2, -ScreenVars::height / 2, ScreenVars::height / 2, 0, 1 );
+    Aamap::toolActive = false;
 }
 
 void Screen::draw() {
@@ -81,16 +83,16 @@ void Screen::draw() {
 void Screen::update( ) {
     if( Input::keys[GLFW_KEY_UP] ) {
         _up( );
-        Input::keys[GLFW_KEY_UP] = false;
+        //Input::keys[GLFW_KEY_UP] = false;
     } else if( Input::keys[GLFW_KEY_DOWN] ) {
         _down( );
-        Input::keys[GLFW_KEY_DOWN] = false;
+        //Input::keys[GLFW_KEY_DOWN] = false;
     } else if( Input::keys[GLFW_KEY_LEFT] ) {
         _left( );
-        Input::keys[GLFW_KEY_LEFT] = false;
+        //Input::keys[GLFW_KEY_LEFT] = false;
     } else if( Input::keys[GLFW_KEY_RIGHT] ) {
         _right( );
-        Input::keys[GLFW_KEY_RIGHT] = false;
+        //Input::keys[GLFW_KEY_RIGHT] = false;
     } else if( Input::keys[GLFW_KEY_SPACE] &&
         Input::keys[GLFW_KEY_LEFT_CONTROL] ) {
         _mouse( window );
@@ -166,23 +168,15 @@ int Screen::mapY( double mouseY ) {
 }
 
 void Screen::_scroll( GLFWwindow *window, double x, double y ) {
-
     int zoomedSpacing = ScreenVars::spacing;
 
     int diffX = mapX( Input::mouseX ) - ScreenVars::panX;
     int diffY = mapY( Input::mouseY ) - ScreenVars::panY;
-
-    if( zoomedSpacing + 2 > 50 && y > 0 ) {
-        ScreenVars::spacing = 50;
-        return;
-    } else if( zoomedSpacing - 2 < 5 && y < 0 ) {
-        ScreenVars::spacing = 5;
-        return;
-    }
-    if( y > 0 ) {
+    
+    if( y > 0  && ScreenVars::spacing < 50) {
         //Zoom in
         zoomedSpacing += 1;
-    } else {
+    } else if(y < 0 && ScreenVars::spacing > 5) {
         zoomedSpacing -= 1;
     }
 

@@ -4,7 +4,7 @@ FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit -framework CoreV
 LIBS = -lglfw3
 OPS = -std=c++11
 
-OBJECTS = Vectron.o Zone.o Grid.o Input.o Screen.o Aamap.o AamapObject.o Wall.o WallPoint.o
+OBJECTS = Vectron.o Zone.o Input.o Screen.o Aamap.o AamapObject.o Wall.o WallPoint.o Mouse.o ScreenVars.o
 
 SRCPATH = src
 
@@ -17,9 +17,6 @@ Vectron.o: $(SRCPATH)/Vectron.cpp
 
 Zone.o: $(SRCPATH)/Zone.cpp
 	g++ $(OPS) -c $(SRCPATH)/Zone.cpp
-
-Grid.o: $(SRCPATH)/Grid.cpp
-	g++ $(OPS) -c $(SRCPATH)/Grid.cpp
 
 Input.o: $(SRCPATH)/Input.cpp
 	g++ $(OPS) -c $(SRCPATH)/Input.cpp
@@ -38,3 +35,10 @@ Wall.o: $(SRCPATH)/Wall.cpp
 
 WallPoint.o: $(SRCPATH)/WallPoint.cpp
 	g++ $(OPS) -c $(SRCPATH)/WallPoint.cpp
+
+Mouse.o: $(SRCPATH)/Mouse.cpp
+	g++ $(OPS) -c $(SRCPATH)/Mouse.cpp
+
+ScreenVars.o: $(SRCPATH)/ScreenVars.cpp
+	g++ $(OPS) -c $(SRCPATH)/ScreenVars.cpp
+

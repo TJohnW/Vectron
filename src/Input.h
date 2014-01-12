@@ -61,6 +61,11 @@ public:
     of the mouse*/
     static double mouseX, mouseY, mouseDeltaX, mouseDeltaY;
 
+    static int mouseMapX, mouseMapY;
+
+    //static double mapToScreenX(int mouseMapX);
+    //static double mapToScreenY(int mouseMapY);
+
     /* Moving callbacks for mouse handling to the input class */
 
     static void _scroll( GLFWwindow *window, double x, double y );

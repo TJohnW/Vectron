@@ -33,15 +33,16 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 class Zone : public AamapObject {
 
 public:
-    Zone( int newX, int newY, float newRadius );
+    Zone( double newX, double newY, float newRadius );
     void draw();
     void update();
+    void resize(double factor);
 
     void( *ZoneFinishedFunc )();
 
 private:
     float radius;
-    int x, y;
+    double x, y;
 };
 
 #endif
