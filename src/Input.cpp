@@ -29,6 +29,9 @@ double Input::mouseX = 0;
 double Input::mouseY = 0;
 double Input::mouseDeltaX = 0;
 double Input::mouseDeltaY = 0;
+bool Input::mouse0 = false;
+bool Input::mouse1 = false;
+bool Input::mouse2 = false;
 
 void Input::clear( ) {
     for( int i = 0; i < 349; i++ ) {
@@ -37,15 +40,15 @@ void Input::clear( ) {
 }
 
 /*
-	Updated to handle snapping to grid. This applies to zone adding because the
+	Updated to handle snapping to Screen. This applies to zone adding because the
     software mouse is set to the snapped location.
 */
 
 void Input::updateMouse( double newMouseX, double newMouseY ) {
     mouseDeltaX = newMouseX - mouseX;
     mouseDeltaY = newMouseY - mouseY;
-    mouseX = round( newMouseX / Grid::spacing ) * Grid::spacing;
-    mouseY = round( newMouseY / Grid::spacing ) * Grid::spacing;
+    mouseX = round( newMouseX / ScreenVars::spacing ) * ScreenVars::spacing;
+    mouseY = round( newMouseY / ScreenVars::spacing ) * ScreenVars::spacing;
 }
 
 void Input::_mousePos( GLFWwindow *window, double x, double y ) {
@@ -87,9 +90,6 @@ void Input::_key( GLFWwindow *window, int key, int scancode, int action,
     }
     if( action == GLFW_PRESS ) {
         keys[key] = true;
-        if( key == GLFW_KEY_Z ) {
-            cout << "Pressed the z!\n";
-        }
     } else if( action == GLFW_RELEASE ) {
         keys[key] = false;
     }
@@ -98,4 +98,3 @@ void Input::_key( GLFWwindow *window, int key, int scancode, int action,
 
 void Input::_dispatch( GLFWwindow *window ) {
 }
-

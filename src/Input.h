@@ -27,7 +27,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "stdafx.h"
 
-#include "Grid.h"
+#include "ScreenVars.h"
 
 /*\brief A simple state machine to hold the current input buttons in a place
 easily accessable from anywhere inside the program

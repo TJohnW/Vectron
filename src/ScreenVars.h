@@ -22,49 +22,17 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef SCREEN_H
-#define SCREEN_H
+#ifndef SCREENVARS_H
+#define SCREENVARS_H
 
-#include "stdafx.h"
-
-#include "Input.h"
-#include "Aamap.h"
-#include "Mouse.h"
-
-class Screen {
-
+class ScreenVars {
 public:
 
-    GLFWwindow *window;
+    static int width, height, pxWidth, pxHeight;
 
-    Screen( int width, int height );
+    static int panX, panY;
 
-    void draw();
-
-    /* Tristan let this be */
-    void update();
-
-    static int mapX( double mouseX ); //returns the actual location of the x coordinate of the mouse
-    static int mapY( double mouseY ); // ^^ but y
-
-    static void _up(); //panning
-    static void _down(); //panning
-    static void _right(); //panning
-    static void _left(); //panning
-
-    static void _mouse( GLFWwindow *window ); //panning
-    static void _center(); //panning pan map coordinates back to center
-
-
-    static void _framebuffer( GLFWwindow *window, int width, int height );
-    static void _size( GLFWwindow* window, int width, int height );
-
-    void draw( int width, int height );
-    static void _scroll( GLFWwindow *window, double x, double y );
-
-private:
-    Aamap map;
-    Mouse mouse;
+    static int spacing;
 };
 
 #endif

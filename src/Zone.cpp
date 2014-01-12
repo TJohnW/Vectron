@@ -26,8 +26,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 /* These coordinates now better represent the actual location of the zone in the
     XML which is vital. Now on zoom the zones will accomidate for the change in
-    grid spacing but still retain their value as the same zone. After so much
-    zoom, we need to redraw the grid with less pxspacing but keep the zone the
+    Screen spacing but still retain their value as the same zone. After so much
+    zoom, we need to redraw the Screen with less pxspacing but keep the zone the
     same somehow Not sure how yet though.
 */
 
@@ -40,16 +40,16 @@ Zone::Zone( int newX, int newY, float newRadius ) {
 
 /*
     Zones need to be drawn according to a set coordiate that can be changed with
-    the current grid scale.
+    the current Screen scale.
 */
 
 void Zone::draw() {
     glColor3f( 1.0, 0.0, 0.0 );
     glBegin( GL_LINE_LOOP );
     /*for( float i = 0; i < TOOPI; i+= 0.1f ) {
-        glVertex2f( cos( i ) * radius * Grid::spacing + (x + Screen::panX) * 
-            Grid::spacing, sin( i ) * radius * Grid::spacing + 
-            (y + Screen::panY) * Grid::spacing);
+        glVertex2f( cos( i ) * radius * Screen::spacing + (x + Screen::panX) * 
+            Screen::spacing, sin( i ) * radius * Screen::spacing + 
+            (y + Screen::panY) * Screen::spacing);
     }*/
     glEnd( );
 }

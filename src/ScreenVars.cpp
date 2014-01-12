@@ -1,8 +1,8 @@
 /*
 ********************************************************************************
 Vectron - map editor for Armagetron Advanced.
-Copyright (C) 2014 	Tristan Whitcher 	(tristan.whitcher@gmail.com)
-				   	David Dubois 		(ddubois@jotunstudios.com)
+Copyright (C) 2014  Tristan Whitcher    (tristan.whitcher@gmail.com)
+David Dubois        (ddubois@jotunstudios.com)
 ********************************************************************************
 
 This file is part of Vectron.
@@ -21,24 +21,16 @@ You should have received a copy of the GNU General Public License
 along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-#ifndef GRID_H
-#define GRID_H
 
-#include "stdafx.h"
+#include "ScreenVars.h"
 
-#include "Input.h"
-#include "Screen.h"
+int ScreenVars::height = 0;
+int ScreenVars::width = 0;
 
-class Grid {
+int ScreenVars::pxHeight = 0;
+int ScreenVars::pxWidth = 0;
 
-public:
-    void draw(int width, int height);
-    static int spacing, panX, panY;
-    static void _scroll( GLFWwindow *window, double x, double y );
-    static int mapX( double pos );
-    static int mapY( double pos );
+int ScreenVars::panX = 0;
+int ScreenVars::panY = 0;
 
-    //void drawCircle(float);
-};
-
-#endif
+int ScreenVars::spacing = 23;

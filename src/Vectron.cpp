@@ -25,7 +25,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdafx.h"
 
 #include "AamapObject.h"
-#include "Grid.h"
+#include "Screen.h"
 #include "Input.h"
 #include "Screen.h"
 #include "Wall.h"
@@ -44,7 +44,7 @@ int main() {
     glfwSetKeyCallback(s->window, Input::_key);
     glfwSetCursorPosCallback( s->window, Input::_mousePos );
     glfwSetMouseButtonCallback( s->window, Input::_mouseButton );
-    glfwSetScrollCallback( s->window, Grid::_scroll );
+    glfwSetScrollCallback( s->window, Screen::_scroll );
 
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glLineWidth(2.0f);

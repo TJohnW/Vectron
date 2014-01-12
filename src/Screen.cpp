@@ -24,25 +24,17 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "Screen.h"
 
-int Screen::height = 0;
-int Screen::width = 0;
-
-int Screen::pxHeight = 0;
-int Screen::pxWidth = 0;
-
-int Screen::panX = 0;
-int Screen::panY = 0;
-
 Screen::Screen(int newWidth, int newHeight) {
 
 	//glfwSetErrorCallback(error_callback);
     if (!glfwInit())
         exit( EXIT_FAILURE );
 
-    width = newWidth;
-    height = newHeight;
+    ScreenVars::width = newWidth;
+    ScreenVars::height = newHeight;
 
-    window = glfwCreateWindow(width, height, "Vectron Alpha 0.0.2", NULL, NULL);
+    window = glfwCreateWindow( ScreenVars::width, ScreenVars::height, 
+        "Vectron Alpha 0.0.5", NULL, NULL );
 
     if (!window) {
         glfwTerminate();
@@ -55,16 +47,33 @@ Screen::Screen(int newWidth, int newHeight) {
 
     /* Initial Before callback */
 
-    glfwGetFramebufferSize(window, &pxWidth, &pxHeight);
-    glViewport(0, 0, pxWidth, pxHeight);
+    glfwGetFramebufferSize( window, &ScreenVars::pxWidth, &ScreenVars::pxHeight );
+    glViewport( 0, 0, ScreenVars::pxWidth, ScreenVars::pxHeight );
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-width/2, width/2, -height/2, height/2, 0, 1);
+    glOrtho( -ScreenVars::width / 2, ScreenVars::width / 2, -ScreenVars::height / 2, ScreenVars::height / 2, 0, 1 );
 }
 
 void Screen::draw() {
-    grid.draw( width, height );
+    glColor3f( 0.84f, 0.84f, 0.92f );
+    glBegin( GL_LINES );
+
+    for( int i = 0; i < ScreenVars::width / 2; i += ScreenVars::spacing ) {
+        glVertex2f( i, -ScreenVars::height / 2 );
+        glVertex2f( i, ScreenVars::height / 2 );
+
+        glVertex2f( -i, -ScreenVars::height / 2 );
+        glVertex2f( -i, ScreenVars::height / 2 );
+
+        glVertex2f( -ScreenVars::width / 2, i );
+        glVertex2f( ScreenVars::width / 2, i );
+
+        glVertex2f( -ScreenVars::width / 2, -i );
+        glVertex2f( ScreenVars::width / 2, -i );
+    }
+
+    glEnd( );
 	map.render();
     mouse.draw();
 }
@@ -96,19 +105,19 @@ void Screen::update( ) {
 }
 
 void Screen::_up() {
-    panY -= 1;
+    ScreenVars::panY -= 1;
 }
 
 void Screen::_down() {
-    panY += 1;
+    ScreenVars::panY += 1;
 }
 
 void Screen::_right() {
-    panX -= 1;
+    ScreenVars::panX -= 1;
 }
 
 void Screen::_left() {
-    panX += 1;
+    ScreenVars::panX += 1;
 }
 
 /*
@@ -116,10 +125,10 @@ void Screen::_left() {
  *  Called on LEFTCTRL + SPACE
  */
 void Screen::_mouse(GLFWwindow* window) {
-    panX = -1 * mapX(Input::mouseX);
-    panY = -1 * mapY(Input::mouseY);
+    ScreenVars::panX = -1 * mapX( Input::mouseX );
+    ScreenVars::panY = -1 * mapY( Input::mouseY );
     Input::updateMouse(0, 0);
-    glfwSetCursorPos(window, width/2, height/2); // Center mouse after panning to it
+    glfwSetCursorPos( window, ScreenVars::width / 2, ScreenVars::height / 2 ); // Center mouse after panning to it
 }
 
 /*
@@ -127,23 +136,57 @@ void Screen::_mouse(GLFWwindow* window) {
  *  Called on SPACE
  */
 void Screen::_center() {
-    panX = 0;
-    panY = 0;
+    ScreenVars::panX = 0;
+    ScreenVars::panY = 0;
 }
 
 void Screen::_size(GLFWwindow* window, int newWidth, int newHeight) {
-    width = newWidth;
-    height = newHeight;
+    ScreenVars::width = newWidth;
+    ScreenVars::height = newHeight;
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-width/2, width/2, -height/2, height/2, 0, 1);
-    glViewport(0, 0, pxWidth, pxHeight);
+    glOrtho( -ScreenVars::width / 2, ScreenVars::width / 2, -ScreenVars::height / 2, ScreenVars::height / 2, 0, 1 );
+    glViewport( 0, 0, ScreenVars::pxWidth, ScreenVars::pxHeight );
 }
 
 
 void Screen::_framebuffer(GLFWwindow* window, int newPxWidth, int newPxHeight){
-    pxWidth = newPxWidth;
-    pxHeight = newPxHeight;
-    glViewport(0, 0, pxWidth, pxHeight);
-    glOrtho(-width/2, width/2, -height/2, height/2, 0, 1);
+    ScreenVars::pxWidth = newPxWidth;
+    ScreenVars::pxHeight = newPxHeight;
+    glViewport( 0, 0, ScreenVars::pxWidth, ScreenVars::pxHeight );
+    glOrtho( -ScreenVars::width / 2, ScreenVars::width / 2, -ScreenVars::height / 2, ScreenVars::height / 2, 0, 1 );
+}
+
+int Screen::mapX( double mouseX ) {
+    return mouseX / ScreenVars::spacing - ScreenVars::panX;
+}
+
+int Screen::mapY( double mouseY ) {
+    return mouseY / ScreenVars::spacing - ScreenVars::panY;
+}
+
+void Screen::_scroll( GLFWwindow *window, double x, double y ) {
+
+    int zoomedSpacing = ScreenVars::spacing;
+
+    int diffX = mapX( Input::mouseX ) - ScreenVars::panX;
+    int diffY = mapY( Input::mouseY ) - ScreenVars::panY;
+
+    if( zoomedSpacing + 2 > 50 && y > 0 ) {
+        ScreenVars::spacing = 50;
+        return;
+    } else if( zoomedSpacing - 2 < 5 && y < 0 ) {
+        ScreenVars::spacing = 5;
+        return;
+    }
+    if( y > 0 ) {
+        //Zoom in
+        zoomedSpacing += 1;
+    } else {
+        zoomedSpacing -= 1;
+    }
+
+    ScreenVars::spacing = zoomedSpacing;
+
+    // Handles Max Zoom and Min zoom values as 50 and 5 for now
 }

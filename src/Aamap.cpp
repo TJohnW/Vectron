@@ -24,6 +24,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "Aamap.h"
 
+AamapObject *Aamap::curObj;
+
 void Aamap::render() {
     for( AamapObject *o : objects ) {
     	o->draw();
@@ -35,7 +37,7 @@ void Aamap::update() {
         curObj->update();
     }
     if( Input::keys[GLFW_KEY_Z] ) {
-        //spawn a grid!
+        //spawn a Screen!
         Zone *z = new Zone( Input::mouseX, Input::mouseY, 5 );
         objects.push_front( z );
         curObj = z;
