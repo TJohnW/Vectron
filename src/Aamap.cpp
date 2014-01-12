@@ -37,16 +37,18 @@ void Aamap::update() {
         curObj->update();
     }
     if( Input::keys[GLFW_KEY_Z] ) {
-        //spawn a Screen!
+        //spawn a zone!
         Zone *z = new Zone( Input::mouseX, Input::mouseY, 5 );
         objects.push_front( z );
         curObj = z;
         z->ZoneFinishedFunc = []() -> void { curObj = NULL; };
+        Input::keys[GLFW_KEY_Z] = false;
     } else if( Input::keys[GLFW_KEY_W] ) {
         //Spawn a wall!
         Wall *w = new Wall();
         objects.push_front( w );
         curObj = w;
         w->WallFinishedFunc = []() -> void { curObj = NULL; };
+        Input::keys[GLFW_KEY_W] = false;
     }
 }

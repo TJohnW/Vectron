@@ -51,8 +51,10 @@ void Wall::draw() {
     glBegin( GL_LINES );
     WallPoint *curPoint = front;
     while( curPoint != editedPoint->next ) {
-        glVertex2f( curPoint->x, curPoint->y );
-        glVertex2f( curPoint->next->x, curPoint->next->y );
+        glVertex2f( curPoint->x * ScreenVars::spacing, 
+            curPoint->y * ScreenVars::spacing );
+        glVertex2f( curPoint->next->x * ScreenVars::spacing, 
+            curPoint->next->y * ScreenVars::spacing );
         curPoint = curPoint->next;
     }
     glColor3f( 0.8f, 0.8f, 0.8f );

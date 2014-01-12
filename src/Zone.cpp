@@ -47,19 +47,20 @@ Zone::Zone( int newX, int newY, float newRadius ) {
 void Zone::draw() {
     glColor3f( 1.0, 0.0, 0.0 );
     glBegin( GL_LINE_LOOP );
-    /*for( float i = 0; i < TOOPI; i+= 0.1f ) {
-        glVertex2f( cos( i ) * radius * Screen::spacing + (x + Screen::panX) * 
-            Screen::spacing, sin( i ) * radius * Screen::spacing + 
-            (y + Screen::panY) * Screen::spacing);
-    }*/
+    for( float i = 0; i < TOOPI; i+= 0.1f ) {
+        glVertex2f( cos( i ) * radius * ScreenVars::spacing + 
+            (x + ScreenVars::panX) * ScreenVars::spacing, sin( i ) * radius * 
+            ScreenVars::spacing + (y + ScreenVars::panY) * ScreenVars::spacing );
+    }
     glEnd( );
 }
 
 void Zone::update() {
     int xDist = Input::mouseX - x;
     int yDist = Input::mouseY - y;
-    radius = sqrt( xDist * xDist + yDist* yDist );
+    radius = sqrt( xDist * xDist + yDist* yDist ) / ScreenVars::spacing;
     if( Input::mouse0 ) {
         ZoneFinishedFunc();
     }
+    cout << "Zone radius is " << radius << "\n";
 }
