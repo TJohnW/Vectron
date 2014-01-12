@@ -31,7 +31,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #include "Grid.h"
 #include "Screen.h"
 
-class Zone : AamapObject {
+class Zone : public AamapObject {
 
 public:
     Zone( int newX, int newY, float newRadius );

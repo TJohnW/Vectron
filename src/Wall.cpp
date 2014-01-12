@@ -38,7 +38,7 @@ void Wall::draw() {
     glColor3f( 1, 1, 1 );
     glBegin( GL_LINES );
     WallPoint *curPoint = front;
-    while( curPoint != editedPoint ) {
+    while( curPoint != editedPoint->next ) {
         glVertex2f( curPoint->x, curPoint->y );
         glVertex2f( curPoint->next->x, curPoint->next->y );
         curPoint = curPoint->next;
@@ -55,11 +55,16 @@ void Wall::addPoint( int x, int y ) {
         front = new WallPoint( x, y );
         front->next = editedPoint;
         back = editedPoint;
+        editedPoint->next = front;
         length++;
         break;
     case 1:
         WallPoint *p = new WallPoint( x, y );
         front->next = p;
-
+        p->next = editedPoint;
+        editedPoint->next = p;
+        length++;
+        break;
+        
     }
 }
