@@ -37,8 +37,8 @@ void Input::clear( ) {
 }
 
 /*
-	Updated to handle snapping to grid. This applies to zone adding because the software
-	mouse is set to the snapped location.
+	Updated to handle snapping to grid. This applies to zone adding because the
+    software mouse is set to the snapped location.
 */
 
 void Input::updateMouse( double newMouseX, double newMouseY ) {
@@ -100,7 +100,8 @@ void Input::_mouseButton( GLFWwindow *window, int button, int action, int mods )
 
 }
 
-void Input::_key( GLFWwindow *window, int key, int scancode, int action, int mods ) {
+void Input::_key( GLFWwindow *window, int key, int scancode, int action, 
+    int mods ) {
     if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS ) {
         glfwSetWindowShouldClose( window, GL_TRUE );
     }
@@ -115,44 +116,32 @@ void Input::_key( GLFWwindow *window, int key, int scancode, int action, int mod
     Input::_dispatch(window);
 }
 
-void Input::_dispatch(GLFWwindow *window) {
+void Input::_dispatch( GLFWwindow *window ) {
 
-    if( Input::keys[GLFW_KEY_Z])
-    {
+    if( Input::keys[GLFW_KEY_Z] ) {
         //Aamap::push(new Zone());
         //Zone *z = new Zone( Screen::mapX(Input::mouseX), Screen::mapY(Input::mouseY), 1 );
         //editedZone = z;
         //zones.push_front( z );
         //Zone::_create();
         Input::keys[GLFW_KEY_Z] = false;
-    }
-    else if ( Input::keys[GLFW_KEY_UP])
-    {
+    } else if( Input::keys[GLFW_KEY_UP] ) {
         Screen::_up();
         Input::keys[GLFW_KEY_UP] = false;
-    }
-    else if ( Input::keys[GLFW_KEY_DOWN])
-    {
+    } else if( Input::keys[GLFW_KEY_DOWN] ) {
         Screen::_down();
         Input::keys[GLFW_KEY_DOWN] = false;
-    }
-    else if ( Input::keys[GLFW_KEY_LEFT])
-    {
+    } else if( Input::keys[GLFW_KEY_LEFT] ) {
         Screen::_left();
         Input::keys[GLFW_KEY_LEFT] = false;
-    }
-    else if ( Input::keys[GLFW_KEY_RIGHT])
-    {
+    } else if( Input::keys[GLFW_KEY_RIGHT] ) {
         Screen::_right();
         Input::keys[GLFW_KEY_RIGHT] = false;
-    }
-    else if ( Input::keys[GLFW_KEY_SPACE] && Input::keys[GLFW_KEY_LEFT_CONTROL])
-    {
-        Screen::_mouse(window);
+    } else if( Input::keys[GLFW_KEY_SPACE] && 
+        Input::keys[GLFW_KEY_LEFT_CONTROL] ) {
+        Screen::_mouse( window );
         Input::keys[GLFW_KEY_UP] = false;
-    }
-    else if (Input::keys[GLFW_KEY_SPACE])
-    {
+    } else if( Input::keys[GLFW_KEY_SPACE] ) {
         Screen::_center();
         Input::keys[GLFW_KEY_UP] = false;
     }

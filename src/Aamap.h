@@ -38,6 +38,10 @@ public:
     static Grid *grid;
 
     static void render(int width, int height);
+    static void update();
+
+private:
+    static AamapObject *curObj;
 
 };
 

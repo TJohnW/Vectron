@@ -65,6 +65,8 @@ int main() {
 
 /* Where should we put error handling? */
 
+/* Right here is fine */
+
 void error_callback( int error, const char *description ) {
     fputs( description, stderr );
 }

@@ -27,11 +27,9 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 Grid *Aamap::grid = new Grid();
 forward_list<AamapObject*> Aamap::objects;
 
-Aamap::objects.push_front();
-
 void Aamap::render(int width, int height) {
 	Aamap::grid->draw(Screen::width, Screen::height);
     for( AamapObject *o : Aamap::objects ) {
-    	//o.draw();
+    	o->draw();
    	}
 }
