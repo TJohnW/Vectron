@@ -34,15 +34,23 @@ class Zone : public AamapObject {
 
 public:
     Zone( double newX, double newY, float newRadius );
-    void draw();
+    void draw( glm::mat4 worldMat );
     void update();
     void resize(double factor);
 
     void( *ZoneFinishedFunc )();
 
+    static void beginZones( Shader *shader );
+
+    static void initVBO();
+
 private:
     float radius;
     double x, y;
+    glm::mat4 modelMat;
+    static GLuint vertsVBO, indicesVBO;
+    static GLfloat points [];   //64 points should be plenty
+    static GLushort indices [];
 };
 
 #endif

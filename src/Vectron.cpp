@@ -39,6 +39,7 @@ Screen *s;
 
 int main() {
     s = new Screen(1280, 800);
+    Zone::initVBO();
 
     glfwSetErrorCallback(error_callback);
     glfwSetKeyCallback(s->window, Input::_key);

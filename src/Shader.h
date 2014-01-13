@@ -22,34 +22,21 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef STDAFX_H
-#define STDAFX_H
-//C runtime header files
-#include <cmath>
-#include <cstdlib>
-#include <cstdio>
+#ifndef SHADER_H
+#define SHADER_H
 
-//C++ runtime header files
-#include <algorithm>
-#include <fstream>
-#include <iostream>
-#include <string>
+#include "stdafx.h"
 
-//STL files
-#include <forward_list>
-#include <vector>
+class Shader {
+public:
+    Shader( string vertName, string fragName );
+    void bind();
 
-//Other header fun
-#include <GL/glew.h>
-#include <GL/glm/glm.hpp>
-#include <GLFW/glfw3.h>
-#include "stb_image.h"
+    int verts;
+    int glName;
 
-#include "ScreenVars.h"
-
-#define PI      3.14169265
-#define TOOPI   6.28318531
-
-using namespace std;
+private:
+    void load( string vertName, string fragName );
+};
 
 #endif

@@ -24,13 +24,18 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "Zone.h"
 
+GLuint Zone::vertsVBO = 0;
+GLuint Zone::indicesVBO = 0;
+
+GLfloat Zone::points [] = new GLfloat[128];
+GLushort Zone::indices [] = new GLushort[64];
+
 /* These coordinates now better represent the actual location of the zone in the
     XML which is vital. Now on zoom the zones will accomidate for the change in
     Screen spacing but still retain their value as the same zone. After so much
     zoom, we need to redraw the Screen with less pxspacing but keep the zone the
     same somehow Not sure how yet though.
 */
-
 Zone::Zone( double newX, double newY, float newRadius ) {
     x = newX;
     y = newY;
@@ -44,15 +49,8 @@ Zone::Zone( double newX, double newY, float newRadius ) {
     the current Screen scale.
 */
 
-void Zone::draw() {
-    glColor3f( 1.0, 0.0, 0.0 );
-    glBegin( GL_LINE_LOOP );
-    for( float i = 0; i < TOOPI; i+= 0.1f ) {
-        glVertex2f( cos( i ) * radius * ScreenVars::spacing + 
-            (x + ScreenVars::panX) * ScreenVars::spacing, sin( i ) * radius * 
-            ScreenVars::spacing + (y + ScreenVars::panY) * ScreenVars::spacing );
-    }
-    glEnd();
+void Zone::draw( glm::mat4 worldMat ) {
+    glDrawElements( GL_LINE_LOOP, 64, GL_UNSIGNED_SHORT, (void*) 0 );
 }
 
 void Zone::update() {
@@ -75,11 +73,43 @@ void Zone::update() {
     } else if (Input::keys[GLFW_KEY_MINUS]) {
     	radius -= 0.05;
     }
-    //cout << "Zone radius is " << radius << "\n";
+    modelMat[0][0] = radius;
+    modelMat[1][1] = radius;
+    modelMat[0][3] = x;
+    modelMat[1][3] = y;
 }
 
 void Zone::resize(double factor) {
     radius *= factor;
     x *= factor;
     y *= factor;
+}
+
+void Zone::beginZones( Shader *shader ) {
+    glBindBuffer( GL_ARRAY_BUFFER, vertsVBO );
+
+    glVertexAttribPointer( shader->vertPos, 2, GL_FLOAT, GL_FALSE, 
+        2 * sizeof(GL_FLOAT), (void*) 0 );
+
+    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, indicesVBO );
+}
+
+void Zone::initVBO() {
+    float theta = 0;
+    for( int i = 0; i < 64; i++ ) {
+        points[i * 2] = cos( theta );
+        points[i * 2 + 1] = sin( theta );
+        indices[i] = i;
+        theta += .0981747704;
+    }
+
+    glGenBuffers( 1, &vertsVBO );
+    glBindBuffer( GL_ARRAY_BUFFER, vertsVBO );
+    glBufferData( GL_ARRAY_BUFFER, 128 * sizeof(GLfloat), points, 
+        GL_STATIC_DRAW );
+
+    glGenBuffers( 1, &indicesVBO );
+    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, indicesVBO );
+    glBufferData( GL_ELEMENT_ARRAY_BUFFER, 64 * sizeof(GLushort), indices,
+        GL_STATIC_DRAW );
 }
