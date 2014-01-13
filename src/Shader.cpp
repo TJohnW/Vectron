@@ -33,6 +33,11 @@ void Shader::bind() {
     glEnableVertexAttribArray( verts );
 }
 
+void Shader::setMVP( glm::mat4 &MVPmat ) {
+    glUniformMatrix4fv( MVPloc, 1, GL_FALSE, &MVPmat[0][0] );
+}
+
+//mostly from http://www.opengl-tutorial.org/beginners-tutorials/tutorial-2-the-first-triangle/#Shader_Compilation
 void Shader::load( string vertName, string fragName ) {
     // Create the shaders
     GLuint VertexShaderID = glCreateShader( GL_VERTEX_SHADER );
@@ -106,4 +111,7 @@ void Shader::load( string vertName, string fragName ) {
 
     glDeleteShader( VertexShaderID );
     glDeleteShader( FragmentShaderID );
+
+    verts = glGetAttribLocation( glName, "verts" );
+    MVPloc = glGetUniformLocation( glName, "MVP" );
 }

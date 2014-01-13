@@ -28,6 +28,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdafx.h"
 
 #include "Input.h"
+#include "Shader.h"
 #include "Wall.h"
 #include "Zone.h"
 
@@ -36,6 +37,7 @@ class Aamap {
 public:
     forward_list<AamapObject*> objects;
 	static bool toolActive;
+    Aamap();
     void render();
     void update();
 
@@ -50,7 +52,8 @@ private:
     static AamapObject *curObj;
     static double sizeFactor;
 
-
+    glm::mat4 VP;
+    Shader *zoneShader;
 };
 
 #endif

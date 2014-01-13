@@ -29,12 +29,13 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #include "AamapObject.h"
 #include "Input.h"
 #include "ScreenVars.h"
+#include "Shader.h"
 
 class Zone : public AamapObject {
 
 public:
     Zone( double newX, double newY, float newRadius );
-    void draw( glm::mat4 worldMat );
+    void draw( glm::mat4 &worldMat, Shader *shader );
     void update();
     void resize(double factor);
 

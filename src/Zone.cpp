@@ -49,7 +49,9 @@ Zone::Zone( double newX, double newY, float newRadius ) {
     the current Screen scale.
 */
 
-void Zone::draw( glm::mat4 worldMat ) {
+void Zone::draw( glm::mat4 &VP, Shader *shader ) {
+    glm::mat4 MVP = VP * modelMat;
+    shader->setMVP( MVP );
     glDrawElements( GL_LINE_LOOP, 64, GL_UNSIGNED_SHORT, (void*) 0 );
 }
 
@@ -88,7 +90,7 @@ void Zone::resize(double factor) {
 void Zone::beginZones( Shader *shader ) {
     glBindBuffer( GL_ARRAY_BUFFER, vertsVBO );
 
-    glVertexAttribPointer( shader->vertPos, 2, GL_FLOAT, GL_FALSE, 
+    glVertexAttribPointer( shader->verts, 2, GL_FLOAT, GL_FALSE, 
         2 * sizeof(GL_FLOAT), (void*) 0 );
 
     glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, indicesVBO );

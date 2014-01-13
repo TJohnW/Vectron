@@ -28,9 +28,17 @@ AamapObject *Aamap::curObj;
 bool Aamap::toolActive = false;
 double Aamap::sizeFactor = 1;
 
+Aamap::Aamap() {
+    zoneShader = new Shader( "Zone.vert", "Zone.frag" );
+    Zone::initVBO();
+}
+
 void Aamap::render() {
+    zoneShader->bind();
+    Zone::beginZones( zoneShader );
     for( AamapObject *o : objects ) {
-    	o->draw();
+        //Walls ignore the shader, so no worries
+    	o->draw( VP, zoneShader );
    	}
 }
 
@@ -84,5 +92,7 @@ void Aamap::update() {
             Input::keys[GLFW_KEY_MINUS] = false;
         }
     }
-
+    VP[0][0] = VP[1][1] = ScreenVars::spacing;
+    VP[0][3] = ScreenVars::panX;
+    VP[1][3] = ScreenVars::panY;
 }

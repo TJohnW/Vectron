@@ -29,6 +29,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "Input.h"
 #include "AamapObject.h"
+#include "Shader.h"
 #include "WallPoint.h"
 
 class Wall :
@@ -36,7 +37,7 @@ class Wall :
 public:
     Wall();
     void update();
-    void draw();
+    void draw( glm::mat4 &VP, Shader *shader );
     void resize(double factor);
 
     void( *WallFinishedFunc )();

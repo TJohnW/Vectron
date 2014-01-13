@@ -47,7 +47,7 @@ void Wall::update() {
     }
 }
 
-void Wall::draw() {
+void Wall::draw( glm::mat4 &VP, Shader *shader ) {
     glColor3f( 0, 0, 0 );
     glBegin( GL_LINES );
     WallPoint *curPoint = front;

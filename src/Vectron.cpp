@@ -28,6 +28,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 #include "Screen.h"
 #include "Input.h"
 #include "Screen.h"
+#include "Shader.h"
 #include "Wall.h"
 #include "Zone.h"
 

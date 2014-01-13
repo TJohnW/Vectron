@@ -31,9 +31,11 @@ class Shader {
 public:
     Shader( string vertName, string fragName );
     void bind();
+    void setMVP( glm::mat4 &MVPmat );
 
     int verts;
     int glName;
+    int MVPloc;
 
 private:
     void load( string vertName, string fragName );

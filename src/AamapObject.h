@@ -31,7 +31,7 @@ class AamapObject {
 public:
 
     virtual void update() = 0;
-    virtual void draw() = 0;
+    virtual void draw( glm::mat4 &VP, Shader *shader ) = 0;
 
     virtual void resize(double factor) = 0;
     //virtual string _xml() = 0;
