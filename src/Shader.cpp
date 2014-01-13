@@ -77,10 +77,14 @@ void Shader::load( string vertName, string fragName ) {
     // Check Vertex Shader
     glGetShaderiv( VertexShaderID, GL_COMPILE_STATUS, &Result );
     glGetShaderiv( VertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength );
-    vector<char> VertexShaderErrorMessage( InfoLogLength );
-    glGetShaderInfoLog( VertexShaderID, InfoLogLength, NULL,
-        &VertexShaderErrorMessage[0] );
-    cout << &VertexShaderErrorMessage[0] << "\n";
+    if( InfoLogLength == 0 ) {
+        vector<char> VertexShaderErrorMessage( InfoLogLength );
+        glGetShaderInfoLog( VertexShaderID, InfoLogLength, NULL,
+            &VertexShaderErrorMessage[0] );
+        cout << &VertexShaderErrorMessage[0] << "\n";
+    } else {
+        cout << "No error\n";
+    }
 
     // Compile Fragment Shader
     cout << "Compiling shader : " << fragName <<"\n";
@@ -91,10 +95,14 @@ void Shader::load( string vertName, string fragName ) {
     // Check Fragment Shader
     glGetShaderiv( FragmentShaderID, GL_COMPILE_STATUS, &Result );
     glGetShaderiv( FragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength );
-    vector<char> FragmentShaderErrorMessage( InfoLogLength );
-    glGetShaderInfoLog( FragmentShaderID, InfoLogLength, NULL,
-        &FragmentShaderErrorMessage[0] );
-    cout << &FragmentShaderErrorMessage[0] << "\n";
+    if( InfoLogLength == 0 ) {
+        vector<char> FragmentShaderErrorMessage( InfoLogLength );
+        glGetShaderInfoLog( FragmentShaderID, InfoLogLength, NULL,
+            &FragmentShaderErrorMessage[0] );
+        cout << &FragmentShaderErrorMessage[0] << "\n";
+    } else {
+        cout << "No error\n";
+    }
 
     // Link the program
     cout<< "Linking program\n";

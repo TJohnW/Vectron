@@ -50,12 +50,14 @@ Screen::Screen(int newWidth, int newHeight) {
 
     /* Initial Before callback */
 
-    glfwGetFramebufferSize( window, &ScreenVars::pxWidth, &ScreenVars::pxHeight );
+    glfwGetFramebufferSize( window, &ScreenVars::pxWidth, 
+        &ScreenVars::pxHeight );
     glViewport( 0, 0, ScreenVars::pxWidth, ScreenVars::pxHeight );
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho( -ScreenVars::width / 2, ScreenVars::width / 2, -ScreenVars::height / 2, ScreenVars::height / 2, 0, 1 );
+    glOrtho( -ScreenVars::width / 2, ScreenVars::width / 2, 
+        -ScreenVars::height / 2, ScreenVars::height / 2, 0, 1 );
     Aamap::toolActive = false;
     map = new Aamap();
 }
