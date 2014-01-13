@@ -1,6 +1,6 @@
-#version 130
+#version 120
 
-in vec2 vert;
+attribute vec2 vert;
 
 uniform mat4 MVP;
 
