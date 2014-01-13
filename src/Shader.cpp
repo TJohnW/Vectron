@@ -67,7 +67,7 @@ void Shader::load( string vertName, string fragName ) {
     int InfoLogLength;
 
     // Compile Vertex Shader
-    printf( "Compiling shader : %s\n", vertName );
+    cout << "Compiling shader : " << vertName <<"\n";
     char const * VertexSourcePointer = VertexShaderCode.c_str();
     glShaderSource( VertexShaderID, 1, &VertexSourcePointer, NULL );
     glCompileShader( VertexShaderID );
@@ -78,10 +78,10 @@ void Shader::load( string vertName, string fragName ) {
     std::vector<char> VertexShaderErrorMessage( InfoLogLength );
     glGetShaderInfoLog( VertexShaderID, InfoLogLength, NULL,
         &VertexShaderErrorMessage[0] );
-    fprintf( stdout, "%s\n", &VertexShaderErrorMessage[0] );
+    cout << &VertexShaderErrorMessage[0] << "\n";
 
     // Compile Fragment Shader
-    printf( "Compiling shader : %s\n", fragName );
+    cout << "Compiling shader : " << fragName <<"\n";
     char const * FragmentSourcePointer = FragmentShaderCode.c_str();
     glShaderSource( FragmentShaderID, 1, &FragmentSourcePointer, NULL );
     glCompileShader( FragmentShaderID );
@@ -92,10 +92,10 @@ void Shader::load( string vertName, string fragName ) {
     std::vector<char> FragmentShaderErrorMessage( InfoLogLength );
     glGetShaderInfoLog( FragmentShaderID, InfoLogLength, NULL,
         &FragmentShaderErrorMessage[0] );
-    fprintf( stdout, "%s\n", &FragmentShaderErrorMessage[0] );
+    cout << &FragmentShaderErrorMessage[0] << "\n";
 
     // Link the program
-    fprintf( stdout, "Linking program\n" );
+    cout<< "Linking program\n";
     glName = glCreateProgram();
     glAttachShader( glName, VertexShaderID );
     glAttachShader( glName, FragmentShaderID );
@@ -107,7 +107,7 @@ void Shader::load( string vertName, string fragName ) {
     std::vector<char> ProgramErrorMessage( max( InfoLogLength, int( 1 ) ) );
     glGetProgramInfoLog( glName, InfoLogLength, NULL,
         &ProgramErrorMessage[0] );
-    fprintf( stdout, "%s\n", &ProgramErrorMessage[0] );
+    cout << &ProgramErrorMessage[0] <<"\n";
 
     glDeleteShader( VertexShaderID );
     glDeleteShader( FragmentShaderID );

@@ -63,7 +63,7 @@ public:
     static void _scroll( GLFWwindow *window, double x, double y );
 
 private:
-    Aamap map;
+    Aamap *map;
     Mouse mouse;
 };
 

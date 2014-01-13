@@ -27,8 +27,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 GLuint Zone::vertsVBO = 0;
 GLuint Zone::indicesVBO = 0;
 
-GLfloat Zone::points [] = new GLfloat[128];
-GLushort Zone::indices [] = new GLushort[64];
+GLfloat Zone::points [128];
+GLushort Zone::indices [64];
 
 /* These coordinates now better represent the actual location of the zone in the
     XML which is vital. Now on zoom the zones will accomidate for the change in

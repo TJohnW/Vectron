@@ -27,6 +27,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "stdafx.h"
 
+#include "Shader.h"
+
 class AamapObject {
 public:
 

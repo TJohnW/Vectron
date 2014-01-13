@@ -46,6 +46,8 @@ Screen::Screen(int newWidth, int newHeight) {
     glfwSetFramebufferSizeCallback(window, _framebuffer);
     glfwSetWindowSizeCallback(window, Screen::_size);
 
+    glewInit();
+
     /* Initial Before callback */
 
     glfwGetFramebufferSize( window, &ScreenVars::pxWidth, &ScreenVars::pxHeight );
@@ -55,6 +57,7 @@ Screen::Screen(int newWidth, int newHeight) {
     glLoadIdentity();
     glOrtho( -ScreenVars::width / 2, ScreenVars::width / 2, -ScreenVars::height / 2, ScreenVars::height / 2, 0, 1 );
     Aamap::toolActive = false;
+    map = new Aamap();
 }
 
 void Screen::draw() {
@@ -76,7 +79,7 @@ void Screen::draw() {
     }
 
     glEnd( );
-	map.render();
+	map->render();
     mouse.draw();
 }
 
@@ -102,7 +105,7 @@ void Screen::update( ) {
         Input::keys[GLFW_KEY_SPACE] = false;
     }
 
-    map.update();
+    map->update();
     mouse.update();
 }
 
