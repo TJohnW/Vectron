@@ -44,20 +44,22 @@ void Shader::load( string vertName, string fragName ) {
     GLuint FragmentShaderID = glCreateShader( GL_FRAGMENT_SHADER );
 
     // Read the Vertex Shader code from the file
-    std::string VertexShaderCode;
-    std::ifstream VertexShaderStream( vertName.c_str(), std::ios::in );
+    string VertexShaderCode;
+    ifstream VertexShaderStream( vertName.c_str(), ios::in );
     if( VertexShaderStream.is_open() ) {
-        std::string Line = "";
+        string Line = "";
         while( getline( VertexShaderStream, Line ) )
             VertexShaderCode += "\n" + Line;
         VertexShaderStream.close();
+    } else {
+        cout << "ERROR: Cannot open " << vertName << "\n";
     }
 
     // Read the Fragment Shader code from the file
-    std::string FragmentShaderCode;
-    std::ifstream FragmentShaderStream( fragName.c_str(), std::ios::in );
+    string FragmentShaderCode;
+    ifstream FragmentShaderStream( fragName.c_str(), ios::in );
     if( FragmentShaderStream.is_open() ) {
-        std::string Line = "";
+        string Line = "";
         while( getline( FragmentShaderStream, Line ) )
             FragmentShaderCode += "\n" + Line;
         FragmentShaderStream.close();
@@ -75,7 +77,7 @@ void Shader::load( string vertName, string fragName ) {
     // Check Vertex Shader
     glGetShaderiv( VertexShaderID, GL_COMPILE_STATUS, &Result );
     glGetShaderiv( VertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength );
-    std::vector<char> VertexShaderErrorMessage( InfoLogLength );
+    vector<char> VertexShaderErrorMessage( InfoLogLength );
     glGetShaderInfoLog( VertexShaderID, InfoLogLength, NULL,
         &VertexShaderErrorMessage[0] );
     cout << &VertexShaderErrorMessage[0] << "\n";
@@ -89,7 +91,7 @@ void Shader::load( string vertName, string fragName ) {
     // Check Fragment Shader
     glGetShaderiv( FragmentShaderID, GL_COMPILE_STATUS, &Result );
     glGetShaderiv( FragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength );
-    std::vector<char> FragmentShaderErrorMessage( InfoLogLength );
+    vector<char> FragmentShaderErrorMessage( InfoLogLength );
     glGetShaderInfoLog( FragmentShaderID, InfoLogLength, NULL,
         &FragmentShaderErrorMessage[0] );
     cout << &FragmentShaderErrorMessage[0] << "\n";
@@ -104,7 +106,7 @@ void Shader::load( string vertName, string fragName ) {
     // Check the program
     glGetProgramiv( glName, GL_LINK_STATUS, &Result );
     glGetProgramiv( glName, GL_INFO_LOG_LENGTH, &InfoLogLength );
-    std::vector<char> ProgramErrorMessage( max( InfoLogLength, int( 1 ) ) );
+    vector<char> ProgramErrorMessage( max( InfoLogLength, int( 1 ) ) );
     glGetProgramInfoLog( glName, InfoLogLength, NULL,
         &ProgramErrorMessage[0] );
     cout << &ProgramErrorMessage[0] <<"\n";
