@@ -1,16 +1,15 @@
 #Visual Studio - call with CC=nmake
 #G++ = call with CC=g++
 FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo
-LIBS = -lglfw3
+LIBS = -lglfw3 -lGLEW
 OPS = -std=c++11
 
-OBJECTS = Vectron.o Zone.o Input.o Screen.o Aamap.o AamapObject.o Wall.o WallPoint.o Mouse.o ScreenVars.o
+OBJECTS = Vectron.o Zone.o Input.o Screen.o Aamap.o AamapObject.o Wall.o WallPoint.o Mouse.o ScreenVars.o Shader.o
 
 SRCPATH = src
 
 all: $(OBJECTS)
-	g++ $(OPS) $(OBJECTS) -o bin/Vectron $(LIBS) $(FRAMEWORK); \
-	rm *.o
+	g++ $(OPS) $(OBJECTS) -o bin/Vectron $(LIBS) $(FRAMEWORK);
 
 Vectron.o: $(SRCPATH)/Vectron.cpp
 	g++ $(OPS) -c $(SRCPATH)/Vectron.cpp
@@ -41,4 +40,8 @@ Mouse.o: $(SRCPATH)/Mouse.cpp
 
 ScreenVars.o: $(SRCPATH)/ScreenVars.cpp
 	g++ $(OPS) -c $(SRCPATH)/ScreenVars.cpp
+
+Shader.o: $(SRCPATH)/Shader.cpp
+	g++ $(OPS) -c $(SRCPATH)/Shader.cpp
+
 
