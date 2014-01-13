@@ -95,10 +95,10 @@ void Screen::update( ) {
         //Input::keys[GLFW_KEY_RIGHT] = false;
     } else if( Input::keys[GLFW_KEY_SPACE] &&
         Input::keys[GLFW_KEY_LEFT_CONTROL] ) {
-        _mouse( window );
+        _center( );
         Input::keys[GLFW_KEY_SPACE] = false;
     } else if( Input::keys[GLFW_KEY_SPACE] ) {
-        _center( );
+        _mouse( window );
         Input::keys[GLFW_KEY_SPACE] = false;
     }
 

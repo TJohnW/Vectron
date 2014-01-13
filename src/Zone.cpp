@@ -52,18 +52,30 @@ void Zone::draw() {
             (x + ScreenVars::panX) * ScreenVars::spacing, sin( i ) * radius * 
             ScreenVars::spacing + (y + ScreenVars::panY) * ScreenVars::spacing );
     }
-    glEnd( );
+    glEnd();
 }
 
 void Zone::update() {
-    int xDist = Input::mouseMapX - x;
-    int yDist = Input::mouseMapY - y;
-    radius = sqrt( xDist * xDist + yDist* yDist );
-    if(radius < 1) radius = 0.5;
+    //int xDist = Input::mouseMapX - x;
+    //int yDist = Input::mouseMapY - y;
+    //radius = sqrt( xDist * xDist + yDist* yDist );
+    //if(radius < 1) radius = 0.5;
+	x = Input::mouseMapX;
+	y = Input::mouseMapY;
     if( Input::mouse0 ) {
         ZoneFinishedFunc();
+    } else if( Input::keys[GLFW_KEY_EQUAL] && Input::keys[GLFW_KEY_LEFT_CONTROL]) {
+    	radius = floor(radius) + 1;
+    	Input::keys[GLFW_KEY_EQUAL] = false;
+    } else if( Input::keys[GLFW_KEY_MINUS] && Input::keys[GLFW_KEY_LEFT_CONTROL]) {
+    	radius = floor(radius) - 1;
+    	Input::keys[GLFW_KEY_MINUS] = false;
+    } else if (Input::keys[GLFW_KEY_EQUAL]) {
+    	radius += 0.05;
+    } else if (Input::keys[GLFW_KEY_MINUS]) {
+    	radius -= 0.05;
     }
-    cout << "Zone radius is " << radius << "\n";
+    //cout << "Zone radius is " << radius << "\n";
 }
 
 void Zone::resize(double factor) {

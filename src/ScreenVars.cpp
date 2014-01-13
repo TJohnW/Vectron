@@ -33,4 +33,4 @@ int ScreenVars::pxWidth = 0;
 int ScreenVars::panX = 0;
 int ScreenVars::panY = 0;
 
-int ScreenVars::spacing = 23;
+int ScreenVars::spacing = 10;

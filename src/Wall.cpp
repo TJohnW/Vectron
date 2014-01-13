@@ -102,11 +102,11 @@ void Wall::addPoint( double x, double y ) {
  */
 void Wall::resize(double factor) {
      WallPoint *curPoint = front;
-     while( curPoint != editedPoint->next ) {
+     while( curPoint != editedPoint ) {
         curPoint->x *= factor;
         curPoint->y *= factor;
         curPoint = curPoint->next;
      }
-     curPoint->next->x *= factor;
-     curPoint->next->y *= factor;
+     editedPoint->x *= factor;
+     editedPoint->y *= factor;
 }
