@@ -4,44 +4,21 @@ FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit -framework CoreV
 LIBS = -lglfw3 -lGLEW
 OPS = -std=c++11
 
-OBJECTS = Vectron.o Zone.o Input.o Screen.o Aamap.o AamapObject.o Wall.o WallPoint.o Mouse.o ScreenVars.o Shader.o
-
-SRCPATH = src
+OBJECTS = main.o Program.o Shader.o Helper.o
+SRCPATH = source
 
 all: $(OBJECTS)
-	g++ $(OPS) $(OBJECTS) -o bin/Vectron $(LIBS) $(FRAMEWORK);
+	g++ $(OPS) $(OBJECTS) -o bin/Main $(LIBS) $(FRAMEWORK);
 
-Vectron.o: $(SRCPATH)/Vectron.cpp
-	g++ $(OPS) -c $(SRCPATH)/Vectron.cpp
+main.o: $(SRCPATH)/main.cpp
+	g++ $(OPS) -c $(SRCPATH)/main.cpp
 
-Zone.o: $(SRCPATH)/Zone.cpp
-	g++ $(OPS) -c $(SRCPATH)/Zone.cpp
-
-Input.o: $(SRCPATH)/Input.cpp
-	g++ $(OPS) -c $(SRCPATH)/Input.cpp
-
-Screen.o: $(SRCPATH)/Screen.cpp
-	g++ $(OPS) -c $(SRCPATH)/Screen.cpp
-
-Aamap.o: $(SRCPATH)/Aamap.cpp
-	g++ $(OPS) -c $(SRCPATH)/Aamap.cpp
-
-AamapObject.o: $(SRCPATH)/AamapObject.cpp
-	g++ $(OPS) -c $(SRCPATH)/AamapObject.cpp
-
-Wall.o: $(SRCPATH)/Wall.cpp
-	g++ $(OPS) -c $(SRCPATH)/Wall.cpp
-
-WallPoint.o: $(SRCPATH)/WallPoint.cpp
-	g++ $(OPS) -c $(SRCPATH)/WallPoint.cpp
-
-Mouse.o: $(SRCPATH)/Mouse.cpp
-	g++ $(OPS) -c $(SRCPATH)/Mouse.cpp
-
-ScreenVars.o: $(SRCPATH)/ScreenVars.cpp
-	g++ $(OPS) -c $(SRCPATH)/ScreenVars.cpp
+Program.o: $(SRCPATH)/Program.cpp
+	g++ $(OPS) -c $(SRCPATH)/Program.cpp
 
 Shader.o: $(SRCPATH)/Shader.cpp
 	g++ $(OPS) -c $(SRCPATH)/Shader.cpp
 
+Helper.o: $(SRCPATH)/Helper.cpp
+	g++ $(OPS) -c $(SRCPATH)/Helper.cpp
 
