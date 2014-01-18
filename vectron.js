@@ -20,7 +20,7 @@ window.onload = function() {
         }
     });
 
-    $("#canvas_container").on("click", function(e) {
+    $("#canvas_container").on("mouseup", function(e) {
 
             e.preventDefault();
             if(vectron.map.active) {
@@ -274,6 +274,9 @@ Wall.prototype = {
 
             this.ob.remove();
             this.guideOb.remove();
+            this.canvas.map.active = false;
+            this.canvas.map.currentObj = null;
+            return;
         }
         var last = this._points[this._points.length-1];
         var secLast = this._points[this._points.length-2];
