@@ -1,6 +1,6 @@
 <html>  
     <head>  
-        <title>JavaScript Learning</title>
+        <title>JavaScript</title>
         <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
         <script type="text/javascript" src="./raphael-min.js"></script>  
         <script type="text/javascript" src="./vectron.js"></script> 
