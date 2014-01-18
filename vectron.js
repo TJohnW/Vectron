@@ -23,7 +23,7 @@ function Canvas() {
     this.paper = new Raphael(document.getElementById('canvas_container'), 
         this.width, this.height);
     this.spacing = 10;
-    this.map = new Aamap();
+    this.map = new Aamap(this);
     this.cursor = new Cursor(this);
 }  
 
@@ -35,7 +35,7 @@ Canvas.prototype = {
         this.paper.clear();
         this.width = $("#canvas_container").width();
         this.height = $("#canvas_container").height();
-        
+
         this.cursor.middleX = this.width/2;
         this.cursor.middleY = this.height/2;
 
@@ -63,26 +63,16 @@ Canvas.prototype = {
         }
         
         this.grid = this.paper.path(gridArray).attr("stroke", "#d6d6ec");
+    },
+
+    tooX:function(x) {
+        return this.width/2 + (x*this.spacing);
+    },
+
+    tooY:function(y) {
+        return this.height/2 + (y*this.spacing);
     }
 }
-
-function Aamap() {
-    this._xml = '';
-    this.objects = [1];
-}  
-
-Aamap.prototype = {
-
-    constructor: Aamap,
-
-    render:function() {
-        for(var i = 0; i < this.objects.length; i++) {
-            //this.objects[i].render();
-          $('#debug_box').append('<span class="debug_message">Default</span>');
-        }
-    }
-}
-
 
 /* MOUSE */
 function Cursor(vectron) {
@@ -90,14 +80,14 @@ function Cursor(vectron) {
     this.paper = vectron.paper;
 
     this.middleX = vectron.width / 2;
-	this.middleY = vectron.height / 2;
+    this.middleY = vectron.height / 2;
     
-	this.snappedMouseX = this.middleX - Math.round( this.middleX / vectron.spacing ) *
+    this.snappedMouseX = this.middleX - Math.round( this.middleX / vectron.spacing ) *
         vectron.spacing;
     this.snappedMouseY = this.middleY - Math.round( this.middleY / vectron.spacing ) *
         vectron.spacing;
-	
-	this.cursor = vectron.paper.path(
+    
+    this.cursor = vectron.paper.path(
         ["M", this.snappedMouseX - 5, this.snappedMouseY - 5,
          'L', this.snappedMouseX - 1, this.snappedMouseY - 1,
          'M', this.snappedMouseX + 1, this.snappedMouseY + 1,
@@ -130,6 +120,52 @@ Cursor.prototype = {
 
     }
 }
+
+function Aamap(vectron) {
+
+    this._xml = '';
+    this.objects = [new Zone(vectron, 0, 0, 1, "win")];
+    this.paper = vectron.paper;
+    this.canvas = vectron;
+}  
+
+Aamap.prototype = {
+
+    constructor: Aamap,
+
+    render:function() {
+        for(var i = 0; i < this.objects.length; i++) {
+          this.objects[i].render();
+          $('#debug_box').append('<span class="debug_message">Default</span>');
+        }
+    }
+}
+
+function Zone(vectron, x, y, radius, type) {
+
+    this._xml = '';
+    this._type = type;
+    this._x = x;
+    this._y = y;
+    this._radius = radius;
+
+    this.canvas = vectron;
+    this.paper = vectron.paper;
+
+    $('#debug_box').append('<span class="debug_message">Default</span>');
+
+}  
+
+Zone.prototype = {
+
+    constructor: Zone,
+
+    render:function() {
+        this.paper.circle(this.canvas.tooX(this._x), this.canvas.tooY(this._y),
+            this._radius*this.canvas.spacing).attr("stroke","#FF0000");
+    }
+}
+
     
     /*
     instead of this ^^^^^
