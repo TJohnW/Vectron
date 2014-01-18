@@ -57,14 +57,17 @@ Canvas.prototype = {
     }
 }
 
+/* MOUSE */
 function Mouse( canvas ) {
+	this.canvas = canvas;
+    
     this.middleX = canvas.width / 2;
 	this.middleY = canvas.height / 2;
-	this.snappedMouseX = middleX - Math.round( middleX / gridSpacing ) *
-        gridSpacing;
-    this.snappedMouseY = middleY - Math.round( middleY / gridSpacing ) *
-        gridSpacing;
-	this.canvas = canvas;
+    
+	this.snappedMouseX = this.middleX - Math.round( this.middleX / canvas.spacing ) *
+        canvas.spacing;
+    this.snappedMouseY = this.middleY - Math.round( this.middleY / canvas.spacing ) *
+        canvas.spacing;
 	
 	var cursor = canvas.paper.path(
         ["M", xPos - 5, yPos - 5,
@@ -79,26 +82,24 @@ Mouse.prototype = {
 	
      $("#canvas_container").mousemove(function(event) {
         
-        cursor.remove();
+        this.cursor.remove();
         guide.remove();
 
-        snappedMouseX = middleX - Math.round((middleX - event.pageX) /
-            gridSpacing) * gridSpacing;
-        snappedMouseY = middleY - Math.round((middleY - event.pageY) /
-			gridSpacing) * gridSpacing;
+        this.snappedMouseX = this.middleX - Math.round((this.middleX - event.pageX) /
+            this.canvas.spacing) * this.canvas.spacing;
+        this.snappedMouseY = this.middleY - Math.round((this.middleY - event.pageY) /
+			this.canvas.spacing) * this.canvas.spacing;
 
         cursor = paper.path(
-            ['M', snappedMouseX - 7, snappedMouseY,
-             'L', snappedMouseX - 2, snappedMouseY,
-             'M', snappedMouseX + 2, snappedMouseY,
-             'L', snappedMouseX + 7, snappedMouseY,
-             'M', snappedMouseX, snappedMouseY - 7,
-             'L', snappedMouseX, snappedMouseY - 2,
-             'M', snappedMouseX, snappedMouseY + 2,
-             'L', snappedMouseX, snappedMouseY + 7]
+            ['M', this.snappedMouseX - 7, this.snappedMouseY,
+             'L', this.snappedMouseX - 2, this.snappedMouseY,
+             'M', this.snappedMouseX + 2, this.snappedMouseY,
+             'L', this.snappedMouseX + 7, this.snappedMouseY,
+             'M', this.snappedMouseX, this.snappedMouseY - 7,
+             'L', this.snappedMouseX, this.snappedMouseY - 2,
+             'M', this.snappedMouseX, this.snappedMouseY + 2,
+             'L', this.snappedMouseX, this.snappedMouseY + 7]
         );
-        guide = paper.circle(snappedMouseX, snappedMouseY, 20).attr("stroke",
-            "#FF0000").attr("stroke-dasharray", "--..");
     });
 }
     
