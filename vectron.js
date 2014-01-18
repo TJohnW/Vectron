@@ -4,6 +4,8 @@ window.onload = function() {
     var vectron = new Canvas();
 
     vectron.render( 10 );
+	
+	var mouse = new Mouse( canvas );
 
     window.onresize = function() {
         vectron.render();
@@ -56,8 +58,6 @@ Canvas.prototype = {
     }
 }
 
-
-
 function Aamap() {
     this._xml = '';
     this.objects = [1];
@@ -76,7 +76,51 @@ Aamap.prototype = {
 }
 
 
+/* MOUSE */
+function Mouse( canvas ) {
+	this.canvas = canvas;
     
+    this.middleX = canvas.width / 2;
+	this.middleY = canvas.height / 2;
+    
+	this.snappedMouseX = this.middleX - Math.round( this.middleX / canvas.spacing ) *
+        canvas.spacing;
+    this.snappedMouseY = this.middleY - Math.round( this.middleY / canvas.spacing ) *
+        canvas.spacing;
+	
+	var cursor = canvas.paper.path(
+        ["M", xPos - 5, yPos - 5,
+         'L', xPos - 1, yPos - 1,
+         'M', xPos + 1, yPos + 1,
+         'L', xPos + 5, yPos + 5]
+    );
+}  
+
+Mouse.prototype = {
+    constructor: Mouse,
+	
+     $("#canvas_container").mousemove(function(event) {
+        
+        this.cursor.remove();
+        guide.remove();
+
+        this.snappedMouseX = this.middleX - Math.round((this.middleX - event.pageX) /
+            this.canvas.spacing) * this.canvas.spacing;
+        this.snappedMouseY = this.middleY - Math.round((this.middleY - event.pageY) /
+			this.canvas.spacing) * this.canvas.spacing;
+
+        cursor = paper.path(
+            ['M', this.snappedMouseX - 7, this.snappedMouseY,
+             'L', this.snappedMouseX - 2, this.snappedMouseY,
+             'M', this.snappedMouseX + 2, this.snappedMouseY,
+             'L', this.snappedMouseX + 7, this.snappedMouseY,
+             'M', this.snappedMouseX, this.snappedMouseY - 7,
+             'L', this.snappedMouseX, this.snappedMouseY - 2,
+             'M', this.snappedMouseX, this.snappedMouseY + 2,
+             'L', this.snappedMouseX, this.snappedMouseY + 7]
+        );
+    });
+}
     
     /*
     instead of this ^^^^^
