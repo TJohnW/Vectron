@@ -1,6 +1,17 @@
 //********//********//********//********//********//********//********//********
 window.onload = function() {
 
+    init();
+    $("#gui-close").on("click", function(e) {
+
+        e.preventDefault();
+        $("#control_box").hide();
+    }); 
+
+}
+
+function init() {
+
     var vectron = new Canvas();
 
     vectron.render( 10 );
@@ -20,7 +31,7 @@ window.onload = function() {
         }
     });
 
-    $("#canvas_container").on("mouseup", function(e) {
+    $("#canvas_container").on("mousedown", function(e) {
 
             e.preventDefault();
             if(vectron.map.active) {
@@ -55,6 +66,7 @@ window.onload = function() {
             );
             */
     });
+
 }
 
 

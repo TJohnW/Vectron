@@ -8,10 +8,78 @@
         <link href="./css/vectron.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,700,600' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
-        <script type="text/javascript" src="./raphael-min.js"></script>  
+        <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="./js/raphael-min.js"></script>  
         <script type="text/javascript" src="./vectron.js"></script> 
     </head>  
-    <body class="noscroll">  
+    <body class="noscroll">
+        <div id="control_box">
+            <h1>Vectron <small>Map editor</small></h1>
+            <div id="gui-content">
+                <ul id="gui-tab" class="nav nav-tabs">
+                    <li class="active"><a href="#gui-general" data-toggle="tab">General</a></li>
+                    <li><a href="#gui-settings" data-toggle="tab">Settings</a></li>
+                    <li class="dropdown">
+                        <a href="#" id="gui-dropdown" class="dropdown-toggle" data-toggle="dropdown">Tool Controls <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="gui-dropdown">
+                            <li><a href="#gui-wt" tabindex="-1" data-toggle="tab">Wall Tool</a></li>
+                            <li><a href="#gui-zt" tabindex="-1" data-toggle="tab">Zone Tool</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div id="gui-tab-content" class="tab-content">
+
+                    <div class="tab-pane fade in active" id="gui-general">
+
+                    </div>
+
+                    <div class="tab-pane fade" id="gui-settings">
+
+                    </div>
+
+                    <div class="tab-pane fade" id="gui-wt">
+                        <h4 class="gui-tool-name">Wall Tool</h4>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Click</strong></td>
+                                    <td>Place WallPoint</td>
+                                    <td>Start new Wall</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Double Click</strong></td>
+                                    <td>Place EndPoint</td>
+                                    <td>End Wall</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tab-pane fade" id="gui-zt">
+                        <h4 class="gui-tool-name">Zone Tool</h4>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td><strong>+/-</strong></td>
+                                    <td>Increase Zone Radius</td>
+                                    <td>Decrease Zone Radius</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Click</strong></td>
+                                    <td>Place new Zone</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <button id="gui-close" type="button" class="btn btn-primary">Close</button>
+
+        </div>
         <div id="canvas_container"></div>
         <div id="debug_box">
             <div id="debug_stream">
@@ -21,6 +89,7 @@
                 <small><small>With love &lt;3</small></small>
             </div>
         </div>
-        <div id="tool_bar"></div>
+        <div id="tool_bar">
+        </div>
     </body>  
 </html>
