@@ -102,7 +102,6 @@ Mouse.prototype = {
      $("#canvas_container").mousemove(function(event) {
         
         this.cursor.remove();
-        guide.remove();
 
         this.snappedMouseX = this.middleX - Math.round((this.middleX - event.pageX) /
             this.canvas.spacing) * this.canvas.spacing;
