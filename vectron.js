@@ -35,6 +35,10 @@ Canvas.prototype = {
         this.paper.clear();
         this.width = $("#canvas_container").width();
         this.height = $("#canvas_container").height();
+        
+        this.cursor.middleX = this.width/2;
+        this.cursor.middleY = this.height/2;
+
         this.paper.setSize(this.width, this.height);
         this.draw_grid();
         this.map.render();
