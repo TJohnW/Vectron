@@ -2,12 +2,11 @@
 window.onload = function() {
 
     var vectron = new Canvas();
+
     vectron.render( 10 );
 
-    var Aamap = new Aamap();
-    
     window.onresize = function() {
-        vectron.render(vectron.spacing);
+        vectron.render();
     }
     
 }
@@ -19,18 +18,20 @@ function Canvas() {
     this.paper = new Raphael(document.getElementById('canvas_container'), 
         this.width, this.height);
     this.spacing = 10;
+    this.map = new Aamap();
 }  
 
 Canvas.prototype = {
+
     constructor: Canvas,
-    
-    render:function( gridSpacing ) {
+
+    render:function() {
         this.paper.clear();
         this.width = $("#canvas_container").width();
         this.height = $("#canvas_container").height();
         this.paper.setSize(this.width, this.height);
-        this.spacing = gridSpacing;
         this.draw_grid();
+        this.map.render();
     },
     
     draw_grid:function() {
@@ -54,6 +55,27 @@ Canvas.prototype = {
         this.grid = this.paper.path(gridArray).attr("stroke", "#d6d6ec");
     }
 }
+
+
+
+function Aamap() {
+    this._xml = '';
+    this.objects = [1];
+}  
+
+Aamap.prototype = {
+
+    constructor: Aamap,
+
+    render:function() {
+        for(var i = 0; i < this.objects.length; i++) {
+            //this.objects[i].render();
+          $('#debug_box').append('<span class="debug_message">Default</span>');
+        }
+    }
+}
+
+
     
     
     /*
