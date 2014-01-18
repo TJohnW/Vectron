@@ -13,7 +13,17 @@ window.onload = function() {
     $("#canvas_container").mousemove(function(event) {
         vectron.cursor.render(event.pageX, event.pageY, vectron.spacing);
     });
-    
+
+    $("#canvas_container").on("click", function(e) {
+
+            e.preventDefault();
+            vectron.map.objects.push(
+                new Zone(vectron,
+                        vectron.getMapX(vectron.cursor.snappedMouseX),
+                        vectron.getMapY(vectron.cursor.snappedMouseY),
+                        1, "death")
+            );
+    });  
 }
 
 
@@ -65,13 +75,22 @@ Canvas.prototype = {
         this.grid = this.paper.path(gridArray).attr("stroke", "#d6d6ec");
     },
 
-    tooX:function(x) {
+    getRealX:function(x) {
         return this.width/2 + (x*this.spacing);
     },
 
-    tooY:function(y) {
-        return this.height/2 + (y*this.spacing);
+    getRealY:function(y) {
+        return this.height/2 + (-1*y*this.spacing);
+    },
+
+    getMapX:function(x) {
+        return (x - this.width/2) / this.spacing;
+    },
+
+    getMapY:function(y) {
+        return -1*(y - this.height/2) / this.spacing;
     }
+
 }
 
 /* MOUSE */
@@ -87,7 +106,7 @@ function Cursor(vectron) {
     this.snappedMouseY = this.middleY - Math.round( this.middleY / vectron.spacing ) *
         vectron.spacing;
     
-    this.cursor = vectron.paper.path(
+    this.cursor = this.paper.path(
         ["M", this.snappedMouseX - 5, this.snappedMouseY - 5,
          'L', this.snappedMouseX - 1, this.snappedMouseY - 1,
          'M', this.snappedMouseX + 1, this.snappedMouseY + 1,
@@ -136,7 +155,7 @@ Aamap.prototype = {
     render:function() {
         for(var i = 0; i < this.objects.length; i++) {
           this.objects[i].render();
-          $('#debug_box').append('<span class="debug_message">Default</span>');
+          //$('#debug_box').append('<span class="debug_message">Default</span>');
         }
     }
 }
@@ -152,7 +171,9 @@ function Zone(vectron, x, y, radius, type) {
     this.canvas = vectron;
     this.paper = vectron.paper;
 
-    $('#debug_box').append('<span class="debug_message">Default</span>');
+    this.render();
+    $('#debug_box').append('<span class="debug_message">'
+        + 'Zone added at (' + this._x + ', ' + this._y + ')</span>');
 
 }  
 
@@ -161,7 +182,8 @@ Zone.prototype = {
     constructor: Zone,
 
     render:function() {
-        this.paper.circle(this.canvas.tooX(this._x), this.canvas.tooY(this._y),
+        this.ob = this.paper.circle(this.canvas.getRealX(this._x),
+            this.canvas.getRealY(this._y),
             this._radius*this.canvas.spacing).attr("stroke","#FF0000");
     }
 }
