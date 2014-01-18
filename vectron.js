@@ -3,6 +3,8 @@ window.onload = function() {
 
     var vectron = new Canvas();
     vectron.render( 10 );
+	
+	var mouse = new Mouse( canvas );
 
     var Aamap = new Aamap();
     
@@ -54,7 +56,51 @@ Canvas.prototype = {
         this.grid = this.paper.path(gridArray).attr("stroke", "#d6d6ec");
     }
 }
-    
+
+function Mouse( canvas ) {
+    this.middleX = canvas.width / 2;
+	this.middleY = canvas.height / 2;
+	this.snappedMouseX = middleX - Math.round( middleX / gridSpacing ) *
+        gridSpacing;
+    this.snappedMouseY = middleY - Math.round( middleY / gridSpacing ) *
+        gridSpacing;
+	this.canvas = canvas;
+	
+	var cursor = canvas.paper.path(
+        ["M", xPos - 5, yPos - 5,
+         'L', xPos - 1, yPos - 1,
+         'M', xPos + 1, yPos + 1,
+         'L', xPos + 5, yPos + 5]
+    );
+}  
+
+Mouse.prototype = {
+    constructor: Mouse,
+	
+     $("#canvas_container").mousemove(function(event) {
+        
+        cursor.remove();
+        guide.remove();
+
+        snappedMouseX = middleX - Math.round((middleX - event.pageX) /
+            gridSpacing) * gridSpacing;
+        snappedMouseY = middleY - Math.round((middleY - event.pageY) /
+			gridSpacing) * gridSpacing;
+
+        cursor = paper.path(
+            ['M', snappedMouseX - 7, snappedMouseY,
+             'L', snappedMouseX - 2, snappedMouseY,
+             'M', snappedMouseX + 2, snappedMouseY,
+             'L', snappedMouseX + 7, snappedMouseY,
+             'M', snappedMouseX, snappedMouseY - 7,
+             'L', snappedMouseX, snappedMouseY - 2,
+             'M', snappedMouseX, snappedMouseY + 2,
+             'L', snappedMouseX, snappedMouseY + 7]
+        );
+        guide = paper.circle(snappedMouseX, snappedMouseY, 20).attr("stroke",
+            "#FF0000").attr("stroke-dasharray", "--..");
+    });
+}
     
     /*
     instead of this ^^^^^
