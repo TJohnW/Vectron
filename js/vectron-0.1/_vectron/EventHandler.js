@@ -156,13 +156,13 @@ function EventHandler(vectron) {
         vectron.gui.writeLog('SPAWN TOOL');
     });
 
-    $("#toolbar-toolLock").mouseup(function(e) {
+    $("#toolbar-toolUnlock").mouseup(function(e) {
         vectron.cursor.snap = true;
         $('#toolbar-toolUnlock-list').css('display','none');
         $('#toolbar-toolLock-list').css('display','block');
     });
 
-    $("#toolbar-toolUnlock").mouseup(function(e) {
+    $("#toolbar-toolLock").mouseup(function(e) {
         vectron.cursor.snap = false;
         $('#toolbar-toolLock-list').css('display','none');
         $('#toolbar-toolUnlock-list').css('display','block');
