@@ -88,6 +88,8 @@ function EventHandler(vectron) {
         	if(vectron.map.zoneTool.type > 4) {
         		vectron.map.zoneTool.type = 0;
         	}
+        	vectron.gui.writeLog('Zone Tool Toggled: '
+        		+ vectron.map.zoneTool.typeArray[vectron.map.zoneTool.type][0]);
         	vectron.map.currentTool.guide();
     	}
     });
@@ -144,7 +146,7 @@ function EventHandler(vectron) {
     	if(vectron.map.currentTool instanceof WallTool) {
     		return;
     	} else {
-    		vectron.map.currentTool.disconnect();
+    		//vectron.map.currentTool.disconnect();
     		vectron.map.wallTool.connect();
     	}
     }, 'keydown');
@@ -153,7 +155,7 @@ function EventHandler(vectron) {
     	if(vectron.map.currentTool instanceof ZoneTool) {
     		return;
     	} else {
-    		vectron.map.currentTool.disconnect();
+    		//vectron.map.currentTool.disconnect();
     		vectron.map.zoneTool.connect();
     	}
     }, 'keydown');

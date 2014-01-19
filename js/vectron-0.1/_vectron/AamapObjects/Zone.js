@@ -46,7 +46,7 @@ Zone.prototype = {
         this.obj = this.vectron.screen.circle(this.vectron.map.realX(this.x),
             this.vectron.map.realY(this.y),
             this.radius*this.vectron.map.zoom).attr(
-                {"stroke": this.vectron.map.zoneTool.typeArray[this.type][1], "fill": this.vectron.map.zoneTool.typeArray[this.type][1], "fill-opacity": "0"}
+                {"stroke": this.vectron.map.zoneTool.typeArray[this.type][1], "fill": this.vectron.map.zoneTool.typeArray[this.type][1], "fill-opacity": ".05"}
             );
     },
 

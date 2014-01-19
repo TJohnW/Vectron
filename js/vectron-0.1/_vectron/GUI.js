@@ -43,7 +43,9 @@ GUI.prototype = {
 
     //Write a message to the debug log
     writeLog:function(message) {
-
+        $('#debug_stream').append('<span>' + message + '</span');
+        var element = document.getElementById("debug_stream");
+        element.scrollTop = element.scrollHeight;
     },
 
     //Clear the debug log
