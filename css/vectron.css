@@ -137,8 +137,8 @@ li a {
   background-image:url('../images/Lock.png');
 }
 
-#tool_bar ul li#toolbar-toolLock-list {   display:none; }
-#tool_bar ul li#toolbar-toolUnlock-list {   display:block; }
+#tool_bar ul li#toolbar-toolLock-list {   display:block; }
+#tool_bar ul li#toolbar-toolUnlock-list {   display:none; }
 
 #toolbar-toolUnlock {
   background-image:url('../images/Unlock.png');

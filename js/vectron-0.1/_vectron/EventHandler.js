@@ -158,14 +158,14 @@ function EventHandler(vectron) {
 
     $("#toolbar-toolLock").mouseup(function(e) {
         vectron.cursor.snap = true;
-        $('#toolbar-toolLock-list').css('display','none');
-        $('#toolbar-toolUnlock-list').css('display','block');
+        $('#toolbar-toolUnlock-list').css('display','none');
+        $('#toolbar-toolLock-list').css('display','block');
     });
 
     $("#toolbar-toolUnlock").mouseup(function(e) {
         vectron.cursor.snap = false;
-        $('#toolbar-toolUnlock-list').css('display','none');
-        $('#toolbar-toolLock-list').css('display','block');
+        $('#toolbar-toolLock-list').css('display','none');
+        $('#toolbar-toolUnlock-list').css('display','block');
     });
         //cancel
     $("#toolbar-disconnect").mouseup(function(e) {
