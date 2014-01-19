@@ -65,7 +65,7 @@ function EventHandler(vectron) {
 
     }); 
 
-    $("#canvas_container").dblclick(function() {
+    $(window).dblclick(function() {
     	alert("POOOOOP");
             if(vectron.map.currentTool instanceof WallTool) {
 	        	if(vectron.map.wallTool.active)
