@@ -72,6 +72,7 @@ function EventHandler(vectron) {
 	            	vectron.map.currentTool.complete();
 	        
 	        } else if(vectron.map.currentTool instanceof ZoneTool) {
+	        	alert("POOOOOP");
 	        	vectron.map.remove();
 	        	vectron.map.remove();
 	        	vectron.map.zoneTool.type += 1;
@@ -146,7 +147,6 @@ function EventHandler(vectron) {
     	} else {
     		vectron.map.currentTool.disconnect();
     		vectron.map.zoneTool.connect();
-    		vectron.currentTool.guide();
     	}
     }, 'keydown');
     
