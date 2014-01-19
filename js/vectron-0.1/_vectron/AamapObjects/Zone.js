@@ -22,41 +22,33 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-window.onload = function() {
-    var v = new Vectron();
-}
+function Zone(vectron, x, y, radius, type) {
 
-function Vectron() {
+    this.vectron = vectron;
+    this.obj = this.vectron.screen.circle(0, 0, 0);
 
-    this.width;
-    this.height;
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
 
-    this.screen;
+    this.type = type;
 
-    this.settings = new Settings(this);
-
-    this.gui = new GUI(this);
-
-    this.cursor = new Cursor(this);
-
-    this.aamap = new Aamap(this);
-
-    this.eventHandler = new EventHandler(this);
-
+    this.xml = '';
     this.render();
 
 }  
 
-Vectron.prototype = {
+Zone.prototype = {
 
-    constructor: Vectron,
+    constructor: Zone,
 
     render:function() {
-
-        this.gui.render();
-        this.cursor.render();
-        this.aamap.render();
-
-    }
+        this.obj = this.vectron.screen.circle(this.vectron.map.realX(this.x),
+            this.vectron.map.realY(this.y),
+            this.radius*this.vectron.map.zoom).attr(
+                {"stroke": this.vectron.map.zoneTool.typeArray[this.type][1], "fill": this.vectron.map.zoneTool.typeArray[this.type][1], "fill-opacity": "0"}
+            );
+    },
 
 }
+

@@ -22,60 +22,60 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-function Aamap(vectron) {
+function Cursor(vectron) {
 
     this.vectron = vectron;
-    this.screen = vectron.screen;
     this.active = true;
 
-    this.xml;
+    //Real coordinates used to draw things
+    //Aamap has a mapX and mapY function which convert these to the XML values to be used.
+    this.realX;
+    this.realY;
 
-    this.aamapObjects = [];
-
-    this.wallTool = new WallTool(this);
-    this.zoneTool = new ZoneTool(this);
-    this.spawnTool = new SpawnTool(this);
+    this.obj = vectron.screen.path();
 
 }  
 
-Aamap.prototype = {
+Cursor.prototype = {
 
-    constructor: Aamap,
+    constructor: Cursor,
 
     // Called when settings saved or anythign changes so the debug log can be removed
-    render:function() {
-        for(var i = 0; i < this.aamapObjects.length; i++) {
-            this.aamapObjects[i].render();
+    render:function(newX, newY, spacing) {
+
+        if(!this.active) {
+            return;
         }
-    },
 
-    add:function(obj) {
-        //add to xml of the obj
-        this.aamapObjects.push(obj);
-    },
+        this.obj.remove();
 
-    remove:function() {
-        this.aamapObjects.pop();
+        this.realX = (this.vectron.width/2) - Math.round(((this.vectron.width/2) - newX) /
+            spacing) * spacing;
+
+        this.realY = (this.vectron.height/2) - Math.round(((this.vectron.height/2) - newY) /
+            spacing) * spacing;
+
+        this.obj = this.vectron.screen.path(
+            ['M', this.realX - 7, this.realY,
+             'L', this.realX - 2, this.realY,
+             'M', this.realX + 2, this.realY,
+             'L', this.realX + 7, this.realY,
+             'M', this.realX, this.realY - 7,
+             'L', this.realX, this.realY - 2,
+             'M', this.realX, this.realY + 2,
+             'L', this.realX, this.realY + 7]
+        );
+
     },
 
     show:function() {
-        
         this.active = true; //Draw the cursor!
+        this.render();
     },
 
     hide:function() {
-
         this.active = false; //Dont draw the cursor!
-    },
-
-    mapX:function(realX) {
-
-
-    },
-
-    mapY:function(realY) {
-
-
+        this.obj.remove();
     }
 
 }

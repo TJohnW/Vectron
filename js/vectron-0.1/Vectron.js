@@ -22,13 +22,43 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-function EventHandler(vectron) {
+window.onload = function() {
+    var v = new Vectron();
+}
 
-    this.vectron = vectron;
+function Vectron() {
 
-    //setup key handling here also.
+    this.width = $("#canvas_container").width();
+    this.height = $("#canvas_container").height();
 
-    //setup all event callbacks here :D 
-    
+    this.screen = new Raphael(document.getElementById('canvas_container'), 
+        this.width, this.height);
+
+    this.settings = new Settings(this);
+
+    this.gui = new GUI(this);
+
+    this.cursor = new Cursor(this);
+
+    this.map = new Aamap(this);
+
+    this.eventHandler = new EventHandler(this);
+
+    this.render();
+
 }  
 
+Vectron.prototype = {
+
+    constructor: Vectron,
+
+    render:function() {
+        this.screen.clear();
+        this.width = $("#canvas_container").width();
+        this.height = $("#canvas_container").height();
+
+        this.screen.setSize(this.width, this.height);
+        this.map.render();
+    }
+
+}

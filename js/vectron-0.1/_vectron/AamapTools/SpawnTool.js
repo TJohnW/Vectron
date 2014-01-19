@@ -22,34 +22,42 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-window.onload = function() {
+function SpawnTool(vectron) {
 
-}
-
-function Vectron() {
-
-    this.width;
-    this.height;
-
-    this.screen;
-
-    this.settings = new Settings(this);
-
-    this.gui = new GUI(this);
-
-    this.cursor = new Cursor(this);
-
-    this.eventHandler = new EventHandler(this);
-
-    this.aamap = new Aamap(this);
-
-    this.tools = new Tools(this);
+    this.vectron = vectron;
+    this.active = false;
 
 }  
 
-Vectron.prototype = {
+SpawnTool.prototype = {
 
-    constructor: Vectron,
+    constructor: SpawnTool,
 
+    connect:function() {
+        if(this.vectron.map.currentTool != null && this.vectron.map.currentTool.active) {
+            this.vectron.gui.writeLog("Tool active cannot select another right now.");
+            return false;
+        } else {
+        	this.vectron.map.currentTool = this;
+        	return true;
+        }
+    },
+
+    disconnect:function() {
+    	this.vectron.map.currentTool = null;
+    	this.active = false;
+    },
+
+
+    //mouse down, detect drag direction locked to map axes.
+    start:function() {
+
+    	this.active = true;
+    },
+    //mouse up they have selected a direction store the point as an object.
+    complete:function() {
+
+    	this.active = false;
+    }
 
 }

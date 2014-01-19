@@ -80,6 +80,7 @@ body.noscroll {
   right:0;margin:auto auto;
   padding:30px;
   text-align:right;
+  display:none;
 }
 
 
