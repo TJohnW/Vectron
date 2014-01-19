@@ -67,22 +67,30 @@ function EventHandler(vectron) {
 
     $(window).dblclick(function(e) {
     	e.preventDefault();
-    	alert("POOOOOP");
         if(vectron.map.currentTool instanceof WallTool) {
         	if(vectron.map.wallTool.active)
             	vectron.map.currentTool.complete();
+        }
+
+    });
+
+    Mousetrap.bind('shift+w', function(e) {
+    	if(vectron.map.currentTool instanceof WallTool) {
+        	if(vectron.map.wallTool.active)
+            	vectron.map.currentTool.complete();
         
-        } else if(vectron.map.currentTool instanceof ZoneTool) {
-        	vectron.map.remove();
-        	vectron.map.remove();
-        	vectron.map.zoneTool.type += 1;
+        }
+    }, 'keyup');
+
+     Mousetrap.bind('shift+z', function(e) {
+    	if(vectron.map.currentTool instanceof ZoneTool) {
+    		vectron.map.zoneTool.type += 1;
         	if(vectron.map.zoneTool.type > 4) {
         		vectron.map.zoneTool.type = 0;
         	}
         	vectron.map.currentTool.guide();
-        }
-
-    });
+    	}
+    }, 'keyup');
 
     Mousetrap.bind('=', function(e) {
     	if(vectron.map.currentTool instanceof ZoneTool) {
