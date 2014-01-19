@@ -72,6 +72,7 @@ body.noscroll {
 
 #tool_bar ul {
   margin:0; padding:10px 10px;
+  padding-bottom:0;
 
 }
 
@@ -82,7 +83,7 @@ body.noscroll {
   background:#393939;
 }
 
-#tool_bar ul li a { 
+li a { 
   display:block;
   width:40px;
   height:40px;
@@ -128,8 +129,19 @@ body.noscroll {
   background-image:url('../images/Zones/RubberZone.png');
 }
 
-#tool_bar ul li a#toolbar-toolSpawn {
+#toolbar-toolSpawn {
   background-image:url('../images/SpawnTool.png');
+}
+
+#toolbar-toolLock {
+  background-image:url('../images/Lock.png');
+}
+
+#tool_bar ul li#toolbar-toolLock-list {   display:none; }
+#tool_bar ul li#toolbar-toolUnlock-list {   display:block; }
+
+#toolbar-toolUnlock {
+  background-image:url('../images/Unlock.png');
 }
 
 

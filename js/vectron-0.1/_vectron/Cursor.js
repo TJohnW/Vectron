@@ -27,6 +27,8 @@ function Cursor(vectron) {
     this.vectron = vectron;
     this.active = true;
 
+    this.snap = true; // snap to grid?
+
     //Real coordinates used to draw things
     //Aamap has a mapX and mapY function which convert these to the XML values to be used.
     this.realX;
@@ -49,11 +51,17 @@ Cursor.prototype = {
 
         this.obj.remove();
 
-        this.realX = (this.vectron.width/2) - Math.round(((this.vectron.width/2) - newX) /
-            spacing) * spacing;
+        if(this.snap) {
 
-        this.realY = (this.vectron.height/2) - Math.round(((this.vectron.height/2) - newY) /
-            spacing) * spacing;
+            this.realX = (this.vectron.width/2) - Math.round(((this.vectron.width/2) - newX) /
+                spacing) * spacing;
+
+            this.realY = (this.vectron.height/2) - Math.round(((this.vectron.height/2) - newY) /
+                spacing) * spacing;
+        } else {
+            this.realX = newX;
+            this.realY = newY;
+        }
 
         this.obj = this.vectron.screen.path(
             ['M', this.realX - 7, this.realY,
