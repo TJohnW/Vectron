@@ -80,7 +80,7 @@ function EventHandler(vectron) {
             	vectron.map.currentTool.complete();
         
         }
-    }, 'keyup');
+    });
 
      Mousetrap.bind('shift+z', function(e) {
     	if(vectron.map.currentTool instanceof ZoneTool) {
@@ -90,7 +90,7 @@ function EventHandler(vectron) {
         	}
         	vectron.map.currentTool.guide();
     	}
-    }, 'keyup');
+    });
 
     Mousetrap.bind('=', function(e) {
     	if(vectron.map.currentTool instanceof ZoneTool) {
