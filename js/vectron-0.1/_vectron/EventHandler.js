@@ -159,19 +159,19 @@ function EventHandler(vectron) {
     }, 'keydown');
 
     Mousetrap.bind('right', function(e) {
-        vectron.map.panX += 1;
-        vectron.render();
-    });
-    Mousetrap.bind('left', function(e) {
         vectron.map.panX -= 1;
         vectron.render();
     });
+    Mousetrap.bind('left', function(e) {
+        vectron.map.panX += 1;
+        vectron.render();
+    });
     Mousetrap.bind('up', function(e) {
-        vectron.map.panY += 1;
+        vectron.map.panY -= 1;
         vectron.render();
     });
     Mousetrap.bind('down', function(e) {
-        vectron.map.panY -= 1;
+        vectron.map.panY += 1;
         vectron.render();
     });
     Mousetrap.bind('shift+space', function(e) {
