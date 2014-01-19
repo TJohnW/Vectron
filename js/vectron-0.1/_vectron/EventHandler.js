@@ -120,7 +120,7 @@ function EventHandler(vectron) {
     	}
     }, 'keydown');
 
-    Mousetrap.bind('ctrl+w', function(e) {
+    Mousetrap.bind('w', function(e) {
     	if(vectron.map.currentTool instanceof WallTool) {
     		return;
     	} else {
@@ -129,7 +129,7 @@ function EventHandler(vectron) {
     	}
     }, 'keydown');
 
-    Mousetrap.bind('ctrl+z', function(e) {
+    Mousetrap.bind('z', function(e) {
     	if(vectron.map.currentTool instanceof ZoneTool) {
     		return;
     	} else {
