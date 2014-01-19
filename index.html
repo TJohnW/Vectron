@@ -8,7 +8,6 @@
         <link href="./css/vectron.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,700,600' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
-        <script type="text/javascript" src="./js/bootstrap.min.js"></script>
         <script type="text/javascript" src="./js/raphael-min.js"></script>
         <script type="text/javascript" src="./js/mousetrap.min.js"></script>
 
@@ -24,6 +23,10 @@
         <script type="text/javascript" src="./js/vectron-0.1/_vectron/GUI.js"></script>
         <script type="text/javascript" src="./js/vectron-0.1/_vectron/Settings.js"></script>
         <script type="text/javascript" src="./js/vectron-0.1/Vectron.js"></script>
+
+        <script type="text/javascript">
+            $('[data-toggle="tooltip"]').tooltip();
+        </script>
 
     </head>  
     <body class="noscroll">
@@ -105,6 +108,40 @@
             </div>
         </div>
         <div id="tool_bar">
+            <ul>
+                <li style="margin-bottom:10px;">
+                    <a id="toolbar-gui-toggle" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Settings and Controls">&raquo;</a>
+                </li>
+                <li style="margin-bottom:10px;">
+                    <a class="toolimg" id="toolbar-toolWall" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Wall Tool"></a>
+                </li>
+                <li>
+                    <a class="toolimg" id="toolbar-toolZone-death" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Zone tool - Death"></a>
+                </li>
+                <li>
+                    <a class="toolimg" id="toolbar-toolZone-win" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Zone tool - Win"></a>
+                </li>
+                <li>
+                    <a class="toolimg" id="toolbar-toolZone-target" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Zone tool - Target"></a>
+                </li>
+                <li>
+                    <a class="toolimg" id="toolbar-toolZone-fortress" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Zone tool - Fortress"></a>
+                </li>
+                <li style="margin-bottom:10px;">
+                    <a class="toolimg" id="toolbar-toolZone-rubber" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Zone tool - Rubber"></a>
+                </li>
+                <li style="margin-bottom:20px;">
+                    <a id="toolbar-toolSpawn" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Spawn tool">&rHar;</a>
+                </li>
+                <li>
+                    <a id="toolbar-disconnect" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Cancel current operation">&cross;</a>
+                </li>
+
+            </ul>
         </div>
+        <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+        <script>
+        $('[rel=tooltip]').tooltip();
+        </script>
     </body>  
 </html>

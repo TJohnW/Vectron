@@ -63,6 +63,57 @@ function EventHandler(vectron) {
 
     }); 
 
+    // TOOLBAR
+
+    $("#toolbar-gui-toggle").mouseup(function(e) {
+        $("#control_box").toggle();
+        vectron.gui.writeLog('GUI TOGGLE');
+
+    });
+
+    $("#toolbar-toolWall").mouseup(function(e) {
+        vectron.gui.writeLog('WALL TOOL');
+
+    });
+
+        //ZONES
+
+    $("#toolbar-toolZone-death").mouseup(function(e) {
+        vectron.gui.writeLog('ZONE DEATH');
+    });
+
+    $("#toolbar-toolZone-win").mouseup(function(e) {
+        vectron.gui.writeLog('ZONE WIN');
+
+    });
+
+    $("#toolbar-toolZone-target").mouseup(function(e) {
+        vectron.gui.writeLog('ZONE TARGET');
+
+    });
+
+    $("#toolbar-toolZone-fortress").mouseup(function(e) {
+        vectron.gui.writeLog('ZONE FORT');
+
+    });
+
+    $("#toolbar-toolZone-rubber").mouseup(function(e) {
+        vectron.gui.writeLog('ZONE RUBBER');
+
+    });
+
+        // SPAWN
+    $("#toolbar-toolSpawn").mouseup(function(e) {
+
+        vectron.gui.writeLog('SPAWN TOOL');
+    });
+        //cancel
+    $("#toolbar-disconnect").mouseup(function(e) {
+        vectron.gui.writeLog('CANCEL');
+
+    });
+
+
     $(window).dblclick(function(e) {
     	e.preventDefault();
         if(vectron.map.currentTool instanceof WallTool) {

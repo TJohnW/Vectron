@@ -70,6 +70,69 @@ body.noscroll {
   background:#333;
 }
 
+#tool_bar ul {
+  margin:0; padding:10px 10px;
+
+}
+
+#tool_bar ul li {
+  display:block;
+  height:40px;
+  width:40px;
+  background:#393939;
+}
+
+#tool_bar ul li a { 
+  display:block;
+  width:40px;
+  height:40px;
+  line-height:34px;
+  text-align:center;
+  color:#EEE;
+  font-size:28px;
+}
+
+#tool_bar ul li a:hover {
+  color:#FFF;
+  background-color:#1b1b1b;
+  text-decoration:none;
+}
+
+#tool_bar ul li a.active {
+  background-color:#1b1b1b;
+}
+
+#tool_bar ul li a.toolimg {
+  background-position-x: 5;
+  background-position-y: 4;
+  background-repeat:no-repeat;
+}
+
+#toolbar-toolWall {
+  background-image:url('../images/toolWall.png');
+}
+
+#toolbar-toolZone-death {
+  background-image:url('../images/Zones/DeathZone.png');
+}
+#toolbar-toolZone-win {
+  background-image:url('../images/Zones/WinZone.png');
+}
+#toolbar-toolZone-target {
+  background-image:url('../images/Zones/TargetZone.png');
+}
+#toolbar-toolZone-fortress {
+  background-image:url('../images/Zones/FortressZone.png');
+}
+#toolbar-toolZone-rubber {
+  background-image:url('../images/Zones/RubberZone.png');
+}
+
+#tool_bar ul li a#toolbar-toolSpawn {
+  line-height: 40px;
+}
+
+
 #control_box {
   position:absolute;
   background:#FFF; width:600px;

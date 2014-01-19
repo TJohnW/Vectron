@@ -39,7 +39,7 @@ function Aamap(vectron) {
     this.currentTool = null;
     this.gridObj = null;
 
-    this.zoom = 10;
+    this.zoom = 20;
     this.panX = 0;
     this.panY = 0;
 
