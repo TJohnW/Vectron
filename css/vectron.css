@@ -102,14 +102,14 @@ body.noscroll {
   background-color:#1b1b1b;
 }
 
-#tool_bar ul li a.toolimg {
-  background-position-x: 5;
-  background-position-y: 4;
+
+#tool_bar ul li a {
+  background-size:cover;
   background-repeat:no-repeat;
 }
 
 #toolbar-toolWall {
-  background-image:url('../images/toolWall.png');
+  background-image:url('../images/WallTool.png');
 }
 
 #toolbar-toolZone-death {
@@ -129,7 +129,7 @@ body.noscroll {
 }
 
 #tool_bar ul li a#toolbar-toolSpawn {
-  line-height: 40px;
+  background-image:url('../images/SpawnTool.png');
 }
 
 

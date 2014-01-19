@@ -33,9 +33,9 @@ function ZoneTool(vectron) {
     this.radius = 1;
     this.typeArray = {
         0: ["death", "#ff0000"],
-        1: ["win", "#2a822d"],
-        2: ["target", "#63f768"],
-        3: ["rubber", "#f2c73a"],
+        1: ["win", "#00a800"],
+        2: ["target", "#00ff00"],
+        3: ["rubber", "#ffc12b"],
         4: ["fortress", "#62bef6"]
     }
     this.type = 0;
