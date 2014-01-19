@@ -94,6 +94,12 @@ function EventHandler(vectron) {
     }, 'keydown');
 
     Mousetrap.bind('ctrl+=', function(e) {
+    	if (e.preventDefault) {
+        	e.preventDefault();
+	    } else {
+	        // internet explorer
+	        e.returnValue = false;
+	    }
     	if(vectron.map.currentTool instanceof ZoneTool) {
     		if(vectron.map.zoneTool.radius < 30) {
 	    		vectron.map.zoneTool.radius = Math.floor(vectron.map.zoneTool.radius) + 1;
@@ -112,6 +118,12 @@ function EventHandler(vectron) {
     }, 'keydown');
 
     Mousetrap.bind('ctrl+-', function(e) {
+    	if (e.preventDefault) {
+        	e.preventDefault();
+	    } else {
+	        // internet explorer
+	        e.returnValue = false;
+	    }
     	if(vectron.map.currentTool instanceof ZoneTool) {
     		if(vectron.map.zoneTool.radius > 0) {
 	    		vectron.map.zoneTool.radius = Math.floor(vectron.map.zoneTool.radius) - 1;
