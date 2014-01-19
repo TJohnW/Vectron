@@ -65,21 +65,22 @@ function EventHandler(vectron) {
 
     }); 
 
-    $(window).dblclick(function() {
+    $(window).dblclick(function(e) {
+    	e.preventDefault();
     	alert("POOOOOP");
-            if(vectron.map.currentTool instanceof WallTool) {
-	        	if(vectron.map.wallTool.active)
-	            	vectron.map.currentTool.complete();
-	        
-	        } else if(vectron.map.currentTool instanceof ZoneTool) {
-	        	vectron.map.remove();
-	        	vectron.map.remove();
-	        	vectron.map.zoneTool.type += 1;
-	        	if(vectron.map.zoneTool.type > 4) {
-	        		vectron.map.zoneTool.type = 0;
-	        	}
-	        	vectron.map.currentTool.guide();
-	        }
+        if(vectron.map.currentTool instanceof WallTool) {
+        	if(vectron.map.wallTool.active)
+            	vectron.map.currentTool.complete();
+        
+        } else if(vectron.map.currentTool instanceof ZoneTool) {
+        	vectron.map.remove();
+        	vectron.map.remove();
+        	vectron.map.zoneTool.type += 1;
+        	if(vectron.map.zoneTool.type > 4) {
+        		vectron.map.zoneTool.type = 0;
+        	}
+        	vectron.map.currentTool.guide();
+        }
 
     });
 
@@ -92,7 +93,7 @@ function EventHandler(vectron) {
     	}
     }, 'keydown');
 
-    Mousetrap.bind('ctrl+=', function(e) {
+    Mousetrap.bind('+', function(e) {
     	if (e.preventDefault) {
         	e.preventDefault();
 	    } else {
@@ -116,7 +117,7 @@ function EventHandler(vectron) {
     	}
     }, 'keydown');
 
-    Mousetrap.bind('ctrl+-', function(e) {
+    Mousetrap.bind('_', function(e) {
     	if (e.preventDefault) {
         	e.preventDefault();
 	    } else {
