@@ -184,13 +184,17 @@ function EventHandler(vectron) {
         }
     });
 
-    $("#toolbar-toolZoomIn").mouseup(function(e) {
-        vectron.map.zoom += 1;
+    $("#toolbar-toolZoomIn").mousedown(function(e) {
+        if(vectron.map.zoom < 60) {
+            vectron.map.zoom += 1;
+        }
         vectron.render();
     });
 
     $("#toolbar-toolZoomOut").mouseup(function(e) {
-        vectron.map.zoom -= 1;
+        if(vectron.map.zoom > 5) {
+            vectron.map.zoom -= 1;
+        }
         vectron.render();
     });
 
