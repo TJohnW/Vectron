@@ -35,7 +35,7 @@ function EventHandler(vectron) {
     $("#canvas_container").mousemove(function(event) {
         if(!vectron.map.active)
             return;
-        event.pageX -= 60;
+        event.pageX -= 50;
         vectron.cursor.render(event.pageX, event.pageY, vectron.map.zoom);
 
         if(vectron.map.currentTool instanceof WallTool) {
@@ -184,8 +184,18 @@ function EventHandler(vectron) {
         }
     });
 
+    $("#toolbar-toolZoomIn").mouseup(function(e) {
+        vectron.map.zoom += 1;
+        vectron.render();
+    });
 
-    $(window).dblclick(function(e) {
+    $("#toolbar-toolZoomOut").mouseup(function(e) {
+        vectron.map.zoom -= 1;
+        vectron.render();
+    });
+
+
+    $("#canvas_container").dblclick(function(e) {
     	e.preventDefault();
         if(!vectron.map.active)
             return;
