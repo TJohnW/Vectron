@@ -43,6 +43,7 @@ WallTool.prototype = {
     connect:function() {
         if(this.vectron.map.currentTool != null && this.vectron.map.currentTool.active) {
             this.vectron.gui.writeLog("Tool active cannot select another right now.");
+            alert("poop");
             return false;
         } else {
             this.vectron.map.currentTool = this;
@@ -51,8 +52,10 @@ WallTool.prototype = {
     },
 
     disconnect:function() {
-        this.currentObj.obj.remove();
-        this.currentObj.guideObj.remove();
+        if(this.currentObj != null) {
+            this.currentObj.obj.remove();
+            this.currentObj.guideObj.remove();
+        }
         this.vectron.map.currentTool = null;
         this.active = false;
     },

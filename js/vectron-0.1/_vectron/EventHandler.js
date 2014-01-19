@@ -65,9 +65,8 @@ function EventHandler(vectron) {
 
     }); 
 
-    $("#canvas_container").dblclick(function(e) {
+    $("#canvas_container").dblclick(function() {
 
-            e.preventDefault();
             if(vectron.map.currentTool instanceof WallTool) {
 	        	if(vectron.map.wallTool.active)
 	            	vectron.map.currentTool.complete();
@@ -147,6 +146,7 @@ function EventHandler(vectron) {
     	} else {
     		vectron.map.currentTool.disconnect();
     		vectron.map.zoneTool.connect();
+    		vectron.currentTool.guide();
     	}
     }, 'keydown');
     
