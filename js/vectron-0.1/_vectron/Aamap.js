@@ -40,6 +40,8 @@ function Aamap(vectron) {
     this.gridObj = null;
 
     this.zoom = 10;
+    this.panX = 0;
+    this.panY = 0;
 
 }  
 
@@ -80,19 +82,19 @@ Aamap.prototype = {
     },
 
     mapX:function(realX) {
-        return (realX - this.vectron.width/2) / this.zoom;
+        return (realX - this.vectron.width/2) / this.zoom - this.panX;
     },
 
     mapY:function(realY) {
-        return -1*(realY - this.vectron.height/2) / this.zoom;
+        return -1*(realY - this.vectron.height/2) / this.zoom - this.panY;
     },
 
     realX:function(mapX) {
-        return this.vectron.width/2 + (mapX*this.zoom);
+        return this.vectron.width/2 + ((mapX + this.panX)*this.zoom);
     },
 
     realY:function(mapY) {
-        return this.vectron.height/2 + (-1*mapY*this.zoom);
+        return this.vectron.height/2 + (-1*(mapY + this.panY)*this.zoom);
     },
 
     grid:function() {

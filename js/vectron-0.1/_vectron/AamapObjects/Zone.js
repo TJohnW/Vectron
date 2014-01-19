@@ -36,6 +36,8 @@ function Zone(vectron, x, y, radius, type) {
     this.xml = '';
     this.render();
 
+    vectron.gui.writeLog("Zone at ("+x+", "+y+")");
+
 }  
 
 Zone.prototype = {

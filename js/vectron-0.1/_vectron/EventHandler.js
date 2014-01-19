@@ -28,8 +28,6 @@ function EventHandler(vectron) {
 
     window.onresize = function() {
         vectron.render();
-        if(vectron.map.currentTool.currentObj != null)
-        	vectron.map.currentTool.currentObj.render();
     }
 
     vectron.map.zoneTool.connect();
@@ -159,6 +157,35 @@ function EventHandler(vectron) {
     		vectron.map.zoneTool.connect();
     	}
     }, 'keydown');
+
+    Mousetrap.bind('right', function(e) {
+        vectron.map.panX += 1;
+        vectron.render();
+    });
+    Mousetrap.bind('left', function(e) {
+        vectron.map.panX -= 1;
+        vectron.render();
+    });
+    Mousetrap.bind('up', function(e) {
+        vectron.map.panY += 1;
+        vectron.render();
+    });
+    Mousetrap.bind('down', function(e) {
+        vectron.map.panY -= 1;
+        vectron.render();
+    });
+    Mousetrap.bind('shift+space', function(e) {
+        vectron.map.panY = 0;
+        vectron.map.panX = 0;
+        vectron.render();
+    });
+
+    Mousetrap.bind('space', function(e) {
+        vectron.map.panY = -1*vectron.map.mapY(vectron.cursor.realY);
+        vectron.map.panX = -1*vectron.map.mapX(vectron.cursor.realX);
+        vectron.render();
+    });
+
     
 }  
 

@@ -59,6 +59,11 @@ Vectron.prototype = {
 
         this.screen.setSize(this.width, this.height);
         this.map.render();
+        if(this.map.currentTool.currentObj != null)
+            this.map.currentTool.currentObj.render();
+        if(this.map.currentTool instanceof ZoneTool)
+            this.map.currentTool.guide();
+        //this.cursor.render();
     }
 
 }
