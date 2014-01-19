@@ -33,6 +33,8 @@ function EventHandler(vectron) {
     vectron.map.zoneTool.connect();
 
     $("#canvas_container").mousemove(function(event) {
+        if(!vectron.map.active)
+            return;
         event.pageX -= 60;
         vectron.cursor.render(event.pageX, event.pageY, vectron.map.zoom);
 
@@ -47,8 +49,9 @@ function EventHandler(vectron) {
     });
 
     $("#canvas_container").mouseup(function(e) {
-
         e.preventDefault();
+        if(!vectron.map.active)
+            return;
 
         if(vectron.map.currentTool instanceof WallTool) {
         	if(vectron.map.wallTool.active)
@@ -66,39 +69,84 @@ function EventHandler(vectron) {
     // TOOLBAR
 
     $("#toolbar-gui-toggle").mouseup(function(e) {
-        $("#control_box").toggle();
+        if(!vectron.gui.active) {
+            vectron.gui.show(); // sets active state
+        } else {
+            vectron.gui.hide();
+        }
         vectron.gui.writeLog('GUI TOGGLE');
 
     });
 
     $("#toolbar-toolWall").mouseup(function(e) {
-        vectron.gui.writeLog('WALL TOOL');
-
+        if(!vectron.map.active)
+            return;
+        if(vectron.map.currentTool instanceof WallTool) {
+            return;
+        } else {
+            vectron.map.wallTool.connect();
+            vectron.gui.writeLog('Wall Tool Connected.');
+        }
     });
 
         //ZONES
 
     $("#toolbar-toolZone-death").mouseup(function(e) {
-        vectron.gui.writeLog('ZONE DEATH');
+        if(!vectron.map.active)
+            return;
+        if(!(vectron.map.currentTool instanceof ZoneTool)) {
+            vectron.map.zoneTool.connect();
+        }
+        vectron.map.zoneTool.type = 0;
+        vectron.map.currentTool.guide();
+        vectron.gui.writeLog('DeathZone selected.');
     });
 
     $("#toolbar-toolZone-win").mouseup(function(e) {
-        vectron.gui.writeLog('ZONE WIN');
+        if(!vectron.map.active)
+            return;
+        if(!(vectron.map.currentTool instanceof ZoneTool)) {
+            vectron.map.zoneTool.connect();
+        }
+        vectron.map.zoneTool.type = 1;
+        vectron.map.currentTool.guide();
+        vectron.gui.writeLog('WinZone selected.');
 
     });
 
     $("#toolbar-toolZone-target").mouseup(function(e) {
-        vectron.gui.writeLog('ZONE TARGET');
+        if(!vectron.map.active)
+            return;
+        if(!(vectron.map.currentTool instanceof ZoneTool)) {
+            vectron.map.zoneTool.connect();
+        }
+        vectron.map.zoneTool.type = 2;
+        vectron.map.currentTool.guide();
+        vectron.gui.writeLog('TargetZone selected.');
 
     });
 
     $("#toolbar-toolZone-fortress").mouseup(function(e) {
-        vectron.gui.writeLog('ZONE FORT');
+        if(!vectron.map.active)
+            return;
+        if(!(vectron.map.currentTool instanceof ZoneTool)) {
+            vectron.map.zoneTool.connect();
+        }
+        vectron.map.zoneTool.type = 4;
+        vectron.map.currentTool.guide();
+        vectron.gui.writeLog('FortressZone selected.');
 
     });
 
     $("#toolbar-toolZone-rubber").mouseup(function(e) {
-        vectron.gui.writeLog('ZONE RUBBER');
+        if(!vectron.map.active)
+            return;
+        if(!(vectron.map.currentTool instanceof ZoneTool)) {
+            vectron.map.zoneTool.connect();
+        }
+        vectron.map.zoneTool.type = 3;
+        vectron.map.currentTool.guide();
+        vectron.gui.writeLog('RubberZone Selected.');
 
     });
 
@@ -109,13 +157,25 @@ function EventHandler(vectron) {
     });
         //cancel
     $("#toolbar-disconnect").mouseup(function(e) {
-        vectron.gui.writeLog('CANCEL');
+        if(vectron.map.currentTool instanceof ZoneTool) {
+            vectron.map.currentTool.disconnect();
+            vectron.map.zoneTool.connect();
+        } else if(vectron.map.currentTool instanceof WallTool) {
+            vectron.map.currentTool.disconnect();
+            vectron.map.wallTool.connect();
+        } else if(vectron.map.currentTool instanceof SpawnTool) {
+            vectron.map.currentTool.disconnect();
+            vectron.map.spawnTool.connect();
+        }
+        vectron.gui.writeLog('Reinitialized connection with tool.');
 
     });
 
 
     $(window).dblclick(function(e) {
     	e.preventDefault();
+        if(!vectron.map.active)
+            return;
         if(vectron.map.currentTool instanceof WallTool) {
         	if(vectron.map.wallTool.active)
             	vectron.map.currentTool.complete();
@@ -124,6 +184,8 @@ function EventHandler(vectron) {
     });
 
     Mousetrap.bind('shift+w', function(e) {
+        if(!vectron.map.active)
+            return;
     	if(vectron.map.currentTool instanceof WallTool) {
         	if(vectron.map.wallTool.active)
             	vectron.map.currentTool.complete();
@@ -132,6 +194,8 @@ function EventHandler(vectron) {
     });
 
      Mousetrap.bind('shift+z', function(e) {
+        if(!vectron.map.active)
+            return;
     	if(vectron.map.currentTool instanceof ZoneTool) {
     		vectron.map.zoneTool.type += 1;
         	if(vectron.map.zoneTool.type > 4) {
@@ -144,6 +208,8 @@ function EventHandler(vectron) {
     });
 
     Mousetrap.bind('=', function(e) {
+        if(!vectron.map.active)
+            return;
     	if(vectron.map.currentTool instanceof ZoneTool) {
     		if(vectron.map.zoneTool.radius < 30) {
 	    		vectron.map.zoneTool.radius += 0.1;
@@ -153,12 +219,8 @@ function EventHandler(vectron) {
     }, 'keydown');
 
     Mousetrap.bind('+', function(e) {
-    	if (e.preventDefault) {
-        	e.preventDefault();
-	    } else {
-	        // internet explorer
-	        e.returnValue = false;
-	    }
+    	if(!vectron.map.active)
+            return;
     	if(vectron.map.currentTool instanceof ZoneTool) {
     		if(vectron.map.zoneTool.radius < 30) {
 	    		vectron.map.zoneTool.radius = Math.floor(vectron.map.zoneTool.radius) + 1;
@@ -168,6 +230,8 @@ function EventHandler(vectron) {
     }, 'keydown');
 
     Mousetrap.bind('-', function(e) {
+        if(!vectron.map.active)
+            return;
     	if(vectron.map.currentTool instanceof ZoneTool) {
     		if(vectron.map.zoneTool.radius > 0) {
 	    		vectron.map.zoneTool.radius -= 0.1;
@@ -177,12 +241,8 @@ function EventHandler(vectron) {
     }, 'keydown');
 
     Mousetrap.bind('_', function(e) {
-    	if (e.preventDefault) {
-        	e.preventDefault();
-	    } else {
-	        // internet explorer
-	        e.returnValue = false;
-	    }
+    	if(!vectron.map.active)
+            return;
     	if(vectron.map.currentTool instanceof ZoneTool) {
     		if(vectron.map.zoneTool.radius > 0) {
 	    		vectron.map.zoneTool.radius = Math.floor(vectron.map.zoneTool.radius) - 1;
@@ -192,46 +252,60 @@ function EventHandler(vectron) {
     }, 'keydown');
 
     Mousetrap.bind('w', function(e) {
+        if(!vectron.map.active)
+            return;
     	if(vectron.map.currentTool instanceof WallTool) {
     		return;
     	} else {
-    		//vectron.map.currentTool.disconnect();
     		vectron.map.wallTool.connect();
     	}
     }, 'keydown');
 
     Mousetrap.bind('z', function(e) {
+        if(!vectron.map.active)
+            return;
     	if(vectron.map.currentTool instanceof ZoneTool) {
     		return;
     	} else {
-    		//vectron.map.currentTool.disconnect();
     		vectron.map.zoneTool.connect();
     	}
     }, 'keydown');
 
     Mousetrap.bind('right', function(e) {
+        if(!vectron.map.active)
+            return;
         vectron.map.panX -= 1;
         vectron.render();
     });
     Mousetrap.bind('left', function(e) {
+        if(!vectron.map.active)
+            return;
         vectron.map.panX += 1;
         vectron.render();
     });
     Mousetrap.bind('up', function(e) {
+        if(!vectron.map.active)
+            return;
         vectron.map.panY -= 1;
         vectron.render();
     });
     Mousetrap.bind('down', function(e) {
+        if(!vectron.map.active)
+            return;
         vectron.map.panY += 1;
         vectron.render();
     });
     Mousetrap.bind('shift+space', function(e) {
+        if(!vectron.map.active)
+            return;
         vectron.map.panY = 0;
         vectron.map.panX = 0;
         vectron.render();
     });
 
     Mousetrap.bind('space', function(e) {
+        if(!vectron.map.active)
+            return;
         vectron.map.panY = -1*vectron.map.mapY(vectron.cursor.realY);
         vectron.map.panX = -1*vectron.map.mapX(vectron.cursor.realX);
         vectron.render();

@@ -25,7 +25,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 function GUI(vectron) {
 
     this.vectron = vectron;
-    this.active = true;
+    this.active = false;
 
     this.debug;
     this.messages = [];
@@ -54,12 +54,14 @@ GUI.prototype = {
     },
 
     show:function() {
-        
+        this.vectron.map.active = false;
+        $("#control_box").show();
         this.active = true; //No longer active
     },
 
     hide:function() {
-
+        $("#control_box").hide();
+        this.vectron.map.active = true;
         this.active = false; //Active!
     }
 
