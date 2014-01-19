@@ -66,13 +66,12 @@ function EventHandler(vectron) {
     }); 
 
     $("#canvas_container").dblclick(function() {
-
+    	alert("POOOOOP");
             if(vectron.map.currentTool instanceof WallTool) {
 	        	if(vectron.map.wallTool.active)
 	            	vectron.map.currentTool.complete();
 	        
 	        } else if(vectron.map.currentTool instanceof ZoneTool) {
-	        	alert("POOOOOP");
 	        	vectron.map.remove();
 	        	vectron.map.remove();
 	        	vectron.map.zoneTool.type += 1;
