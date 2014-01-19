@@ -47,17 +47,6 @@ ZoneTool.prototype = {
 
     constructor: ZoneTool,
 
-    toggle:function(type) {
-        if(type == null) {
-
-
-        } else {
-
-
-        }
-
-    },
-
     connect:function() {
         if(this.vectron.map.currentTool != null && this.vectron.map.currentTool.active) {
             this.vectron.gui.writeLog("Tool active cannot select another right now.");
@@ -65,6 +54,7 @@ ZoneTool.prototype = {
         } else {
             this.vectron.map.currentTool = this;
             this.guide();
+            this.vectron.gui.writeLog("Zone Tool Selected.");
             return true;
         }
     },
@@ -90,10 +80,25 @@ ZoneTool.prototype = {
     //mouse up they have selected a direction store the point as an object.
     //no start to zone tool, just add the zone and listen for + - event.
     complete:function() {
-        this.vectron.map.add(new Zone(this.vectron,
-                                this.vectron.map.mapX(this.vectron.cursor.realX),
-                                this.vectron.map.mapY(this.vectron.cursor.realY),
-                                this.radius, this.type));
+        var newX = this.vectron.map.mapX(this.vectron.cursor.realX);
+        var newY = this.vectron.map.mapY(this.vectron.cursor.realY);
+        var radius = this.radius;
+
+
+        var prevObjs = this.vectron.map.aamapObjects;
+        for(var i = 0; i < prevObjs.length; i++) {
+            if(prevObjs[i] instanceof Zone) {
+                if(prevObjs[i].x == newX && prevObjs[i].y == newY &&
+                    prevObjs[i].radius == radius) {
+
+                    this.vectron.gui.writeLog("Prevented Duplicate Zone anytype.<br>" +
+                        "Check settings to disable this feature.");
+                    return;
+                }
+
+            }
+        }
+        this.vectron.map.add(new Zone(this.vectron, newX, newY, radius, this.type));
         this.guideObj.remove();
         this.active = false;
     }

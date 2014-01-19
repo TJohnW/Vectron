@@ -48,6 +48,7 @@ WallTool.prototype = {
             if(this.vectron.map.currentTool != null)
                 this.vectron.map.currentTool.disconnect();
             this.vectron.map.currentTool = this;
+            this.vectron.gui.writeLog("Wall Tool Selected.");
             return true;
         }
     },
