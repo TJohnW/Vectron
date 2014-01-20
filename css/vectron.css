@@ -1,5 +1,5 @@
 #canvas_container {   
-  cursor:none;
+  cursor:default;
   position: absolute;
   right: 0;
   left: 50px;
