@@ -59,10 +59,12 @@ Vectron.prototype = {
 
         this.screen.setSize(this.width, this.height);
         this.map.render();
-        if(this.map.currentTool.currentObj != null)
+        if(this.map.currentTool.currentObj != null && this.map.currentTool instanceof WallTool)
             this.map.currentTool.currentObj.render();
         if(this.map.currentTool instanceof ZoneTool)
             this.map.currentTool.guide();
+        if(this.map.currentTool instanceof SpawnTool)
+            this.map.currentTool.currentObj.guide();
         //this.cursor.render();
     }
 

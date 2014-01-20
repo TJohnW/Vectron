@@ -27,8 +27,8 @@ function SpawnTool(vectron) {
     this.vectron = vectron;
     this.active = false;
 
+    this.guideObj = null;
     this.currentObj = null;
-
 
 }  
 
@@ -41,6 +41,8 @@ SpawnTool.prototype = {
             this.vectron.gui.writeLog("Tool active cannot select another right now.");
             return false;
         } else {
+            if(this.vectron.map.currentTool != null)
+                this.vectron.map.currentTool.disconnect();
         	this.vectron.map.currentTool = this;
         	return true;
         }
@@ -66,7 +68,7 @@ SpawnTool.prototype = {
         this.currentObj.guideObj.remove();
         this.vectron.map.add(this.currentObj);
         this.currentObj.render();
-        //this.currentObj = null;
+        this.currentObj = null;
     	this.active = false;
     }
 

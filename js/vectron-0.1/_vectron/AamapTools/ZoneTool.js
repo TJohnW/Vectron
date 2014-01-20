@@ -52,6 +52,8 @@ ZoneTool.prototype = {
             this.vectron.gui.writeLog("Tool active cannot select another right now.");
             return false;
         } else {
+            if(this.vectron.map.currentTool != null)
+                this.vectron.map.currentTool.disconnect();
             this.vectron.map.currentTool = this;
             this.guide();
             this.vectron.gui.writeLog("Zone Tool Selected.");
