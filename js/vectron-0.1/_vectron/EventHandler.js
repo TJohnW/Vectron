@@ -210,9 +210,12 @@ function EventHandler(vectron) {
                 vectron.map.remove();
             }
         } else if(vectron.map.currentTool instanceof SpawnTool) {
-            vectron.map.currentTool.disconnect();
-            vectron.map.spawnTool.connect();
-            vectron.map.remove();
+            if(vectron.map.currentTool.active) {
+                vectron.map.currentTool.disconnect();
+                vectron.map.wallTool.connect();
+            } else {
+                vectron.map.remove();
+            }
         }
     });
 

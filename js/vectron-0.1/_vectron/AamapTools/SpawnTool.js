@@ -47,8 +47,12 @@ SpawnTool.prototype = {
     },
 
     disconnect:function() {
-    	this.vectron.map.currentTool = null;
-    	this.active = false;
+        if(this.currentObj != null) {
+            this.currentObj.obj.remove();
+            this.currentObj.guideObj.remove();
+        }
+        this.vectron.map.currentTool = null;
+        this.active = false;
     },
 
 
