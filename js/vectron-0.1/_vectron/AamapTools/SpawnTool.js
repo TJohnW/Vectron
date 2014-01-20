@@ -27,6 +27,9 @@ function SpawnTool(vectron) {
     this.vectron = vectron;
     this.active = false;
 
+    this.currentObj = null;
+
+
 }  
 
 SpawnTool.prototype = {
@@ -49,14 +52,17 @@ SpawnTool.prototype = {
     },
 
 
-    //mouse down, detect drag direction locked to map axes.
+    //mouse down place guide, detect direction locked to map axes.
     start:function() {
-
+        this.currentObj = new Spawn(this.vectron);
     	this.active = true;
     },
     //mouse up they have selected a direction store the point as an object.
     complete:function() {
-
+        this.currentObj.guideObj.remove();
+        this.vectron.map.add(this.currentObj);
+        this.currentObj.render();
+        //this.currentObj = null;
     	this.active = false;
     }
 

@@ -32,7 +32,7 @@ function Wall(vectron) {
     this.pathArray = [];
     //this.guideArray = [];
 
-    this.xml = '';
+    this.xml = 'Wall';
 
 }  
 

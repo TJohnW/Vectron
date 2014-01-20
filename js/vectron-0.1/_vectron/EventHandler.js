@@ -25,12 +25,11 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 function EventHandler(vectron) {
 
     //setup key handling here also.
+    vectron.map.wallTool.connect();
 
     window.onresize = function() {
         vectron.render();
     }
-
-    vectron.map.zoneTool.connect();
 
     $("#canvas_container").mousemove(function(event) {
         if(!vectron.map.active)
@@ -44,6 +43,10 @@ function EventHandler(vectron) {
 
         } else if(vectron.map.currentTool instanceof ZoneTool) {
         	vectron.map.currentTool.guide();
+
+        } else if(vectron.map.currentTool instanceof SpawnTool) {
+            if(vectron.map.spawnTool.active)
+                vectron.map.currentTool.currentObj.guide();
         }
 
     });
@@ -54,6 +57,7 @@ function EventHandler(vectron) {
             return;
 
         if(vectron.map.currentTool instanceof WallTool) {
+
         	if(vectron.map.wallTool.active)
             	vectron.map.currentTool.progress();
             else
@@ -62,17 +66,37 @@ function EventHandler(vectron) {
         } else if(vectron.map.currentTool instanceof ZoneTool) {
 
         	vectron.map.currentTool.complete();
+
+        } else if(vectron.map.currentTool instanceof SpawnTool) {
+
+           if(vectron.map.spawnTool.active)
+                vectron.map.currentTool.complete();
+            else
+                vectron.map.currentTool.start();
         }
 
     }); 
+
+    $("#canvas_container").dblclick(function(e) {
+        e.preventDefault();
+        if(!vectron.map.active)
+            return;
+        if(vectron.map.currentTool instanceof WallTool) {
+            if(vectron.map.wallTool.active)
+                vectron.map.currentTool.complete();
+        }
+
+    });
 
     // TOOLBAR
 
     $("#toolbar-gui-toggle").mouseup(function(e) {
         if(!vectron.gui.active) {
             vectron.gui.show(); // sets active state
+            $("#toolbar-gui-toggle").html("&laquo;");
         } else {
             vectron.gui.hide();
+            $("#toolbar-gui-toggle").html("&raquo;");
         }
         vectron.gui.writeLog('GUI TOGGLE');
 
@@ -152,8 +176,14 @@ function EventHandler(vectron) {
 
         // SPAWN
     $("#toolbar-toolSpawn").mouseup(function(e) {
-
-        vectron.gui.writeLog('SPAWN TOOL');
+        if(!vectron.map.active)
+            return;
+        if(vectron.map.currentTool instanceof SpawnTool) {
+            return;
+        } else {
+            vectron.map.spawnTool.connect();
+            vectron.gui.writeLog('Spawn Tool Connected.');
+        }
     });
 
     $("#toolbar-toolUnlock").mouseup(function(e) {
@@ -167,6 +197,7 @@ function EventHandler(vectron) {
         $('#toolbar-toolLock-list').css('display','none');
         $('#toolbar-toolUnlock-list').css('display','block');
     });
+
         //cancel
     $("#toolbar-disconnect").mouseup(function(e) {
         if(vectron.map.currentTool instanceof ZoneTool) {
@@ -181,6 +212,7 @@ function EventHandler(vectron) {
         } else if(vectron.map.currentTool instanceof SpawnTool) {
             vectron.map.currentTool.disconnect();
             vectron.map.spawnTool.connect();
+            vectron.map.remove();
         }
     });
 
@@ -196,18 +228,6 @@ function EventHandler(vectron) {
             vectron.map.zoom -= 1;
         }
         vectron.render();
-    });
-
-
-    $("#canvas_container").dblclick(function(e) {
-    	e.preventDefault();
-        if(!vectron.map.active)
-            return;
-        if(vectron.map.currentTool instanceof WallTool) {
-        	if(vectron.map.wallTool.active)
-            	vectron.map.currentTool.complete();
-        }
-
     });
 
     Mousetrap.bind('shift+w', function(e) {
@@ -338,6 +358,5 @@ function EventHandler(vectron) {
         vectron.render();
     });
 
-    
 }  
 

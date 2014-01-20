@@ -63,7 +63,9 @@ Aamap.prototype = {
 
     add:function(obj) {
         //add to xml of the obj
+        this.xml += obj.xml;
         this.aamapObjects.push(obj);
+        this.vectron.gui.writeLog("<br><br>" + this.xml);
     },
 
     remove:function() {
