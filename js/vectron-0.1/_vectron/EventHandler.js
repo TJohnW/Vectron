@@ -25,7 +25,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 function EventHandler(vectron) {
 
     //setup key handling here also.
-    vectron.map.wallTool.connect();
+    vectron.map.selectTool.connect();
 
     window.onresize = function() {
         vectron.render();
@@ -39,12 +39,40 @@ function EventHandler(vectron) {
 
         if(vectron.map.currentTool instanceof ZoneTool) {
         	vectron.map.currentTool.guide();
+
+        } else if(vectron.map.currentTool instanceof SelectTool) {
+            if(vectron.map.currentTool.active)
+                vectron.map.currentTool.progress();
+
         } else if( vectron.map.currentTool != null ) {
             if(vectron.map.currentTool.active)
                 vectron.map.currentTool.currentObj.guide();
         }
 
     });
+
+    $("#canvas_container").mouseleave(function(e) {
+        e.preventDefault();
+        if(!vectron.map.active)
+            return;
+        if(vectron.map.currentTool instanceof SelectTool) {
+            if(vectron.map.currentTool.active)
+                vectron.map.currentTool.complete();
+        }
+
+    }); 
+
+
+    $("#canvas_container").mousedown(function(e) {
+        e.preventDefault();
+        if(!vectron.map.active)
+            return;
+
+        if(vectron.map.currentTool instanceof SelectTool) {
+            vectron.map.currentTool.start();
+        }
+
+    }); 
 
     $("#canvas_container").mouseup(function(e) {
         e.preventDefault();
@@ -68,6 +96,10 @@ function EventHandler(vectron) {
                 vectron.map.currentTool.complete();
             else
                 vectron.map.currentTool.start();
+        } else if(vectron.map.currentTool instanceof SelectTool) {
+
+            vectron.map.currentTool.complete();
+
         }
 
     }); 

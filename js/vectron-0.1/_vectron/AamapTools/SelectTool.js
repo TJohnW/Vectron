@@ -22,7 +22,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-function SpawnTool(vectron) {
+function SelectTool(vectron) {
 
     this.vectron = vectron;
     this.active = false;
@@ -30,11 +30,16 @@ function SpawnTool(vectron) {
     this.guideObj = null;
     this.selectedObjs = null;
 
+    this.x = null; // MAP X
+    this.y = null; // MAP Y
+    this.endX = null; // to this map X
+    this.endY = null; // to this map Y
+
 }  
 
-SpawnTool.prototype = {
+SelectTool.prototype = {
 
-    constructor: SpawnTool,
+    constructor: SelectTool,
 
     connect:function() {
         if(this.vectron.map.currentTool != null && this.vectron.map.currentTool.active) {
@@ -60,19 +65,51 @@ SpawnTool.prototype = {
 
     //mouse down start drag
     start:function() {
-        this.selectedObjects = select( xStart, yStart, xEnd, yEnd );
+        //this.selectedObjects = select( xStart, yStart, xEnd, yEnd );
+        if(this.guideObj != null)
+            this.guideObj.remove();
+        this.x = this.vectron.map.mapX(this.vectron.cursor.realX);
+        this.y = this.vectron.map.mapY(this.vectron.cursor.realY);
+        this.guideObj = this.vectron.screen.rect(this.vectron.cursor.realX, this.vectron.cursor.realY, 0, 0)
+        .attr({"stroke": "#51a0ff", "stroke-opacity": "0.5", "fill": "#51a0ff", "fill-opacity": "0.3"});
+        this.vectron.gui.writeLog("LALLALAA");
     	this.active = true;
     },
+
+    progress:function() {
+        this.endX = this.vectron.map.mapX(this.vectron.cursor.realX);
+        this.endY = this.vectron.map.mapY(this.vectron.cursor.realY);
+        this.guideObj.remove();
+        var realX = this.vectron.map.realX(this.x);
+        var realY = this.vectron.map.realY(this.y);
+        var endRealX = this.vectron.map.realX(this.endX);
+        var endRealY = this.vectron.map.realY(this.endY);
+
+        var width = endRealX - realX;
+        var height = endRealY - realY;
+
+        if(width < 0) {
+            realX = endRealX;
+            width *= -1;
+        }
+
+        if(height < 0) {
+            realY = endRealY;
+            height *= -1;
+        }
+
+        this.guideObj = this.vectron.screen.rect(realX, realY, width, height)
+        .attr({"stroke": "#51a0ff", "stroke-opacity": "0.5", "fill": "#51a0ff", "fill-opacity": "0.3"});
+    },
+
     //mouse up they have selected a direction store the point as an object.
     complete:function() {
-        this.currentObj.guideObj.remove();
-        this.vectron.map.add(this.currentObj);
-        this.currentObj.render();
-        this.currentObj = null;
+        this.guideObj.remove();
+        this.vectron.gui.writeLog("WEENIEHUTGENERAL");
     	this.active = false;
-    }
+    },
 
     select:function( xStart, yStart, xEnd, yEnd ) {
-        for( int i = 0
+        
     },
 }

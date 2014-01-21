@@ -35,6 +35,7 @@ function Aamap(vectron) {
     this.wallTool = new WallTool(vectron);
     this.zoneTool = new ZoneTool(vectron);
     this.spawnTool = new SpawnTool(vectron);
+    this.selectTool = new SelectTool(vectron);
 
     this.currentTool = null;
     this.gridObj = null;
