@@ -37,15 +37,10 @@ function EventHandler(vectron) {
         event.pageX -= 50;
         vectron.cursor.render(event.pageX, event.pageY, vectron.map.zoom);
 
-        if(vectron.map.currentTool instanceof WallTool) {
-        	if(vectron.map.wallTool.active)
-            	vectron.map.currentTool.currentObj.guide();
-
-        } else if(vectron.map.currentTool instanceof ZoneTool) {
+        if(vectron.map.currentTool instanceof ZoneTool) {
         	vectron.map.currentTool.guide();
-
-        } else if(vectron.map.currentTool instanceof SpawnTool) {
-            if(vectron.map.spawnTool.active)
+        } else {
+            if(vectron.map.currentTool.active)
                 vectron.map.currentTool.currentObj.guide();
         }
 
