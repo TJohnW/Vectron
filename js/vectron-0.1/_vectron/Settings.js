@@ -29,6 +29,7 @@ function Settings(vectron) {
     this.settings = {
         //settings here
         //settings here
+        
     };
 
 }  
