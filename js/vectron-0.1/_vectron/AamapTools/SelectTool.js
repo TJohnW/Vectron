@@ -114,12 +114,14 @@ SelectTool.prototype = {
 
         this.guideObj = this.vectron.screen.rect(realX, realY, width, height)
         .attr({"stroke": "#51a0ff", "stroke-opacity": "0.5", "fill": "#51a0ff", "fill-opacity": "0.3"});
-        this.selectArea(this.x, this.y, this.endX, this.endY);
     },
 
     //mouse up they have selected a direction store the point as an object.
     complete:function() {
         this.guideObj.remove();
+        this.endX = this.vectron.map.mapX(this.vectron.cursor.realX);
+        this.endY = this.vectron.map.mapY(this.vectron.cursor.realY);
+        this.selectArea(this.x, this.y, this.endX, this.endY);
     	this.active = false;
     },
 
@@ -133,9 +135,7 @@ SelectTool.prototype = {
                 for(var j = 0; j < curObj.points.length - 1; j++) {
                     var p1 = curObj.points[j];
                     var p2 = curObj.points[j+1];
-                    this.vectron.gui.writeLog("AHiijjiESSS");
                     if(this.lineIntersectsRect(p1, p2, params[0], params[1], params[2], params[3])) {
-                        this.vectron.gui.writeLog("AHAHAH SUCCESSS");
                         this.select(curObj);
                         this.selectedObjs.push( curObj );
                         break;
@@ -144,7 +144,8 @@ SelectTool.prototype = {
                     }
                 }
                 //Don't care
-            } else if(curObj instanceof Zone) {
+            } 
+            else if(curObj instanceof Zone) {
 
                 if(this.circIntersectsRect(new WallPoint(curObj.x, curObj.y), curObj.radius, 
                     params[0], params[1], params[2], params[3])) {
@@ -155,7 +156,8 @@ SelectTool.prototype = {
                     this.deselect(curObj);
                 }
 
-            } else {
+            } 
+            else {
                 if( params[0] <= curObj.x && curObj.x <= params[2] &&
                     params[1] >= curObj.y && curObj.y >= params[3] ) {
                     
@@ -184,6 +186,7 @@ SelectTool.prototype = {
         for(var i = 0; i < this.vectron.map.aamapObjects.length; i++ ) {
             this.deselect(this.vectron.map.aamapObjects[i]);
         }
+        this.selectedObjs = [];
     },
     
     /* Much gross. Very ew. */
@@ -229,7 +232,6 @@ SelectTool.prototype = {
     },
 
     lineIntersectsRect:function(p1, r, x0, y0, x1, y1) {
-        this.vectron.gui.writeLog("AHAHAH SUCCESSS");
         return this.circIntersectsLine(p1, r, new WallPoint(x0, y0), new WallPoint(x1, y0)) ||
                this.circIntersectsLine(p1, r, new WallPoint(x1, y0), new WallPoint(x1, y1)) ||
                this.circIntersectsLine(p1, r, new WallPoint(x1, y1), new WallPoint(x0, y1)) ||
@@ -238,7 +240,6 @@ SelectTool.prototype = {
 
     lineIntersectsRect:function(p1, p2, x0, y0, x1, y1)
     {
-        this.vectron.gui.writeLog("AHAHAH SUCCESSS");
         return this.lineIntersectsLine(p1, p2, new WallPoint(x0, y0), new WallPoint(x1, y0)) ||
                this.lineIntersectsLine(p1, p2, new WallPoint(x1, y0), new WallPoint(x1, y1)) ||
                this.lineIntersectsLine(p1, p2, new WallPoint(x1, y1), new WallPoint(x0, y1)) ||
@@ -253,6 +254,27 @@ SelectTool.prototype = {
 
             return true;
         }
+
+        if(y0 >= p1.y && p1.y >= y1) {
+            if(Math.abs(x1 - p1.x) <= r)
+                return true;
+        }
+
+        if(y0 >= p1.y && p1.y >= y1) {
+            if(Math.abs(x0 - p1.x) <= r)
+                return true;
+        }
+
+        if(x0 <= p1.x && x1 >= p1.x) {
+            if(Math.abs(y0 - p1.y) <= r)
+                return true;
+        }
+ 
+        if(x0 <= p1.x && x1 >= p1.x) {
+            if(Math.abs(y1 - p1.y) <= r)
+                return true;
+        }
+
         var point1 = new WallPoint(x0, y0);
         var point2 = new WallPoint(x1, y0);
         var point3 = new WallPoint(x1, y1);
@@ -260,7 +282,6 @@ SelectTool.prototype = {
 
         var dist1x = Math.abs(p1.x - point1.x);
         var dist1y = Math.abs(p1.y - point1.y);
-        this.vectron.gui.writeLog(dist1x + "<br>" + dist1y + "<br>R" + r);
         if(dist1x <= r && dist1y <= r)
             return true;
 
@@ -278,28 +299,6 @@ SelectTool.prototype = {
         var dist4y = Math.abs(p1.y - point4.y);
         if(dist4x <= r && dist4y <= r)
             return true;
-
-        if(y0 >= p1.y && p1.y >= y1) {
-            this.vectron.gui.writeLog("WOOOP" + Math.abs(x1 - p1.x));
-            if(Math.abs(x1 - p1.x) <= r)
-                return true;
-        }
-
-        if(y0 >= p1.y && p1.y >= y1) {
-            this.vectron.gui.writeLog("WOOOP" + Math.abs(x1 - p1.x));
-            if(Math.abs(x0 - p1.x) <= r)
-                return true;
-        }
-
-        if(x0 <= p1.x && x1 >= p1.x) {
-            if(Math.abs(y0 - p1.y) <= r)
-                return true;
-        }
- 
-        if(x0 <= p1.x && x1 >= p1.x) {
-            if(Math.abs(y1 - p1.y) <= r)
-                return true;
-        }
 
         return false;
     }
