@@ -145,6 +145,8 @@ SelectTool.prototype = {
                 }
                 //Don't care
             } 
+            /*
+            OPTION SLOWER THO
             else if(curObj instanceof Zone) {
 
                 if(this.circIntersectsRect(new WallPoint(curObj.x, curObj.y), curObj.radius, 
@@ -157,6 +159,7 @@ SelectTool.prototype = {
                 }
 
             } 
+            */
             else {
                 if( params[0] <= curObj.x && curObj.x <= params[2] &&
                     params[1] >= curObj.y && curObj.y >= params[3] ) {
