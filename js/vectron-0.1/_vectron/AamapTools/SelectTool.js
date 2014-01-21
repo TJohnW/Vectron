@@ -130,6 +130,18 @@ SelectTool.prototype = {
         for( var i = 0; i < this.vectron.map.aamapObjects.length; i++ ) {
             var curObj = this.vectron.map.aamapObjects[i];
             if( curObj instanceof Wall ) {
+                for(var j = 0; j < curObj.points.length - 1; j++) {
+                    var p1 = curObj.points[j];
+                    var p2 = curObj.points[j+1];
+                    if(this.lineIntersectsRect(p1, p2, params[0], params[1], params[2], params[3])) {
+                        this.vectron.gui.writeLog("AHAHAH SUCCESSS");
+                        this.select(curObj);
+                        this.selectedObjs.push( curObj );
+                        break;
+                    } else {
+                        this.deselect(curObj);
+                    }
+                }
                 //Don't care
             } else {
                 if( params[0] <= curObj.x && curObj.x <= params[2] &&
@@ -179,5 +191,41 @@ SelectTool.prototype = {
             }
         }
         return ordered;
+    },
+
+    lineIntersectsLine:function(l1p1, l1p2, l2p1, l2p2)
+    {
+        var q = (l1p1.y - l2p1.y) * (l2p2.x - l2p1.x) - (l1p1.x - l2p1.x) * (l2p2.y - l2p1.y);
+        var d = (l1p2.x - l1p1.x) * (l2p2.y - l2p1.y) - (l1p2.y - l1p1.y) * (l2p2.x - l2p1.x);
+
+        if( d == 0 )
+        {
+            return false;
+        }
+
+        var r = q / d;
+
+        q = (l1p1.y - l2p1.y) * (l1p2.x - l1p1.x) - (l1p1.x - l2p1.x) * (l1p2.y - l1p1.y);
+        var s = q / d;
+
+        if( r < 0 || r > 1 || s < 0 || s > 1 )
+        {
+            return false;
+        }
+
+        return true;
+    },
+
+    lineIntersectsRect:function(p1, p2, x0, y0, x1, y1)
+    {
+        this.vectron.gui.writeLog("AHAHAH SUCCESSS");
+        return this.lineIntersectsLine(p1, p2, new WallPoint(x0, y0), new WallPoint(x1, y0)) ||
+               this.lineIntersectsLine(p1, p2, new WallPoint(x1, y0), new WallPoint(x1, y1)) ||
+               this.lineIntersectsLine(p1, p2, new WallPoint(x1, y1), new WallPoint(x0, y1)) ||
+               this.lineIntersectsLine(p1, p2, new WallPoint(x0, y1), new WallPoint(x0, y0)) ||
+               ( x0 <= p1.x && p1.x <= x1 &&
+                    y0 >= p1.y && p1.y >= y1 );
     }
 }
+
+
