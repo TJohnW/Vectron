@@ -147,7 +147,7 @@ SelectTool.prototype = {
 
     select:function(curObj) {
         if(curObj.obj.glowObj == null)
-           curObj.obj.glowObj = curObj.obj.glow({color: "#375ffc", width: "0.5"});
+           curObj.obj.glowObj = curObj.obj.glow({color: "#375ffc"});
     },
 
     deselect:function(curObj) {
