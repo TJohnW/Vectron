@@ -28,7 +28,7 @@ function SelectTool(vectron) {
     this.active = false;
 
     this.guideObj = null;
-    this.selectedObjs = null;
+    this.selectedObjs = [];
 
     this.x = null; // MAP X
     this.y = null; // MAP Y
@@ -49,16 +49,26 @@ SelectTool.prototype = {
             if(this.vectron.map.currentTool != null)
                 this.vectron.map.currentTool.disconnect();
         	this.vectron.map.currentTool = this;
+            $("#toolbar-toolSelect").css("background-color", "#777");
         	return true;
         }
     },
 
+
+    //Note
+    /*
+    In case you need to use the selection for another tool, you canpass the
+    selected objs on to a tool that requires thems connection, this will allow
+    you to use the select funtion below on the selected objects.
+    */
     disconnect:function() {
         if(this.currentObj != null) {
             this.currentObj.obj.remove();
             this.currentObj.guideObj.remove();
         }
+        this.deselectAll();
         this.vectron.map.currentTool = null;
+        $("#toolbar-toolSelect").css("background-color", "transparent");
         this.active = false;
     },
 
@@ -70,6 +80,10 @@ SelectTool.prototype = {
             this.guideObj.remove();
         this.x = this.vectron.map.mapX(this.vectron.cursor.realX);
         this.y = this.vectron.map.mapY(this.vectron.cursor.realY);
+
+        //clear selected objects.
+        this.deselectAll();
+
         this.guideObj = this.vectron.screen.rect(this.vectron.cursor.realX, this.vectron.cursor.realY, 0, 0)
         .attr({"stroke": "#51a0ff", "stroke-opacity": "0.5", "fill": "#51a0ff", "fill-opacity": "0.3"});
         this.vectron.gui.writeLog("LALLALAA");
@@ -100,39 +114,57 @@ SelectTool.prototype = {
 
         this.guideObj = this.vectron.screen.rect(realX, realY, width, height)
         .attr({"stroke": "#51a0ff", "stroke-opacity": "0.5", "fill": "#51a0ff", "fill-opacity": "0.3"});
+        this.selectArea(this.x, this.y, this.endX, this.endY);
     },
 
     //mouse up they have selected a direction store the point as an object.
     complete:function() {
         this.guideObj.remove();
-        this.vectron.gui.writeLog("WEENIEHUTGENERAL");
     	this.active = false;
     },
 
-    select:function( xStart, yStart, xEnd, yEnd ) {
+    selectArea:function( xStart, yStart, xEnd, yEnd ) {
         selectedObjs = [];
-        params = orderCorners( xStart, yStart, xEnd, yEnd ); 
+        var params = this.orderCorners( xStart, yStart, xEnd, yEnd ); 
         //params = [left, top, right, bottom]
-        for( var i = 0; i < this.vectron.map.objects.length; i++ ) {
-            curObj = this.vectron.map.objects[i];
+        for( var i = 0; i < this.vectron.map.aamapObjects.length; i++ ) {
+            var curObj = this.vectron.map.aamapObjects[i];
             if( curObj instanceof Wall ) {
                 //Don't care
             } else {
-                if( params[0] < curObj.x && curObj.x < params[2] &&
-                    params[1] > curObj.y && curObj.y > params[3] ) {
-                    curObj.obj.glow();
-                    selectedObjs.push( curObj.obj );
+                if( params[0] <= curObj.x && curObj.x <= params[2] &&
+                    params[1] >= curObj.y && curObj.y >= params[3] ) {
+                    
+                    this.select(curObj);
+                    this.selectedObjs.push( curObj );
                 } else {
                     //noglo
-                    curObj.obj.glow( 0 );
+                    this.deselect(curObj);
                 }
             }
+        }
+    },
+
+    select:function(curObj) {
+        if(curObj.obj.glowObj == null)
+           curObj.obj.glowObj = curObj.obj.glow({color: "#375ffc", width: "0.5"});
+    },
+
+    deselect:function(curObj) {
+        if(curObj.obj.glowObj != null)
+            curObj.obj.glowObj.remove();
+        curObj.obj.glowObj = null;
+    },
+
+    deselectAll:function() {
+        for(var i = 0; i < this.vectron.map.aamapObjects.length; i++ ) {
+            this.deselect(this.vectron.map.aamapObjects[i]);
         }
     },
     
     /* Much gross. Very ew. */
     orderCorners:function( xStart, yStart, xEnd, yEnd ) {
-        ordered = [];
+        var ordered = [];
         if( xStart < xEnd ) {
             if( yStart < yEnd ) {
                 ordered = [xStart, yEnd, xEnd, yStart];
@@ -146,5 +178,6 @@ SelectTool.prototype = {
                 ordered = [xEnd, yStart, xStart, yEnd];
             }
         }
+        return ordered;
     }
 }

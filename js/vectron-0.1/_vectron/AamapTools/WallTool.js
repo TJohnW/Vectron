@@ -49,6 +49,7 @@ WallTool.prototype = {
                 this.vectron.map.currentTool.disconnect();
             this.vectron.map.currentTool = this;
             this.vectron.gui.writeLog("Wall Tool Selected.");
+            $("#toolbar-toolWall").css("background-color", "#777");
             return true;
         }
     },
@@ -59,6 +60,7 @@ WallTool.prototype = {
             this.currentObj.guideObj.remove();
         }
         this.vectron.map.currentTool = null;
+        $("#toolbar-toolWall").css("background-color", "transparent");
         this.active = false;
     },
 

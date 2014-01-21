@@ -60,6 +60,11 @@ Aamap.prototype = {
         for(var i = 0; i < this.aamapObjects.length; i++) {
             this.aamapObjects[i].render();
         }
+        if(this.selectTool.selectedObjs != []) {
+            for(var i = 0; i < this.selectTool.selectedObjs.length; i++) {
+                this.selectTool.select(this.selectTool.selectedObjs[i]);
+            }
+        }
     },
 
     add:function(obj) {
@@ -103,19 +108,22 @@ Aamap.prototype = {
 
     grid:function() {
         var gridArray = [];
-        for(var i=this.vectron.width/2; i < this.vectron.width; i+= this.zoom) {
+        var midWidth = this.vectron.width/2 + (this.zoom * this.panX);
+        var midHeight = this.vectron.height/2 - (this.zoom * this.panY);
+
+        for(var i=midWidth; i < this.vectron.width; i+= this.zoom) {
             gridArray = gridArray.concat(["M", i, this.vectron.height, "L", i, 0]);
         }
     
-        for(var i=this.vectron.width/2; i > 0; i -= this.zoom) {
+        for(var i=midWidth; i > 0; i -= this.zoom) {
             gridArray = gridArray.concat(["M", i, this.vectron.height, "L", i, 0]);
         }
     
-        for(var i=this.vectron.height/2; i < this.vectron.height; i+= this.zoom) {
+        for(var i=midHeight; i < this.vectron.height; i+= this.zoom) {
             gridArray = gridArray.concat(["M", this.vectron.width, i, "L", 0, i]);
         }
     
-        for(var i=this.vectron.height/2; i > 0; i -= this.zoom) {
+        for(var i=midHeight; i > 0; i -= this.zoom) {
             gridArray = gridArray.concat(["M", this.vectron.width, i, "L", 0, i]);
         }
         

@@ -57,6 +57,7 @@ ZoneTool.prototype = {
             this.vectron.map.currentTool = this;
             this.guide();
             this.vectron.gui.writeLog("Zone Tool Selected.");
+            //icon//
             return true;
         }
     },

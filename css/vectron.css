@@ -109,6 +109,10 @@ body.noscroll {
   background-repeat:no-repeat;
 }
 
+#toolbar-toolSelect {
+  background-image:url('../images/SelectTool.png');
+}
+
 #toolbar-toolWall {
   background-image:url('../images/WallTool.png');
 }

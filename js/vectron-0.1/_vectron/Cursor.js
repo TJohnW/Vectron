@@ -52,11 +52,13 @@ Cursor.prototype = {
         this.obj.remove();
 
         if(this.snap) {
+            var midWidth = this.vectron.width/2 + (this.vectron.map.zoom * this.vectron.map.panX);
+            var midHeight = this.vectron.height/2 - (this.vectron.map.zoom * this.vectron.map.panY);
 
-            this.realX = (this.vectron.width/2) - Math.round(((this.vectron.width/2) - newX) /
+            this.realX = (midWidth) - Math.round(((midWidth) - newX) /
                 spacing) * spacing;
 
-            this.realY = (this.vectron.height/2) - Math.round(((this.vectron.height/2) - newY) /
+            this.realY = (midHeight) - Math.round(((midHeight) - newY) /
                 spacing) * spacing;
         } else {
             this.realX = newX;

@@ -44,6 +44,7 @@ SpawnTool.prototype = {
             if(this.vectron.map.currentTool != null)
                 this.vectron.map.currentTool.disconnect();
         	this.vectron.map.currentTool = this;
+            $("#toolbar-toolSpawn").css("background-color", "#777");
         	return true;
         }
     },
@@ -54,6 +55,7 @@ SpawnTool.prototype = {
             this.currentObj.guideObj.remove();
         }
         this.vectron.map.currentTool = null;
+        $("#toolbar-toolSpawn").css("background-color", "transparent");
         this.active = false;
     },
 

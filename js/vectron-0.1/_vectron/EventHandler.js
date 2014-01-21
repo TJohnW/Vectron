@@ -27,6 +27,31 @@ function EventHandler(vectron) {
     //setup key handling here also.
     vectron.map.selectTool.connect();
 
+    var space = false;
+    var spaceX = 0;
+    var spaceY = 0;
+    var startPanX = null;
+    var startPanY = null;
+    $(function() {
+      $(document).keyup(function(evt) {
+        if (evt.keyCode == 32) {
+          space = false;
+          startPanX = null;
+          startPanY = null;
+        }
+      }).keydown(function(evt) {
+        if (evt.keyCode == 32) {
+          space = true;
+          spaceX = vectron.cursor.realX;
+          spaceY = vectron.cursor.realY;
+          if(startPanX == null)
+            startPanX = vectron.map.panX;
+          if(startPanY == null)
+            startPanY = vectron.map.panY;
+        }
+      });
+    });
+
     window.onresize = function() {
         vectron.render();
     }
@@ -35,6 +60,13 @@ function EventHandler(vectron) {
         if(!vectron.map.active)
             return;
         event.pageX -= 50;
+        if(space) {
+            vectron.map.panX = startPanX + ((event.pageX - spaceX) / vectron.map.zoom);
+            vectron.map.panY = startPanY + ((spaceY - event.pageY) / vectron.map.zoom);
+            vectron.gui.writeLog("HI");
+            vectron.render();
+            return;
+        }
         vectron.cursor.render(event.pageX, event.pageY, vectron.map.zoom);
 
         if(vectron.map.currentTool instanceof ZoneTool) {
@@ -126,6 +158,18 @@ function EventHandler(vectron) {
             $("#toolbar-gui-toggle").html("&raquo;");
         }
         vectron.gui.writeLog('GUI TOGGLE');
+
+    });
+
+    $("#toolbar-toolSelect").mouseup(function(e) {
+        if(!vectron.map.active)
+            return;
+        if(vectron.map.currentTool instanceof SelectTool) {
+            return;
+        } else {
+            vectron.map.selectTool.connect();
+            vectron.gui.writeLog('Select Tool Connected.');
+        }
 
     });
 
@@ -243,6 +287,9 @@ function EventHandler(vectron) {
             } else {
                 vectron.map.remove();
             }
+        } else if(vectron.map.currentTool instanceof SelectTool) {
+            vectron.map.currentTool.disconnect();
+            vectron.map.selectTool.connect();
         }
     });
 
@@ -351,25 +398,25 @@ function EventHandler(vectron) {
     Mousetrap.bind('right', function(e) {
         if(!vectron.map.active)
             return;
-        vectron.map.panX -= 1;
+        vectron.map.panX -= 0.1;
         vectron.render();
     });
     Mousetrap.bind('left', function(e) {
         if(!vectron.map.active)
             return;
-        vectron.map.panX += 1;
+        vectron.map.panX += 0.1;
         vectron.render();
     });
     Mousetrap.bind('up', function(e) {
         if(!vectron.map.active)
             return;
-        vectron.map.panY -= 1;
+        vectron.map.panY -= 0.1;
         vectron.render();
     });
     Mousetrap.bind('down', function(e) {
         if(!vectron.map.active)
             return;
-        vectron.map.panY += 1;
+        vectron.map.panY += 0.1;
         vectron.render();
     });
     Mousetrap.bind('shift+space', function(e) {
@@ -377,14 +424,6 @@ function EventHandler(vectron) {
             return;
         vectron.map.panY = 0;
         vectron.map.panX = 0;
-        vectron.render();
-    });
-
-    Mousetrap.bind('space', function(e) {
-        if(!vectron.map.active)
-            return;
-        vectron.map.panY = -1*vectron.map.mapY(vectron.cursor.realY);
-        vectron.map.panX = -1*vectron.map.mapX(vectron.cursor.realX);
         vectron.render();
     });
 
