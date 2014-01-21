@@ -143,6 +143,17 @@ SelectTool.prototype = {
                     }
                 }
                 //Don't care
+            } else if(curObj instanceof Zone) {
+
+                if(this.circIntersectsRect(new WallPoint(curObj.x, curObj.y), curObj.radius, 
+                    params[0], params[1], params[2], params[3])) {
+                    this.select(curObj);
+                    this.selectedObjs.push( curObj );
+
+                } else {
+                    this.deselect(curObj);
+                }
+
             } else {
                 if( params[0] <= curObj.x && curObj.x <= params[2] &&
                     params[1] >= curObj.y && curObj.y >= params[3] ) {
@@ -216,16 +227,63 @@ SelectTool.prototype = {
         return true;
     },
 
-    lineIntersectsRect:function(p1, p2, x0, y0, x1, y1)
-    {
-        this.vectron.gui.writeLog("AHAHAH SUCCESSS");
-        return this.lineIntersectsLine(p1, p2, new WallPoint(x0, y0), new WallPoint(x1, y0)) ||
-               this.lineIntersectsLine(p1, p2, new WallPoint(x1, y0), new WallPoint(x1, y1)) ||
-               this.lineIntersectsLine(p1, p2, new WallPoint(x1, y1), new WallPoint(x0, y1)) ||
-               this.lineIntersectsLine(p1, p2, new WallPoint(x0, y1), new WallPoint(x0, y0)) ||
-               ( x0 <= p1.x && p1.x <= x1 &&
-                    y0 >= p1.y && p1.y >= y1 );
+    circIntersectsRect:function(p1, r, x0, y0, x1, y1) {
+        if( x0 <= p1.x && p1.x <= x1 &&
+            y0 >= p1.y && p1.y >= y1) {
+
+            return true;
+        }
+        var point1 = new WallPoint(x0, y0);
+        var point2 = new WallPoint(x1, y0);
+        var point3 = new WallPoint(x1, y1);
+        var point4 = new WallPoint(x0, y1);
+
+        var dist1x = Math.abs(p1.x - point1.x);
+        var dist1y = Math.abs(p1.y - point1.y);
+        this.vectron.gui.writeLog(dist1x + "<br>" + dist1y + "<br>R" + r);
+        if(dist1x <= r && dist1y <= r)
+            return true;
+
+        var dist2x = Math.abs(p1.x - point2.x);
+        var dist2y = Math.abs(p1.y - point2.y);
+        if(dist2x <= r && dist2y <= r)
+            return true;
+
+        var dist3x = Math.abs(p1.x - point3.x);
+        var dist3y = Math.abs(p1.y - point3.y);
+        if(dist3x <= r && dist3y <= r)
+            return true;
+
+        var dist4x = Math.abs(p1.x - point4.x);
+        var dist4y = Math.abs(p1.y - point4.y);
+        if(dist4x <= r && dist4y <= r)
+            return true;
+
+        if(y0 >= p1.y && p1.y >= y1) {
+            this.vectron.gui.writeLog("WOOOP" + Math.abs(x1 - p1.x));
+            if(Math.abs(x1 - p1.x) <= r)
+                return true;
+        }
+
+        if(y0 >= p1.y && p1.y >= y1) {
+            this.vectron.gui.writeLog("WOOOP" + Math.abs(x1 - p1.x));
+            if(Math.abs(x0 - p1.x) <= r)
+                return true;
+        }
+
+        if(x0 <= p1.x && x1 >= p1.x) {
+            if(Math.abs(y0 - p1.y) <= r)
+                return true;
+        }
+ 
+        if(x0 <= p1.x && x1 >= p1.x) {
+            if(Math.abs(y1 - p1.y) <= r)
+                return true;
+        }
+
+        return false;
     }
+
 }
 
 
