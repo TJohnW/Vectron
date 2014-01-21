@@ -39,7 +39,7 @@ function EventHandler(vectron) {
 
         if(vectron.map.currentTool instanceof ZoneTool) {
         	vectron.map.currentTool.guide();
-        } else {
+        } else if( vectron.map.currentTool != null ) {
             if(vectron.map.currentTool.active)
                 vectron.map.currentTool.currentObj.guide();
         }
