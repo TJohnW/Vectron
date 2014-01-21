@@ -73,6 +73,41 @@ SpawnTool.prototype = {
     }
 
     select:function( xStart, yStart, xEnd, yEnd ) {
-        for( int i = 0
+        selectedObjs = [];
+        params = orderCorners( xStart, yStart, xEnd, yEnd ); 
+        //params = [left, top, right, bottom]
+        for( int i = 0; i < this.vectron.map.objects.length; i++ ) {
+            curObj = this.vectron.map.objects[i];
+            if( curObj instanceof Wall ) {
+                //Don't care
+            } else {
+                if( params[0] < curObj.x && curObj.x < params[2] &&
+                    params[1] > curObj.y && curObj.y > params[3] ) {
+                    curObj.obj.glow();
+                    selectedObjs.push( curObj.obj );
+                } else {
+                    //noglo
+                    curObj.obj.glow( 0 );
+                }
+            }
+        }
     },
+    
+    /* Much gross. Very ew. */
+    orderCorners:function( xStart, yStart, xEnd, yEnd ) {
+        ordered = [];
+        if( xStart < xEnd ) {
+            if( yStart < yEnd ) {
+                ordered = [xStart, yEnd, xEnd, yStart];
+            } else {
+                ordered = [xStart, yStart, xEnd, yEnd];
+            } 
+        } else {
+            if( yStart < yEnd ) {
+                ordered = [xEnd, yEnd, xStart, yStart];
+            } else {
+                ordered = [xEnd, yStart, xStart, yEnd];
+            }
+        }
+    }
 }
