@@ -38,6 +38,9 @@ function EventHandler(vectron) {
           space = false;
           startPanX = null;
           startPanY = null;
+          vectron.cursor.render(vectron.cursor.pageXVal, vectron.cursor.pageYVal, vectron.map.zoom);
+          vectron.render();
+          vectron.cursor.render(vectron.cursor.pageXVal, vectron.cursor.pageYVal, vectron.map.zoom);
         }
       }).keydown(function(evt) {
         if (evt.keyCode == 32) {
@@ -60,10 +63,13 @@ function EventHandler(vectron) {
         if(!vectron.map.active)
             return;
         event.pageX -= 50;
+
+        vectron.cursor.pageXVal = event.pageX;
+        vectron.cursor.pageYVal = event.pageY;
+
         if(space) {
             vectron.map.panX = startPanX + ((event.pageX - spaceX) / vectron.map.zoom);
             vectron.map.panY = startPanY + ((spaceY - event.pageY) / vectron.map.zoom);
-            vectron.gui.writeLog("HI");
             vectron.render();
             return;
         }

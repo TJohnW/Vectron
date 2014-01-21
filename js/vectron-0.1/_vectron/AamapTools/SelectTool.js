@@ -161,8 +161,8 @@ SelectTool.prototype = {
             } 
             */
             else {
-                if( params[0] <= curObj.x && curObj.x <= params[2] &&
-                    params[1] >= curObj.y && curObj.y >= params[3] ) {
+                if( params[0] - 0.05 <= curObj.x && curObj.x <= params[2] + 0.05 &&
+                    params[1] + 0.05 >= curObj.y && curObj.y >= params[3] - 0.05 ) {
                     
                     this.select(curObj);
                     this.selectedObjs.push( curObj );

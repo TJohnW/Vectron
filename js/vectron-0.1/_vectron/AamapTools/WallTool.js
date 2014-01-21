@@ -58,6 +58,7 @@ WallTool.prototype = {
         if(this.currentObj != null) {
             this.currentObj.obj.remove();
             this.currentObj.guideObj.remove();
+            this.currentObj = null;
         }
         this.vectron.map.currentTool = null;
         $("#toolbar-toolWall").css("background-color", "transparent");
