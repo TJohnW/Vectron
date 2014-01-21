@@ -133,6 +133,7 @@ SelectTool.prototype = {
                 for(var j = 0; j < curObj.points.length - 1; j++) {
                     var p1 = curObj.points[j];
                     var p2 = curObj.points[j+1];
+                    this.vectron.gui.writeLog("AHiijjiESSS");
                     if(this.lineIntersectsRect(p1, p2, params[0], params[1], params[2], params[3])) {
                         this.vectron.gui.writeLog("AHAHAH SUCCESSS");
                         this.select(curObj);
@@ -225,6 +226,25 @@ SelectTool.prototype = {
         }
 
         return true;
+    },
+
+    lineIntersectsRect:function(p1, r, x0, y0, x1, y1) {
+        this.vectron.gui.writeLog("AHAHAH SUCCESSS");
+        return this.circIntersectsLine(p1, r, new WallPoint(x0, y0), new WallPoint(x1, y0)) ||
+               this.circIntersectsLine(p1, r, new WallPoint(x1, y0), new WallPoint(x1, y1)) ||
+               this.circIntersectsLine(p1, r, new WallPoint(x1, y1), new WallPoint(x0, y1)) ||
+               this.circIntersectsLine(p1, r, new WallPoint(x0, y1), new WallPoint(x0, y0));
+    },
+
+    lineIntersectsRect:function(p1, p2, x0, y0, x1, y1)
+    {
+        this.vectron.gui.writeLog("AHAHAH SUCCESSS");
+        return this.lineIntersectsLine(p1, p2, new WallPoint(x0, y0), new WallPoint(x1, y0)) ||
+               this.lineIntersectsLine(p1, p2, new WallPoint(x1, y0), new WallPoint(x1, y1)) ||
+               this.lineIntersectsLine(p1, p2, new WallPoint(x1, y1), new WallPoint(x0, y1)) ||
+               this.lineIntersectsLine(p1, p2, new WallPoint(x0, y1), new WallPoint(x0, y0)) ||
+               ( x0 <= p1.x && p1.x <= x1 &&
+                    y0 >= p1.y && p1.y >= y1 );
     },
 
     circIntersectsRect:function(p1, r, x0, y0, x1, y1) {
