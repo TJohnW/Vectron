@@ -313,6 +313,16 @@ function EventHandler(vectron) {
         vectron.render();
     });
 
+     $("#toolbar-toolScaleUp").mousedown(function(e) {
+        vectron.map.scale(2);
+    });
+
+    $("#toolbar-toolScaleDown").mouseup(function(e) {
+        vectron.map.scale(0.5);
+    });
+
+
+
     Mousetrap.bind('shift+w', function(e) {
         if(!vectron.map.active)
             return;

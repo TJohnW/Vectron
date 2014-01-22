@@ -52,5 +52,15 @@ Zone.prototype = {
             );
     },
 
+    /*
+     *  Should this be based on the SCALE_FACTOR setting in the game or on map
+     *  Coordinates?
+     */ 
+    scale:function(factor) {
+        this.x *= factor;
+        this.y *= factor;
+        this.radius *= factor;
+    }
+
 }
 

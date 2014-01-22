@@ -152,6 +152,14 @@ body.noscroll {
   background-image:url('../images/ZoomOut.png');
 }
 
+#tool_bar li a#toolbar-toolScaleUp {
+  font-size:20px;
+}
+
+#tool_bar li a#toolbar-toolScaleDown {
+  font-size:20px;
+}
+
 #tool_bar ul li#toolbar-toolLock-list {   display:block; }
 #tool_bar ul li#toolbar-toolUnlock-list {   display:none; }
 

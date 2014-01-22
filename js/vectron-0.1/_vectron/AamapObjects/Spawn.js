@@ -47,9 +47,10 @@ Spawn.prototype = {
     toDegrees:function() {
         var rad = Math.atan2(this.yDir, this.xDir);
         var rotation = rad / Math.PI * 180;
+
+        //Rotates in raphael are clockwise, atan2 is counterclockwise.
         rotation *= -1;
         return rotation;
-        this.vectron.gui.writeLog(rotation);
     },
 
     guideUpdate:function() {
@@ -130,4 +131,14 @@ Spawn.prototype = {
             .attr({stroke: "#FF3333", "fill": "#FF8ABE"})
             .transform("R" + this.toDegrees());
     },
+
+    /*
+     *  Should this be based on the SCALE_FACTOR setting in the game or on map
+     *  Coordinates?
+     */ 
+    scale:function(factor) {
+        this.x *= factor;
+        this.y *= factor;
+    }
+
 }

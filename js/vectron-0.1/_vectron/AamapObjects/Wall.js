@@ -84,4 +84,15 @@ Wall.prototype = {
         );
         this.guideObj = this.vectron.screen.path(guideArray).attr({stroke: "#aaa"});
     },
+
+    /*
+     *  Should this be based on map coordinates or game coordinates?
+     */ 
+    scale:function(factor) {
+
+        for(var i = 0, ii = this.points.length; i < ii; i++) {
+            this.points[i].x *= factor;
+            this.points[i].y *= factor;
+        }
+    }
 }

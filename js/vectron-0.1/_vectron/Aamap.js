@@ -67,6 +67,14 @@ Aamap.prototype = {
         }
     },
 
+    scale:function(factor) {
+
+        for(var i = 0, ii = this.aamapObjects.length; i < ii; i++) {
+            this.aamapObjects[i].scale(factor);
+        }
+        this.vectron.render();
+    },
+
     add:function(obj) {
         //add to xml of the obj
         this.xml += obj.xml;
