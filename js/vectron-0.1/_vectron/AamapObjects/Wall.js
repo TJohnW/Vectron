@@ -63,7 +63,6 @@ Wall.prototype = {
             }
         } 
         this.obj = this.vectron.screen.path(this.pathArray).attr({stroke: "#333"});
-        this.vectron.gui.writeLog(this.pathArray);
     },
 
     guide:function() {

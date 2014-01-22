@@ -86,7 +86,6 @@ SelectTool.prototype = {
 
         this.guideObj = this.vectron.screen.rect(this.vectron.cursor.realX, this.vectron.cursor.realY, 0, 0)
         .attr({"stroke": "#51a0ff", "stroke-opacity": "0.5", "fill": "#51a0ff", "fill-opacity": "0.3"});
-        this.vectron.gui.writeLog("LALLALAA");
     	this.active = true;
     },
 
