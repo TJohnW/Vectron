@@ -37,7 +37,7 @@ function Cursor(vectron) {
     this.obj = vectron.screen.path();
 
 }  
-
+ 
 Cursor.prototype = {
 
     constructor: Cursor,
