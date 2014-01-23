@@ -44,7 +44,7 @@ SpawnTool.prototype = {
             if(this.vectron.map.currentTool != null)
                 this.vectron.map.currentTool.disconnect();
         	this.vectron.map.currentTool = this;
-            $("#toolbar-toolSpawn").css("background-color", "#777");
+            $("#toolbar-toolSpawn").css("background-color", "rgba(0,0,0,0.3)");
         	return true;
         }
     },

@@ -57,7 +57,7 @@ ZoneTool.prototype = {
             this.vectron.map.currentTool = this;
             this.guide();
             this.vectron.gui.writeLog("Zone Tool Selected.");
-            //icon//
+            $('#toolbar-toolZone').css("background-color", "rgba(0,0,0,0.3)");
             return true;
         }
     },
@@ -66,6 +66,7 @@ ZoneTool.prototype = {
         this.vectron.map.currentTool = null;
         this.guideObj.remove();
         this.active = false;
+        $('#toolbar-toolZone').css("background-color", "transparent");
     },
 
     guide:function() {

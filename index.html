@@ -109,41 +109,46 @@
             </div>
         </div>
         <div id="tool_bar">
-            <ul>
+            <ul class="single-item">
                 <li>
                     <a id="toolbar-gui-toggle" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Settings and Controls">&raquo;</a>
                 </li>
             </ul>
 
-            <ul>
+            <ul class="single-item">
                 <li>
                     <a class="toolimg" id="toolbar-toolSelect" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Select Tool"></a>
                 </li>
             </ul>
 
-            <ul>
+            <ul class="single-item">
                 <li>
                     <a class="toolimg" id="toolbar-toolWall" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Wall Tool"></a>
                 </li>
             </ul>
-            <ul>
+            <ul id="zone-base" class="single-item">
                 <li>
-                    <a id="toolbar-toolZone-death" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Death"></a>
+                    <a id="toolbar-toolZone" href="#"></a>
                 </li>
-                <li>
-                    <a id="toolbar-toolZone-win" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Win"></a>
-                </li>
-                <li>
-                    <a id="toolbar-toolZone-target" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Target"></a>
-                </li>
-                <li>
-                    <a id="toolbar-toolZone-fortress" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Fortress"></a>
-                </li>
-                <li>
-                    <a class="toolzoneimg" id="toolbar-toolZone-rubber" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Rubber"></a>
-                </li>
+                <div id="zones-menu" style="display:none;">
+                    <li>
+                        <a id="toolbar-toolZone-death" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Death"></a>
+                    </li>
+                    <li>
+                        <a id="toolbar-toolZone-win" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Win"></a>
+                    </li>
+                    <li>
+                        <a id="toolbar-toolZone-target" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Target"></a>
+                    </li>
+                    <li>
+                        <a id="toolbar-toolZone-fortress" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Fortress"></a>
+                    </li>
+                    <li>
+                        <a class="toolzoneimg" id="toolbar-toolZone-rubber" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Rubber"></a>
+                    </li>
+                </div>
             </ul>
-            <ul>
+            <ul class="single-item">
                 <li>
                     <a id="toolbar-toolSpawn" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Spawn tool"></a>
                 </li>
@@ -168,7 +173,7 @@
                     <a id="toolbar-toolScaleDown" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Scale Down">/2</a>
                 </li>
             </ul>
-            <ul>
+            <ul class="single-item">
 
                 <li>
                     <a id="toolbar-disconnect" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Cancel or Delete Last Object.">&cross;</a>

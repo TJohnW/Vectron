@@ -70,39 +70,74 @@ body.noscroll {
   background:#333;
 }
 
-#tool_bar ul {
-  margin:0; padding:10px 10px;
-  padding-bottom:0;
+#tool_bar ul li:first-child a {
+  border-top: 0;
+  border-top-right-radius:3px;
+  border-top-left-radius:3px;
+}
 
+#tool_bar ul li:last-child a {
+  border-bottom: 0;
+  border-bottom-right-radius:3px;
+  border-bottom-left-radius:3px;
+}
+
+#tool_bar ul, #tool_bar #zones-menu {
+  background: rgba(0,0,0,0.18);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  box-shadow: inset rgba(0,0,0,0.45) 0px 1px 3px;
+  border: 1px solid #3d3d3d;
+  border-bottom: 1px solid #535353;
+  color: #f1f1f1;
+  line-height: 30px;
+  margin:6px;
+  padding:0px;
+}
+
+#tool_bar #zones-menu { 
+  background:#333;
+  margin:0;
+  position: absolute;
+  left: 42px;
+  top:0;
+  border-radius:0;
+  border:1px solid #1b1b1b;
+  border-left:0;
 }
 
 #tool_bar ul li {
+  margin:0;
+  padding:0;
   display:block;
-  height:30px;
-  width:30px;
-  background:#393939;
 }
 
 #tool_bar a { 
   display:block;
-  width:30px;
-  height:30px;
-  line-height:24px;
+  color: #fff;
+  line-height: 32px;
+  outline: none;
+  height:36px;
+  width:36px;
+  border-bottom: 1px solid #3b3b3b;
+  border-top: 1px solid #242424;
   text-align:center;
-  color:#EEE;
-  font-size:28px;
+  font-size:25px;
+  overflow:hidden;
 }
 
 #tool_bar ul li a:hover {
   color:#FFF;
-  background-color:#1b1b1b;
+  background-color:rgba(0,0,0,0.3);
   text-decoration:none;
 }
 
 #tool_bar ul li a.active {
-  background-color:#1b1b1b;
+  background-color:rgba(0, 0, 0, 0, 0.5);
 }
 
+#tool_bar ul.single-item li a { border:0; }
 
 #tool_bar ul li a {
   background-size:cover;
@@ -115,6 +150,15 @@ body.noscroll {
 
 #toolbar-toolWall {
   background-image:url('../images/WallTool.png');
+}
+
+#toolbar-toolZone {
+  background-image:url('../images/ZoneBase.png');
+}
+
+
+#zone-base { 
+  position:relative;
 }
 
 #toolbar-toolZone-death {

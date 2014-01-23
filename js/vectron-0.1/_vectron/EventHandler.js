@@ -190,6 +190,10 @@ function EventHandler(vectron) {
         }
     });
 
+    $("#toolbar-toolZone").mouseup(function(e) {
+        $("#zones-menu").toggle();
+
+    });
         //ZONES
 
     $("#toolbar-toolZone-death").mouseup(function(e) {
@@ -201,6 +205,7 @@ function EventHandler(vectron) {
         vectron.map.zoneTool.type = 0;
         vectron.map.currentTool.guide();
         vectron.gui.writeLog('DeathZone selected.');
+        $("#zones-menu").hide();
     });
 
     $("#toolbar-toolZone-win").mouseup(function(e) {
@@ -212,7 +217,7 @@ function EventHandler(vectron) {
         vectron.map.zoneTool.type = 1;
         vectron.map.currentTool.guide();
         vectron.gui.writeLog('WinZone selected.');
-
+        $("#zones-menu").hide();
     });
 
     $("#toolbar-toolZone-target").mouseup(function(e) {
@@ -224,7 +229,7 @@ function EventHandler(vectron) {
         vectron.map.zoneTool.type = 2;
         vectron.map.currentTool.guide();
         vectron.gui.writeLog('TargetZone selected.');
-
+        $("#zones-menu").hide();
     });
 
     $("#toolbar-toolZone-fortress").mouseup(function(e) {
@@ -236,7 +241,7 @@ function EventHandler(vectron) {
         vectron.map.zoneTool.type = 4;
         vectron.map.currentTool.guide();
         vectron.gui.writeLog('FortressZone selected.');
-
+        $("#zones-menu").hide();
     });
 
     $("#toolbar-toolZone-rubber").mouseup(function(e) {
@@ -248,7 +253,7 @@ function EventHandler(vectron) {
         vectron.map.zoneTool.type = 3;
         vectron.map.currentTool.guide();
         vectron.gui.writeLog('RubberZone Selected.');
-
+        $("#zones-menu").hide();
     });
 
         // SPAWN
@@ -313,7 +318,11 @@ function EventHandler(vectron) {
         vectron.render();
     });
 
-     $("#toolbar-toolScaleUp").mousedown(function(e) {
+    //Scaling//
+
+    // Need better icons for these.
+
+    $("#toolbar-toolScaleUp").mousedown(function(e) {
         vectron.map.scale(2);
     });
 

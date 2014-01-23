@@ -49,7 +49,7 @@ WallTool.prototype = {
                 this.vectron.map.currentTool.disconnect();
             this.vectron.map.currentTool = this;
             this.vectron.gui.writeLog("Wall Tool Selected.");
-            $("#toolbar-toolWall").css("background-color", "#777");
+            $("#toolbar-toolWall").css("background-color", "rgba(0,0,0,0.3)");
             return true;
         }
     },
