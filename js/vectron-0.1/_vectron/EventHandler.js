@@ -155,16 +155,24 @@ function EventHandler(vectron) {
 
     // TOOLBAR
 
-    $("#toolbar-gui-toggle").mouseup(function(e) {
+    $("#toolbar-gui-open").mouseup(function(e) {
         if(!vectron.gui.active) {
             vectron.gui.show(); // sets active state
-            $("#toolbar-gui-toggle").html("&laquo;");
-        } else {
-            vectron.gui.hide();
-            $("#toolbar-gui-toggle").html("&raquo;");
+            $("#toolbar-gui-open").hide();
+            $("#toolbar-gui-close").show();
         }
         vectron.gui.writeLog('GUI TOGGLE');
+        $("#zones-menu").hide();
+    });
 
+    $("#toolbar-gui-close").mouseup(function(e) {
+        if(vectron.gui.active) {
+            vectron.gui.hide();
+            $("#toolbar-gui-close").hide();
+            $("#toolbar-gui-open").show();
+        }
+        vectron.gui.writeLog('GUI TOGGLE');
+        $("#zones-menu").hide();
     });
 
     $("#toolbar-toolSelect").mouseup(function(e) {
@@ -176,7 +184,7 @@ function EventHandler(vectron) {
             vectron.map.selectTool.connect();
             vectron.gui.writeLog('Select Tool Connected.');
         }
-
+        $("#zones-menu").hide();
     });
 
     $("#toolbar-toolWall").mouseup(function(e) {
@@ -188,6 +196,7 @@ function EventHandler(vectron) {
             vectron.map.wallTool.connect();
             vectron.gui.writeLog('Wall Tool Connected.');
         }
+        $("#zones-menu").hide();
     });
 
     $("#toolbar-toolZone").mouseup(function(e) {
@@ -266,18 +275,21 @@ function EventHandler(vectron) {
             vectron.map.spawnTool.connect();
             vectron.gui.writeLog('Spawn Tool Connected.');
         }
+        $("#zones-menu").hide();
     });
 
     $("#toolbar-toolUnlock").mouseup(function(e) {
         vectron.cursor.snap = true;
         $('#toolbar-toolUnlock-list').css('display','none');
         $('#toolbar-toolLock-list').css('display','block');
+        $("#zones-menu").hide();
     });
 
     $("#toolbar-toolLock").mouseup(function(e) {
         vectron.cursor.snap = false;
         $('#toolbar-toolLock-list').css('display','none');
         $('#toolbar-toolUnlock-list').css('display','block');
+        $("#zones-menu").hide();
     });
 
         //cancel
@@ -302,6 +314,7 @@ function EventHandler(vectron) {
             vectron.map.currentTool.disconnect();
             vectron.map.selectTool.connect();
         }
+        $("#zones-menu").hide();
     });
 
     $("#toolbar-toolZoomIn").mousedown(function(e) {
@@ -309,6 +322,7 @@ function EventHandler(vectron) {
             vectron.map.zoom += 1;
         }
         vectron.render();
+        $("#zones-menu").hide();
     });
 
     $("#toolbar-toolZoomOut").mouseup(function(e) {
@@ -316,6 +330,7 @@ function EventHandler(vectron) {
             vectron.map.zoom -= 1;
         }
         vectron.render();
+        $("#zones-menu").hide();
     });
 
     //Scaling//
@@ -324,10 +339,12 @@ function EventHandler(vectron) {
 
     $("#toolbar-toolScaleUp").mousedown(function(e) {
         vectron.map.scale(2);
+        $("#zones-menu").hide();
     });
 
     $("#toolbar-toolScaleDown").mouseup(function(e) {
         vectron.map.scale(0.5);
+        $("#zones-menu").hide();
     });
 
 

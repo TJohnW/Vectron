@@ -22,9 +22,12 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-function Zone(vectron, x, y, radius, type) {
+function Zone(vectron, x, y, radius, type, id) {
 
     this.vectron = vectron;
+
+    this.id = id;
+
     this.obj = this.vectron.screen.circle(0, 0, 0);
 
     this.x = x;

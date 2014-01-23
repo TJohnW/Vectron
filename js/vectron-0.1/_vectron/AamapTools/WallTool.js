@@ -68,7 +68,9 @@ WallTool.prototype = {
 
     //mouse down first time, put point and add to wall path rerender wall
     start:function() {
-        this.currentObj = new Wall(this.vectron); 
+        this.currentObj = new Wall(this.vectron, this.vectron.map.nextId);
+        this.vectron.map.nextId++;
+        
         this.currentObj.points.push(
             new WallPoint(
                 this.vectron.map.mapX(this.vectron.cursor.realX),

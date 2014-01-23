@@ -102,7 +102,8 @@ ZoneTool.prototype = {
 
             }
         }
-        this.vectron.map.add(new Zone(this.vectron, newX, newY, radius, this.type));
+        this.vectron.map.add(new Zone(this.vectron, newX, newY, radius, this.type, this.vectron.map.nextId));
+        this.vectron.map.nextId++;
         this.guideObj.remove();
         this.active = false;
     }

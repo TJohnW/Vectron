@@ -38,6 +38,9 @@ function Aamap(vectron) {
     this.selectTool = new SelectTool(vectron);
 
     this.currentTool = null;
+
+    this.nextId = 0;
+
     this.gridObj = null;
 
     this.zoom = 20;
@@ -72,6 +75,8 @@ Aamap.prototype = {
         for(var i = 0, ii = this.aamapObjects.length; i < ii; i++) {
             this.aamapObjects[i].scale(factor);
         }
+        this.panX *= factor;
+        this.panY *= factor;
         this.vectron.render();
     },
 
@@ -86,6 +91,13 @@ Aamap.prototype = {
         var delOb = this.aamapObjects.pop();
         if(delOb.obj != null)
             delOb.obj.remove();
+    },
+
+
+    // Needs a better way to delete selected objects :\ Not sure how.
+    sift:function() {
+
+
     },
 
     show:function() {

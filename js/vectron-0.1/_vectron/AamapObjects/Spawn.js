@@ -22,9 +22,12 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-function Spawn(vectron) {
+function Spawn(vectron, id) {
 
     this.vectron = vectron;
+
+    this.id = id;
+
     this.obj = this.vectron.screen.path();
     this.guideObj = this.vectron.screen.path();
 

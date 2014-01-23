@@ -22,9 +22,12 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-function Wall(vectron) {
+function Wall(vectron, id) {
 
     this.vectron = vectron;
+
+    this.id = id;
+
     this.obj = vectron.screen.path();
     this.guideObj = vectron.screen.path();
 
