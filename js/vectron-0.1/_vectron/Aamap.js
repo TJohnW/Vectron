@@ -43,10 +43,13 @@ function Aamap(vectron) {
 
     this.gridObj = null;
 
-    this.zoom = 20;
+    this.zoom = 15;
 
     this.panX = 0;
     this.panY = 0;
+    
+    this.handler = new XMLHandler(vectron);
+    //this.XMLHandler.load();
 
 }  
 

@@ -38,6 +38,13 @@ function ZoneTool(vectron) {
         3: ["rubber", "#ffc12b"],
         4: ["fortress", "#62bef6"]
     }
+    this.whatType = {
+        "death":0,
+        "win":1,
+        "target":2,
+        "rubber":3,
+        "fortress":4
+    }
     this.type = 0;
     //alert(this.typeArray[this.type][1]);
 

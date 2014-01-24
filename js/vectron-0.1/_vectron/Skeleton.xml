@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE Resource SYSTEM "sty.dtd">
+<Resource type="aamap" name="Battleaxe" version="0.1" author="Tronner" category="Season_2a">
+	<Map version="0.2.8">
+		<World>
+			<Field>
+
+				<Axes number="8"/>
+   				<Spawn x="" y="" xdir="" ydir=""/>
+
+   				<Zone effect=""><ShapeCircle radius="" growth=""><Point x="" y=""/></ShapeCircle></Zone>
+
+   				<Wall height="4">
+				    <Point x="464" y="-112"/>
+				    <Point x="880" y="-112"/>
+			   </Wall>
+
+			</Field>
+		</World>
+	</Map>
+</Resource>
