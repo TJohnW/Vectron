@@ -22,6 +22,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+define(['AamapObjects/Spawn'], function(Spawn) {
+
 function SpawnTool(vectron) {
 
     this.vectron = vectron;
@@ -75,4 +77,8 @@ SpawnTool.prototype = {
     	this.active = false;
     }
 
-}
+};
+
+return SpawnTool
+
+});

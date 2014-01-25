@@ -22,10 +22,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-function WallPoint(x, y) {
-    this.x = x;
-    this.y = y;
-}
+define(['AamapTools/WallPoint', 'AamapObjects/Wall'], function(WallPoint, Wall) {
 
 function WallTool(vectron) {
 
@@ -120,4 +117,8 @@ WallTool.prototype = {
         this.active = false;
     }
 
-}
+};
+
+return WallTool;
+
+});

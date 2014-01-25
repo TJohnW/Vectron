@@ -22,6 +22,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+define(['AamapTools', 'XMLHandler'], function(AamapTools, XMLHandler) {
+
 function Aamap(vectron) {
 
     this.vectron = vectron;
@@ -32,10 +34,10 @@ function Aamap(vectron) {
 
     this.aamapObjects = [];
 
-    this.wallTool = new WallTool(vectron);
-    this.zoneTool = new ZoneTool(vectron);
-    this.spawnTool = new SpawnTool(vectron);
-    this.selectTool = new SelectTool(vectron);
+    this.wallTool = new AamapTools.Wall(vectron);
+    this.zoneTool = new AamapTools.Zone(vectron);
+    this.spawnTool = new AamapTools.Spawn(vectron);
+    this.selectTool = new AamapTools.Select(vectron);
 
     this.currentTool = null;
 
@@ -154,4 +156,8 @@ Aamap.prototype = {
 
     }
 
-}
+};
+
+return Aamap;
+
+});

@@ -22,6 +22,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+define([], function() {
+
 function Settings(vectron) {
 
     this.vectron = vectron;
@@ -31,7 +33,6 @@ function Settings(vectron) {
         //settings here
         
     };
-
 }  
 
 Settings.prototype = {
@@ -53,4 +54,8 @@ Settings.prototype = {
     }
 
 
-}
+};
+
+return Settings;
+
+});

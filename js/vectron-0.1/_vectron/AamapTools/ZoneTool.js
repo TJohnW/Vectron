@@ -22,6 +22,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+define(['AamapObjects/Zone'], function(Zone) {
+
 function ZoneTool(vectron) {
 
     this.vectron = vectron;
@@ -115,4 +117,8 @@ ZoneTool.prototype = {
         this.active = false;
     }
 
-}
+};
+
+return ZoneTool;
+
+});

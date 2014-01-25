@@ -22,6 +22,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+define([], function() {
+
 function Spawn(vectron, id) {
 
     this.vectron = vectron;
@@ -144,4 +146,8 @@ Spawn.prototype = {
         this.y *= factor;
     }
 
-}
+};
+
+return Spawn;
+
+});

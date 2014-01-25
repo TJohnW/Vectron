@@ -22,6 +22,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+define([], function() {
+
 function Wall(vectron, id) {
 
     this.vectron = vectron;
@@ -98,4 +100,8 @@ Wall.prototype = {
             this.points[i].y *= factor;
         }
     }
-}
+};
+
+return Wall;
+
+});
