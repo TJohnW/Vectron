@@ -22,6 +22,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+define([], function() {
+
 function Cursor(vectron) {
 
     this.vectron = vectron;
@@ -88,4 +90,8 @@ Cursor.prototype = {
         this.obj.remove();
     }
 
-}
+};
+
+return Cursor;
+
+});

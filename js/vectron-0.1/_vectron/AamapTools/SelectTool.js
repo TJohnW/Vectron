@@ -22,6 +22,12 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+define([
+    'AamapObjects/Wall',
+    'AamapTools/WallPoint',
+    'AamapObjects/Zone'
+], function(Wall, WallPoint, Zone) {
+
 function SelectTool(vectron) {
 
     this.vectron = vectron;
@@ -305,6 +311,9 @@ SelectTool.prototype = {
         return false;
     }
 
-}
+};
 
+return SelectTool;
+
+});
 

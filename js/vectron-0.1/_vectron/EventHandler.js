@@ -22,6 +22,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+define(['mousetrap', 'AamapTools'], function(Mousetrap, AamapTools) {
+
 function EventHandler(vectron) {
 
     //setup key handling here also.
@@ -75,10 +77,10 @@ function EventHandler(vectron) {
         }
         vectron.cursor.render(event.pageX, event.pageY, vectron.map.zoom);
 
-        if(vectron.map.currentTool instanceof ZoneTool) {
-        	vectron.map.currentTool.guide();
+        if(vectron.map.currentTool instanceof AamapTools.Zone) {
+            vectron.map.currentTool.guide();
 
-        } else if(vectron.map.currentTool instanceof SelectTool) {
+        } else if(vectron.map.currentTool instanceof AamapTools.Select) {
             if(vectron.map.currentTool.active)
                 vectron.map.currentTool.progress();
 
@@ -93,7 +95,7 @@ function EventHandler(vectron) {
         e.preventDefault();
         if(!vectron.map.active)
             return;
-        if(vectron.map.currentTool instanceof SelectTool) {
+        if(vectron.map.currentTool instanceof AamapTools.Select) {
             if(vectron.map.currentTool.active)
                 vectron.map.currentTool.complete();
         }
@@ -106,7 +108,7 @@ function EventHandler(vectron) {
         if(!vectron.map.active)
             return;
 
-        if(vectron.map.currentTool instanceof SelectTool) {
+        if(vectron.map.currentTool instanceof AamapTools.Select) {
             vectron.map.currentTool.start();
         }
 
@@ -117,24 +119,24 @@ function EventHandler(vectron) {
         if(!vectron.map.active)
             return;
 
-        if(vectron.map.currentTool instanceof WallTool) {
+        if(vectron.map.currentTool instanceof AamapTools.Wall) {
 
-        	if(vectron.map.wallTool.active)
-            	vectron.map.currentTool.progress();
+            if(vectron.map.wallTool.active)
+                vectron.map.currentTool.progress();
             else
-            	vectron.map.currentTool.start();
+                vectron.map.currentTool.start();
 
-        } else if(vectron.map.currentTool instanceof ZoneTool) {
+        } else if(vectron.map.currentTool instanceof AamapTools.Zone) {
 
-        	vectron.map.currentTool.complete();
+            vectron.map.currentTool.complete();
 
-        } else if(vectron.map.currentTool instanceof SpawnTool) {
+        } else if(vectron.map.currentTool instanceof AamapTools.Spawn) {
 
            if(vectron.map.spawnTool.active)
                 vectron.map.currentTool.complete();
             else
                 vectron.map.currentTool.start();
-        } else if(vectron.map.currentTool instanceof SelectTool) {
+        } else if(vectron.map.currentTool instanceof AamapTools.Select) {
 
             vectron.map.currentTool.complete();
 
@@ -146,7 +148,7 @@ function EventHandler(vectron) {
         e.preventDefault();
         if(!vectron.map.active)
             return;
-        if(vectron.map.currentTool instanceof WallTool) {
+        if(vectron.map.currentTool instanceof AamapTools.Wall) {
             if(vectron.map.wallTool.active)
                 vectron.map.currentTool.complete();
         }
@@ -178,7 +180,7 @@ function EventHandler(vectron) {
     $("#toolbar-toolSelect").mouseup(function(e) {
         if(!vectron.map.active)
             return;
-        if(vectron.map.currentTool instanceof SelectTool) {
+        if(vectron.map.currentTool instanceof AamapTools.Select) {
             return;
         } else {
             vectron.map.selectTool.connect();
@@ -190,7 +192,7 @@ function EventHandler(vectron) {
     $("#toolbar-toolWall").mouseup(function(e) {
         if(!vectron.map.active)
             return;
-        if(vectron.map.currentTool instanceof WallTool) {
+        if(vectron.map.currentTool instanceof AamapTools.Wall) {
             return;
         } else {
             vectron.map.wallTool.connect();
@@ -208,7 +210,7 @@ function EventHandler(vectron) {
     $("#toolbar-toolZone-death").mouseup(function(e) {
         if(!vectron.map.active)
             return;
-        if(!(vectron.map.currentTool instanceof ZoneTool)) {
+        if(!(vectron.map.currentTool instanceof AamapTools.Zone)) {
             vectron.map.zoneTool.connect();
         }
         vectron.map.zoneTool.type = 0;
@@ -220,7 +222,7 @@ function EventHandler(vectron) {
     $("#toolbar-toolZone-win").mouseup(function(e) {
         if(!vectron.map.active)
             return;
-        if(!(vectron.map.currentTool instanceof ZoneTool)) {
+        if(!(vectron.map.currentTool instanceof AamapTools.Zone)) {
             vectron.map.zoneTool.connect();
         }
         vectron.map.zoneTool.type = 1;
@@ -232,7 +234,7 @@ function EventHandler(vectron) {
     $("#toolbar-toolZone-target").mouseup(function(e) {
         if(!vectron.map.active)
             return;
-        if(!(vectron.map.currentTool instanceof ZoneTool)) {
+        if(!(vectron.map.currentTool instanceof AamapTools.Zone)) {
             vectron.map.zoneTool.connect();
         }
         vectron.map.zoneTool.type = 2;
@@ -244,7 +246,7 @@ function EventHandler(vectron) {
     $("#toolbar-toolZone-fortress").mouseup(function(e) {
         if(!vectron.map.active)
             return;
-        if(!(vectron.map.currentTool instanceof ZoneTool)) {
+        if(!(vectron.map.currentTool instanceof AamapTools.Zone)) {
             vectron.map.zoneTool.connect();
         }
         vectron.map.zoneTool.type = 4;
@@ -256,7 +258,7 @@ function EventHandler(vectron) {
     $("#toolbar-toolZone-rubber").mouseup(function(e) {
         if(!vectron.map.active)
             return;
-        if(!(vectron.map.currentTool instanceof ZoneTool)) {
+        if(!(vectron.map.currentTool instanceof AamapTools.Zone)) {
             vectron.map.zoneTool.connect();
         }
         vectron.map.zoneTool.type = 3;
@@ -269,7 +271,7 @@ function EventHandler(vectron) {
     $("#toolbar-toolSpawn").mouseup(function(e) {
         if(!vectron.map.active)
             return;
-        if(vectron.map.currentTool instanceof SpawnTool) {
+        if(vectron.map.currentTool instanceof AamapTools.Spawn) {
             return;
         } else {
             vectron.map.spawnTool.connect();
@@ -294,23 +296,23 @@ function EventHandler(vectron) {
 
         //cancel
     $("#toolbar-disconnect").mouseup(function(e) {
-        if(vectron.map.currentTool instanceof ZoneTool) {
+        if(vectron.map.currentTool instanceof AamapTools.Zone) {
             vectron.map.remove();
-        } else if(vectron.map.currentTool instanceof WallTool) {
+        } else if(vectron.map.currentTool instanceof AamapTools.Wall) {
             if(vectron.map.currentTool.active) {
                 vectron.map.currentTool.disconnect();
                 vectron.map.wallTool.connect();
             } else {
                 vectron.map.remove();
             }
-        } else if(vectron.map.currentTool instanceof SpawnTool) {
+        } else if(vectron.map.currentTool instanceof AamapTools.Spawn) {
             if(vectron.map.currentTool.active) {
                 vectron.map.currentTool.disconnect();
                 vectron.map.wallTool.connect();
             } else {
                 vectron.map.remove();
             }
-        } else if(vectron.map.currentTool instanceof SelectTool) {
+        } else if(vectron.map.currentTool instanceof AamapTools.Select) {
             vectron.map.currentTool.disconnect();
             vectron.map.selectTool.connect();
         }
@@ -352,9 +354,9 @@ function EventHandler(vectron) {
     Mousetrap.bind('shift+w', function(e) {
         if(!vectron.map.active)
             return;
-    	if(vectron.map.currentTool instanceof WallTool) {
-        	if(vectron.map.wallTool.active)
-            	vectron.map.currentTool.complete();
+        if(vectron.map.currentTool instanceof AamapTools.Wall) {
+            if(vectron.map.wallTool.active)
+                vectron.map.currentTool.complete();
         
         }
     });
@@ -362,79 +364,79 @@ function EventHandler(vectron) {
      Mousetrap.bind('shift+z', function(e) {
         if(!vectron.map.active)
             return;
-    	if(vectron.map.currentTool instanceof ZoneTool) {
-    		vectron.map.zoneTool.type += 1;
-        	if(vectron.map.zoneTool.type > 4) {
-        		vectron.map.zoneTool.type = 0;
-        	}
-        	vectron.gui.writeLog('Zone Tool Toggled: '
-        		+ vectron.map.zoneTool.typeArray[vectron.map.zoneTool.type][0]);
-        	vectron.map.currentTool.guide();
-    	}
+        if(vectron.map.currentTool instanceof AamapTools.Zone) {
+            vectron.map.zoneTool.type += 1;
+            if(vectron.map.zoneTool.type > 4) {
+                vectron.map.zoneTool.type = 0;
+            }
+            vectron.gui.writeLog('Zone Tool Toggled: '
+                + vectron.map.zoneTool.typeArray[vectron.map.zoneTool.type][0]);
+            vectron.map.currentTool.guide();
+        }
     });
 
     Mousetrap.bind('=', function(e) {
         if(!vectron.map.active)
             return;
-    	if(vectron.map.currentTool instanceof ZoneTool) {
-    		if(vectron.map.zoneTool.radius < 30) {
-	    		vectron.map.zoneTool.radius += 0.1;
-	    		vectron.map.currentTool.guide();
-	    	}
-    	}
+        if(vectron.map.currentTool instanceof AamapTools.Zone) {
+            if(vectron.map.zoneTool.radius < 30) {
+                vectron.map.zoneTool.radius += 0.1;
+                vectron.map.currentTool.guide();
+            }
+        }
     }, 'keydown');
 
     Mousetrap.bind('+', function(e) {
-    	if(!vectron.map.active)
+        if(!vectron.map.active)
             return;
-    	if(vectron.map.currentTool instanceof ZoneTool) {
-    		if(vectron.map.zoneTool.radius < 30) {
-	    		vectron.map.zoneTool.radius = Math.floor(vectron.map.zoneTool.radius) + 1;
-	    		vectron.map.currentTool.guide();
-	    	}
-    	}
+        if(vectron.map.currentTool instanceof AamapTools.Zone) {
+            if(vectron.map.zoneTool.radius < 30) {
+                vectron.map.zoneTool.radius = Math.floor(vectron.map.zoneTool.radius) + 1;
+                vectron.map.currentTool.guide();
+            }
+        }
     }, 'keydown');
 
     Mousetrap.bind('-', function(e) {
         if(!vectron.map.active)
             return;
-    	if(vectron.map.currentTool instanceof ZoneTool) {
-    		if(vectron.map.zoneTool.radius > 0) {
-	    		vectron.map.zoneTool.radius -= 0.1;
-	    		vectron.map.currentTool.guide();
-	    	}
-    	}
+        if(vectron.map.currentTool instanceof AamapTools.Zone) {
+            if(vectron.map.zoneTool.radius > 0) {
+                vectron.map.zoneTool.radius -= 0.1;
+                vectron.map.currentTool.guide();
+            }
+        }
     }, 'keydown');
 
     Mousetrap.bind('_', function(e) {
-    	if(!vectron.map.active)
+        if(!vectron.map.active)
             return;
-    	if(vectron.map.currentTool instanceof ZoneTool) {
-    		if(vectron.map.zoneTool.radius > 0) {
-	    		vectron.map.zoneTool.radius = Math.floor(vectron.map.zoneTool.radius) - 1;
-	    		vectron.map.currentTool.guide();
-    		}
-    	}
+        if(vectron.map.currentTool instanceof AamapTools.Zone) {
+            if(vectron.map.zoneTool.radius > 0) {
+                vectron.map.zoneTool.radius = Math.floor(vectron.map.zoneTool.radius) - 1;
+                vectron.map.currentTool.guide();
+            }
+        }
     }, 'keydown');
 
     Mousetrap.bind('w', function(e) {
         if(!vectron.map.active)
             return;
-    	if(vectron.map.currentTool instanceof WallTool) {
-    		return;
-    	} else {
-    		vectron.map.wallTool.connect();
-    	}
+        if(vectron.map.currentTool instanceof AamapTools.Wall) {
+            return;
+        } else {
+            vectron.map.wallTool.connect();
+        }
     }, 'keydown');
 
     Mousetrap.bind('z', function(e) {
         if(!vectron.map.active)
             return;
-    	if(vectron.map.currentTool instanceof ZoneTool) {
-    		return;
-    	} else {
-    		vectron.map.zoneTool.connect();
-    	}
+        if(vectron.map.currentTool instanceof AamapTools.Zone) {
+            return;
+        } else {
+            vectron.map.zoneTool.connect();
+        }
     }, 'keydown');
 
     Mousetrap.bind('right', function(e) {
@@ -471,3 +473,6 @@ function EventHandler(vectron) {
 
 }  
 
+return EventHandler;
+
+});

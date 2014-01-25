@@ -22,6 +22,13 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+define([
+    'AamapTools/WallPoint',
+    'AamapObjects/Wall',
+    'AamapObjects/Zone',
+    'AamapObjects/Spawn',
+], function(WallPoint, Wall, Zone, Spawn) {
+
 function XMLHandler(vectron) {
 
     this.vectron = vectron;
@@ -142,4 +149,8 @@ XMLHandler.prototype = {
         this.process(this.result);
     }
 
-}
+};
+
+return XMLHandler;
+
+});

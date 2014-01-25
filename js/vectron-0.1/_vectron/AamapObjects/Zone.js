@@ -22,6 +22,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+define([], function() {
+
 function Zone(vectron, x, y, radius, type, id) {
 
     this.vectron = vectron;
@@ -65,5 +67,8 @@ Zone.prototype = {
         this.radius *= factor;
     }
 
-}
+};
 
+return Zone;
+
+});

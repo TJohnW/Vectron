@@ -22,17 +22,30 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-window.onload = function() {
-    var v = new Vectron();
-}
+define([
+    'jquery',
+    'raphael',
+    'Settings',
+    'Gui',
+    'Cursor',
+    'Aamap',
+    'AamapTools',
+    'EventHandler'
+], function($, Raphael, Settings, GUI, Cursor, Aamap, AamapTools, EventHandler) {
 
-function Vectron() {
+function Vectron () {
 
-    this.width = $("#canvas_container").width();
-    this.height = $("#canvas_container").height();
+    // save some bits
+    this.container = $("#canvas_container");
 
-    this.screen = new Raphael(document.getElementById('canvas_container'), 
-        this.width, this.height);
+    this.width = this.container.width();
+    this.height = this.container.height();
+
+    this.screen = new Raphael(
+        this.container.get(0),
+        this.container.width(),
+        this.container.height()
+    );
 
     this.settings = new Settings(this);
 
@@ -46,7 +59,7 @@ function Vectron() {
 
     this.render();
 
-}  
+};
 
 Vectron.prototype = {
 
@@ -54,18 +67,23 @@ Vectron.prototype = {
 
     render:function() {
         this.screen.clear();
-        this.width = $("#canvas_container").width();
-        this.height = $("#canvas_container").height();
 
-        this.screen.setSize(this.width, this.height);
+        this.width = this.container.width();
+        this.height = this.container.height();
+
+        this.screen.setSize(this.container.width(), this.container.height());
         this.map.render();
-        if(this.map.currentTool.currentObj != null && this.map.currentTool instanceof WallTool)
+        if(this.map.currentTool.currentObj != null && this.map.currentTool instanceof AamapTools.Wall)
             this.map.currentTool.currentObj.render();
-        if(this.map.currentTool instanceof ZoneTool)
+        if(this.map.currentTool instanceof AamapTools.Zone)
             this.map.currentTool.guide();
-        if(this.map.currentTool instanceof SpawnTool)
+        if(this.map.currentTool instanceof AamapTools.Spawn)
             this.map.currentTool.currentObj.guide();
         //this.cursor.render();
     }
 
-}
+};
+
+return Vectron;
+
+});
