@@ -24,51 +24,51 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 define([], function() {
 
-function Zone(vectron, x, y, radius, type, id) {
+    function Zone(vectron, x, y, radius, type, id) {
 
-    this.vectron = vectron;
+        this.vectron = vectron;
 
-    this.id = id;
+        this.id = id;
 
-    this.obj = this.vectron.screen.circle(0, 0, 0);
+        this.obj = this.vectron.screen.circle(0, 0, 0);
 
-    this.x = x;
-    this.y = y;
-    this.radius = radius;
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
 
-    this.type = type;
+        this.type = type;
 
-    this.xml = 'Zone';
-    this.render();
+        this.xml = 'Zone';
+        this.render();
 
-    vectron.gui.writeLog("Zone at ("+x+", "+y+")");
+        vectron.gui.writeLog("Zone at ("+x+", "+y+")");
 
-}  
+    }  
 
-Zone.prototype = {
+    Zone.prototype = {
 
-    constructor: Zone,
+        constructor: Zone,
 
-    render:function() {
-        this.obj = this.vectron.screen.circle(this.vectron.map.realX(this.x),
-            this.vectron.map.realY(this.y),
-            this.radius*this.vectron.map.zoom).attr(
-                {"stroke": this.vectron.map.zoneTool.typeArray[this.type][1], "fill": this.vectron.map.zoneTool.typeArray[this.type][1], "fill-opacity": ".05"}
-            );
-    },
+        render:function() {
+            this.obj = this.vectron.screen.circle(this.vectron.map.realX(this.x),
+                this.vectron.map.realY(this.y),
+                this.radius*this.vectron.map.zoom).attr(
+                    {"stroke": this.vectron.map.zoneTool.typeArray[this.type][1], "fill": this.vectron.map.zoneTool.typeArray[this.type][1], "fill-opacity": ".05"}
+                );
+        },
 
-    /*
-     *  Should this be based on the SCALE_FACTOR setting in the game or on map
-     *  Coordinates?
-     */ 
-    scale:function(factor) {
-        this.x *= factor;
-        this.y *= factor;
-        this.radius *= factor;
-    }
+        /*
+         *  Should this be based on the SCALE_FACTOR setting in the game or on map
+         *  Coordinates?
+         */ 
+        scale:function(factor) {
+            this.x *= factor;
+            this.y *= factor;
+            this.radius *= factor;
+        }
 
-};
+    };
 
-return Zone;
+    return Zone;
 
 });
