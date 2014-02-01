@@ -39,7 +39,6 @@ function Spawn(vectron, id) {
     this.yDir = 0;
 
     this.spawnPathArray = [];
-    this.guide();
 
     this.xml = 'Spawn';
 

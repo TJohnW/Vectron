@@ -50,27 +50,46 @@ XMLHandler.prototype = {
 
     process:function(xml) {
         this.vectron.gui.writeLog(xml);
-        var x;
-        var y;
         var vectron = this.vectron;
         var ptsx = [];
         var ptsy = [];
+
+        $(xml).find("Spawn").each(function() {
+            var spawn = $(this);
+
+            var x = spawn.attr("x");
+            var y = spawn.attr("y");
+            var xdir = spawn.attr("xdir");
+            var ydir = spawn.attr("ydir");            
+
+            ptsx.push(parseFloat(x));
+            ptsy.push(parseFloat(y));
+
+            var spawnOb = new Spawn(vectron, vectron.map.nextId);
+
+            spawnOb.x = parseFloat(x);
+            spawnOb.y = parseFloat(y);
+            spawnOb.xDir = parseInt(xdir);
+            spawnOb.yDir = parseInt(ydir);
+
+            vectron.map.add(spawnOb);
+        });
 
         $(xml).find("Zone").each(function() {
             var zone = $(this);
             var effect = zone.attr("effect");
             var radius = zone.find("ShapeCircle").attr("radius");
-            x = zone.find("Point").attr("x");
-            y = zone.find("Point").attr("y");
+            var x = zone.find("Point").attr("x");
+            var y = zone.find("Point").attr("y");
+
             ptsx.push(parseFloat(x));
             ptsy.push(parseFloat(y));
-            vectron.gui.writeLog("(" + x + ', ' + y + ')' + radius + " " + effect);
+
             vectron.map.add(
                 new Zone(
                     vectron, parseFloat(x), parseFloat(y), parseFloat(radius), vectron.map.zoneTool.whatType[effect],
                     vectron.map.nextId)
             );
-            vectron.map.nextId++;
         });
 
         $(xml).find("Wall").each(function() {
@@ -83,9 +102,8 @@ XMLHandler.prototype = {
                 ptsy.push(parseFloat(y));
                 points.push(new WallPoint(parseFloat(x), parseFloat(y)));
             });
-            vectron.gui.writeLog("Wall Added.");
+
             var wallObj = new Wall(vectron, vectron.map.nextId);
-            vectron.map.nextId++;
             wallObj.points = points;
             wallObj.render();
             vectron.map.add(wallObj);

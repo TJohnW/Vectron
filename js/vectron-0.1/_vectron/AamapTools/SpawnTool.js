@@ -65,6 +65,7 @@ SpawnTool.prototype = {
     //mouse down place guide, detect direction locked to map axes.
     start:function() {
         this.currentObj = new Spawn(this.vectron, this.vectron.map.nextId);
+        this.currentObj.guide();
         this.vectron.map.nextId++;
     	this.active = true;
     },
