@@ -22,54 +22,18 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-define([], function() {
+define([
+    'Tools/SelectTool',
+    'Tools/SpawnTool',
+    'Tools/WallTool',
+    'Tools/ZoneTool'
+], function(SelectTool, SpawnTool, WallTool, ZoneTool) {
 
-function GUI(vectron) {
-
-    this.vectron = vectron;
-    this.active = false;
-
-    this.debug;
-    this.messages = [];
-
-}
-
-GUI.prototype = {
-
-    constructor: GUI,
-
-    // Called when settings saved or anythign changes so the debug log can be removed
-    render:function() {
-
-    },
-
-    //Write a message to the debug log
-    writeLog:function(message) {
-        $('#debug_stream').append('<span>' + message + '</span');
-        var element = document.getElementById("debug_stream");
-        element.scrollTop = element.scrollHeight;
-    },
-
-    //Clear the debug log
-    clearLog:function(message) {
-
-    },
-
-    show:function() {
-        this.vectron.map.active = false;
-        $("#control_box").show();
-        this.active = true; //No longer active
-    },
-
-    hide:function() {
-        $("#control_box").hide();
-        this.vectron.map.active = true;
-        this.active = false; //Active!
-    }
-
-};
-
-return GUI;
+	return {
+	    Select: SelectTool,
+	    Spawn: SpawnTool,
+	    Wall: WallTool,
+	    Zone: ZoneTool
+	};
 
 });
-

@@ -24,38 +24,38 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 define([], function() {
 
-function Settings(vectron) {
+    function Settings(vectron) {
 
-    this.vectron = vectron;
+        this.vectron = vectron;
 
-    this.settings = {
-        //settings here
-        //settings here
-        
+        this.settings = {
+            //settings here
+            //settings here
+            
+        };
+    }  
+
+    Settings.prototype = {
+
+        constructor: Settings,
+
+        /*
+         * Would you like to set a setting? Good!
+         */
+        set:function(setting) {
+
+        },
+
+        /*
+         * Would you like to get a setting? Good!
+         */
+        get:function(setting) {
+
+        }
+
+
     };
-}  
 
-Settings.prototype = {
-
-    constructor: Settings,
-
-    /*
-     * Would you like to set a setting? Good!
-     */
-    set:function(setting) {
-
-    },
-
-    /*
-     * Would you like to get a setting? Good!
-     */
-    get:function(setting) {
-
-    }
-
-
-};
-
-return Settings;
+    return Settings;
 
 });

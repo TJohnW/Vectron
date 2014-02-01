@@ -29,64 +29,64 @@ define([
     'Gui',
     'Cursor',
     'Aamap',
-    'AamapTools',
+    'Tools',
     'EventHandler',
     'XMLHandler'
-], function($, Raphael, Settings, GUI, Cursor, Aamap, AamapTools, EventHandler, XMLHandler) {
+], function($, Raphael, Settings, GUI, Cursor, Aamap, Tools, EventHandler, XMLHandler) {
 
-function Vectron () {
+    function Vectron () {
 
-    // save some bits
-    this.container = $("#canvas_container");
-
-    this.width = this.container.width();
-    this.height = this.container.height();
-
-    this.screen = new Raphael(
-        this.container.get(0),
-        this.container.width(),
-        this.container.height()
-    );
-
-    this.settings = new Settings(this);
-
-    this.gui = new GUI(this);
-
-    this.cursor = new Cursor(this);
-
-    this.map = new Aamap(this);
-
-    this.eventHandler = new EventHandler(this);
-
-    this.render();
-
-    this.handler = new XMLHandler(this);
-
-};
-
-Vectron.prototype = {
-
-    constructor: Vectron,
-
-    render:function() {
-        this.screen.clear();
+        // save some bits
+        this.container = $("#canvas_container");
 
         this.width = this.container.width();
         this.height = this.container.height();
 
-        this.screen.setSize(this.container.width(), this.container.height());
-        this.map.render();
-        if(this.map.currentTool.currentObj != null && this.map.currentTool instanceof AamapTools.Wall)
-            this.map.currentTool.currentObj.render();
-        if(this.map.currentTool instanceof AamapTools.Zone)
-            this.map.currentTool.guide();
-        if(this.map.currentTool instanceof AamapTools.Spawn)
-            this.map.currentTool.currentObj.guide();
-        //this.cursor.render();
-    }
+        this.screen = new Raphael(
+            this.container.get(0),
+            this.container.width(),
+            this.container.height()
+        );
 
-};
+        this.settings = new Settings(this);
 
-return Vectron;
+        this.gui = new GUI(this);
+
+        this.cursor = new Cursor(this);
+
+        this.map = new Aamap(this);
+
+        this.eventHandler = new EventHandler(this);
+
+        this.render();
+
+        this.handler = new XMLHandler(this);
+
+    };
+
+    Vectron.prototype = {
+
+        constructor: Vectron,
+
+        render:function() {
+            this.screen.clear();
+
+            this.width = this.container.width();
+            this.height = this.container.height();
+
+            this.screen.setSize(this.container.width(), this.container.height());
+            this.map.render();
+            if(this.map.currentTool.currentObj != null && this.map.currentTool instanceof Tools.Wall)
+                this.map.currentTool.currentObj.render();
+            if(this.map.currentTool instanceof Tools.Zone)
+                this.map.currentTool.guide();
+            if(this.map.currentTool instanceof Tools.Spawn)
+                this.map.currentTool.currentObj.guide();
+            //this.cursor.render();
+        }
+
+    };
+
+    return Vectron;
 
 });

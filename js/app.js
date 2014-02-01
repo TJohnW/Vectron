@@ -22,18 +22,47 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-define([
-    'AamapTools/SelectTool',
-    'AamapTools/SpawnTool',
-    'AamapTools/WallTool',
-    'AamapTools/ZoneTool'
-], function(SelectTool, SpawnTool, WallTool, ZoneTool) {
+var version = '0.1';
 
-return {
-    Select: SelectTool,
-    Spawn: SpawnTool,
-    Wall: WallTool,
-    Zone: ZoneTool
-};
+requirejs.config({
+    baseUrl: 'js/vectron-' + version,
+    paths: {
+        jquery: '../jquery',
+        bootstrap: '../bootstrap.min',
+        underscore: '../underscore-min',
+        backbone: '../backbone-min',
+        raphael: '../raphael-min',
+        mousetrap: '../mousetrap.min',
+        marknote: '../marknote',
+        vectron: 'Vectron'
+    },
+
+    // external libs missing define()
+    shim: {
+        jquery: {
+            exports: 'jQuery'
+        },
+        underscore: {
+          exports: '_'
+        },
+        backbone: {
+          deps: ['underscore'],
+          exports: 'Backbone'
+        },
+        bootstrap: ['jquery'],
+        raphael: {
+            exports: 'Raphael'
+        }
+    }
+});
+
+requirejs(['jquery', 'vectron', 'bootstrap'], function($, Vectron) {
+
+    // bad practice, just use for debugging in console
+    //window.vectron = new Vectron();
+
+    new Vectron();
+
+    $('[rel=tooltip]').tooltip();
 
 });
