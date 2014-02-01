@@ -63,6 +63,9 @@ requirejs.config({
 
 requirejs(['jquery', 'vectron', 'bootstrap'], function($, Vectron) {
 
+    // bad practice, just use for debugging in console
+    //window.vectron = new Vectron();
+
     new Vectron();
 
     $('[rel=tooltip]').tooltip();

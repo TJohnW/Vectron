@@ -30,8 +30,9 @@ define([
     'Cursor',
     'Aamap',
     'AamapTools',
-    'EventHandler'
-], function($, Raphael, Settings, GUI, Cursor, Aamap, AamapTools, EventHandler) {
+    'EventHandler',
+    'XMLHandler'
+], function($, Raphael, Settings, GUI, Cursor, Aamap, AamapTools, EventHandler, XMLHandler) {
 
 function Vectron () {
 
@@ -58,6 +59,8 @@ function Vectron () {
     this.eventHandler = new EventHandler(this);
 
     this.render();
+
+    this.handler = new XMLHandler(this);
 
 };
 

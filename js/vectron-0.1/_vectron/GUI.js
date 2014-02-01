@@ -32,7 +32,7 @@ function GUI(vectron) {
     this.debug;
     this.messages = [];
 
-}  
+}
 
 GUI.prototype = {
 
