@@ -22,7 +22,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-define([], function() {
+define(['AamapTools'], function(AamapTools) {
 
 function Cursor(vectron) {
 
@@ -53,7 +53,13 @@ Cursor.prototype = {
 
         this.obj.remove();
 
-        if(this.snap) {
+        /*
+         * snap to grid only with drawing tools
+         * <tool>.active property is not updated, TODO fix this
+         * would be better to receive tools as param and do:
+         * if (this.snap && false == tools.select.active)
+         */
+        if(this.snap && false == (this.vectron.map.currentTool instanceof AamapTools.Select)) {
             var midWidth = this.vectron.width/2 + (this.vectron.map.zoom * this.vectron.map.panX);
             var midHeight = this.vectron.height/2 - (this.vectron.map.zoom * this.vectron.map.panY);
 

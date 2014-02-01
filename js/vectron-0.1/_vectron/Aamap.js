@@ -22,7 +22,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-define(['AamapTools', 'XMLHandler'], function(AamapTools, XMLHandler) {
+define(['AamapTools'], function(AamapTools) {
 
 function Aamap(vectron) {
 
@@ -49,9 +49,6 @@ function Aamap(vectron) {
 
     this.panX = 0;
     this.panY = 0;
-    
-    this.handler = new XMLHandler(vectron);
-    //this.XMLHandler.load();
 
 }  
 

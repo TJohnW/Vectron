@@ -29,17 +29,13 @@ define([
     'AamapObjects/Spawn',
 ], function(WallPoint, Wall, Zone, Spawn) {
 
-function XMLHandler(vectron) {
+function XMLHandler(vectron, options) {
 
     this.vectron = vectron;
 
-    $('#files').change(function(e) {
+    $('#files').change(this.handle.bind(this));
 
-        vectron.map.handler.handle(e, vectron);
-        vectron.gui.writeLog("SDF.");
-    });
-
-}  
+}
 
 XMLHandler.prototype = {
 
@@ -149,18 +145,19 @@ XMLHandler.prototype = {
         }
     },
 
-    handle:function(evt, vectron) {
+    handle:function(evt) {
+        this.vectron.gui.writeLog("SDF.");
+
         var reader = new FileReader();
+        reader.onload = this.loadingComplete.bind(this);
         reader.readAsText(evt.target.files[0]);
-        var result;
-        var self = this;
-        reader.vectron = vectron;
-        reader.onload = function(evt) {
-            alert(this.result);
-            this.vectron.map.handler.process(this.result);
-        };
     },
 
+    loadingComplete: function(evt) {
+        this.process(evt.target.result);
+    },
+
+    // not used (think so)
     onload:function() {
         alert(this.result);
         this.vectron.gui.writeLog("HI");
