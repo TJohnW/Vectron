@@ -25,13 +25,13 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 define(['aamapTools/BaseTool'], function(BaseTool) {
 
-	var SelectTool = BaseTool.extend({
-		initialize: function (options) {
-			SelectTool.__super__.initialize.apply(this, arguments);
+    var SelectTool = BaseTool.extend({
+        initialize: function (options) {
+            SelectTool.__super__.initialize.apply(this, arguments);
 
-			this.name = 'select';
-		}
-	});
+            this.name = 'select';
+        }
+    });
 
-	return SelectTool;
+    return SelectTool;
 });

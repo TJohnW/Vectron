@@ -26,35 +26,35 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 define(['Mediator'], function(Mediator) {
 
     var BaseButton = Backbone.View.extend({
-    	events: {
-    		click: function(event) {
-    			event.preventDefault();
-    			// mapTools listen to a toggle event and send back their
-    			// new status to this.setActive
-    			Mediator.pub('tool:select', this.name);
-    		}
-    	},
+        events: {
+            click: function(event) {
+                event.preventDefault();
+                // mapTools listen to a toggle event and send back their
+                // new status to this.setActive
+                Mediator.pub('tool:select', this.name);
+            }
+        },
 
         initialize: function(options) {
-        	this.name = this.$el.data('name');
+            this.name = this.$el.data('name');
             // start disabled during development
-        	//this.setEnabled(false);
+            //this.setEnabled(false);
         },
 
         setEnabled: function (enabled) {
-        	if (enabled) {
-        		this.$el.removeClass('disabled');
-        	} else {
-        		this.$el.addClass('disabled');
-        	}
+            if (enabled) {
+                this.$el.removeClass('disabled');
+            } else {
+                this.$el.addClass('disabled');
+            }
         },
 
         setActive: function (active) {
-        	if (active) {
-        		this.$el.addClass('active');
-        	} else {
-        		this.$el.removeClass('active');
-        	}
+            if (active) {
+                this.$el.addClass('active');
+            } else {
+                this.$el.removeClass('active');
+            }
         }
     });
 

@@ -25,35 +25,35 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 define(['geometry', 'Mediator'], function(geometry, Mediator) {
 
-	function LabeledValue(name, value) {
-		this.$el = $('<span class="var"/>');
+    function LabeledValue(name, value) {
+        this.$el = $('<span class="var"/>');
 
-		var $name = $('<span class="name">' + name + '</span>')
-			.appendTo(this.$el);
+        var $name = $('<span class="name">' + name + '</span>')
+            .appendTo(this.$el);
 
-		var $value = $('<span class="value">' + value + '</span>')
-			.appendTo(this.$el);
+        var $value = $('<span class="value">' + value + '</span>')
+            .appendTo(this.$el);
 
-		this.set = function (value) {
-			$value.html(value);
-		};
-	}
+        this.set = function (value) {
+            $value.html(value);
+        };
+    }
 
     var Info = Backbone.View.extend({
         initialize: function(options) {
-        	this.x = new LabeledValue('x: ', 0);
-        	this.y = new LabeledValue('y: ', 0);
+            this.x = new LabeledValue('x: ', 0);
+            this.y = new LabeledValue('y: ', 0);
 
-        	this.$el
-        		.append(this.x.$el)
-        		.append(this.y.$el);
+            this.$el
+                .append(this.x.$el)
+                .append(this.y.$el);
 
-        	Mediator.sub('cursor:moved', this.updateCursor, this);
+            Mediator.sub('cursor:moved', this.updateCursor, this);
         },
 
         updateCursor: function (x, y) {
-        	this.x.set(x);
-        	this.y.set(y);
+            this.x.set(x);
+            this.y.set(y);
         }
     });
 

@@ -30,7 +30,7 @@ define(['backbone'], function() {
     }
 
     ClassName.prototype = {
-    	
+        
     };
 
     // extend Backbone.Events

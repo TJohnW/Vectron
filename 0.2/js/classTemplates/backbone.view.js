@@ -27,7 +27,7 @@ define(['backbone'], function() {
 
     var ClassName = Backbone.View.extend({
         initialize: function(options) {
-        	
+            
         }
     });
 

@@ -25,15 +25,15 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 define(['Mediator'], function(Mediator) {
 
-	var AamapObject = Backbone.Model.extend({
+    var AamapObject = Backbone.Model.extend({
 
-		initialize: function (options) {
-			for (var option in options) {
-				this.set(option, options[option]);
-			}
-			//console.log(options);
-		}
-	});
+        initialize: function (options) {
+            for (var option in options) {
+                this.set(option, options[option]);
+            }
+            //console.log(options);
+        }
+    });
 
-	return AamapObject;
+    return AamapObject;
 });

@@ -25,16 +25,16 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 define([], function() {
 
-	function Point(x, y) {
-		if (x === undefined || isNaN(x)) {
-			x = 0;
-		}
-		if (y === undefined || isNaN(y)) {
-			y = 0;
-		}
-		this.x = x;
-		this.y = y;
-	};
+    function Point(x, y) {
+        if (x === undefined || isNaN(x)) {
+            x = 0;
+        }
+        if (y === undefined || isNaN(y)) {
+            y = 0;
+        }
+        this.x = x;
+        this.y = y;
+    };
 
     return {
         Point: Point

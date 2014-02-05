@@ -32,16 +32,16 @@ define([
     var Canvas = Backbone.View.extend({
 
         initialize: function(options) {
-        	this.zoom = 1;
-        	this.pan = new geometry.Point;
+            this.zoom = 1;
+            this.pan = new geometry.Point;
 
-        	var canvasSize = this.getCanvasSize();
+            var canvasSize = this.getCanvasSize();
 
-        	this.screen = new Raphael(
-        		this.el,
-        		canvasSize.width,
-        		canvasSize.height
-			);
+            this.screen = new Raphael(
+                this.el,
+                canvasSize.width,
+                canvasSize.height
+            );
 
             Mediator.sub('aamap:addedObject', this.addObject, this);
             Mediator.sub('aamap:removedObject', this.removeObject, this);
@@ -56,10 +56,10 @@ define([
         },
 
         getCanvasSize: function() {
-        	return {
-        		width: this.$el.width(),
-        		height: this.$el.height()
-        	}
+            return {
+                width: this.$el.width(),
+                height: this.$el.height()
+            }
         },
 
         render: function (objects) {
@@ -79,11 +79,11 @@ define([
         },
 
         removeObject: function (object) {
-        	object.get('screenElement').remove();
+            object.get('screenElement').remove();
         },
 
         setZoom: function (value) {
-        	
+            
         }
     });
 

@@ -24,23 +24,23 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 define([
-	'toolbarButtons/BaseButton',
-	'Mediator'
+    'toolbarButtons/BaseButton',
+    'Mediator'
 ], function(BaseButton, Mediator) {
 
     var Toolbar = Backbone.View.extend({
         initialize: function(options) {
-        	this.buttons = {};
-        	this.$('.tool')
+            this.buttons = {};
+            this.$('.tool')
                 .each(this.createButton.bind(this))
                 .tooltip({placement: 'right', color: '#f00'});
         },
 
         createButton: function(index, el) {
-        	var tool = new BaseButton({
-        		el: el
-        	});
-        	this.buttons[tool.name] = tool;
+            var tool = new BaseButton({
+                el: el
+            });
+            this.buttons[tool.name] = tool;
         },
 
         subscriptions: {

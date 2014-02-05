@@ -31,39 +31,39 @@ define([
     'Mediator'
 ], function(SelectTool, SpawnTool, WallTool, ZoneTool, Mediator) {
 
-	AamapTools = function() {
-		this.tools = {
-			select: new SelectTool(),
-			spawn: new SpawnTool(),
-			wall: new WallTool(),
-			zone: new ZoneTool()
-		};
+    AamapTools = function() {
+        this.tools = {
+            select: new SelectTool(),
+            spawn: new SpawnTool(),
+            wall: new WallTool(),
+            zone: new ZoneTool()
+        };
 
-		this.activeTool = null;
+        this.activeTool = null;
 
-	    Mediator.sub('tool:select', this.selectTool, this);
-	}
+        Mediator.sub('tool:select', this.selectTool, this);
+    }
 
-	AamapTools.prototype = {
-		selectTool: function (toolName) {
-			var tool = this.tools[toolName];
+    AamapTools.prototype = {
+        selectTool: function (toolName) {
+            var tool = this.tools[toolName];
 
-			if (tool && tool.active == false) {	
-				this.deselectCurrent();
-				this.activeTool = tool.setActive(true);
-			}
+            if (tool && tool.active == false) { 
+                this.deselectCurrent();
+                this.activeTool = tool.setActive(true);
+            }
 
-			return this;
-		},
+            return this;
+        },
 
-		deselectCurrent: function () {
-			if (this.activeTool) {
-				this.activeTool.setActive(false);
-				this.activeTool = null;
-			}
-		}
-	};
+        deselectCurrent: function () {
+            if (this.activeTool) {
+                this.activeTool.setActive(false);
+                this.activeTool = null;
+            }
+        }
+    };
 
-	return AamapTools;
+    return AamapTools;
 
 });

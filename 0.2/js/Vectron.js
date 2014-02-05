@@ -37,16 +37,16 @@ define([
     var Vectron = Backbone.View.extend({
 
         initialize: function() {
-        	this.canvas = new Canvas({
-        		el: $('.canvas-container .canvas')
-        	});
+            this.canvas = new Canvas({
+                el: $('.canvas-container .canvas')
+            });
 
-        	this.map = new Aamap();
+            this.map = new Aamap();
 
             this.aamapTools = new AamapTools();
 
             this.toolbar = new Toolbar({
-                el: $('.toolbar')
+                el: this.$('.toolbar')
             });
 
             this.info = new Info({

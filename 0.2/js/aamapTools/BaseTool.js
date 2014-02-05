@@ -25,20 +25,20 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 define(['Mediator'], function(Mediator) {
 
-	return Backbone.Model.extend({
-		initialize: function (options) {
-			this.active = false;
-		},
+    return Backbone.Model.extend({
+        initialize: function (options) {
+            this.active = false;
+        },
 
-		setActive: function (active) {
-			// status changed?
-			if (active != this.active) {
-				this.active = active;
-			}
+        setActive: function (active) {
+            // status changed?
+            if (active != this.active) {
+                this.active = active;
+            }
 
-			Mediator.pub('tool:updateStatus', this);
+            Mediator.pub('tool:updateStatus', this);
 
-			return this;
-		}
-	});
+            return this;
+        }
+    });
 });

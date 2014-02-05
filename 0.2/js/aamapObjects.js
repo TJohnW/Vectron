@@ -28,13 +28,13 @@ define([
 ], function(ZoneObject) {
 
     return {
-    	createZone: function(x, y, radius) {
+        createZone: function(x, y, radius) {
             return new ZoneObject({
                 x: x,
                 y: y,
                 radius: radius
             });
-    	}
+        }
     };
 
 });

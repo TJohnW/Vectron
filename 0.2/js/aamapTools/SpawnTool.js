@@ -25,13 +25,13 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 define(['aamapTools/BaseTool'], function(BaseTool) {
 
-	var SpawnTool = BaseTool.extend({
-		initialize: function (options) {
-			SpawnTool.__super__.initialize.apply(this, arguments);
+    var SpawnTool = BaseTool.extend({
+        initialize: function (options) {
+            SpawnTool.__super__.initialize.apply(this, arguments);
 
-			this.name = 'spawn';
-		}
-	});
+            this.name = 'spawn';
+        }
+    });
 
-	return SpawnTool;
+    return SpawnTool;
 });

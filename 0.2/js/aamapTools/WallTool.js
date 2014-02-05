@@ -25,13 +25,13 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 define(['aamapTools/BaseTool'], function(BaseTool) {
 
-	var WallTool = BaseTool.extend({
-		initialize: function (options) {
-			WallTool.__super__.initialize.apply(this, arguments);
+    var WallTool = BaseTool.extend({
+        initialize: function (options) {
+            WallTool.__super__.initialize.apply(this, arguments);
 
-			this.name = 'wall';
-		}
-	});
+            this.name = 'wall';
+        }
+    });
 
-	return WallTool;
+    return WallTool;
 });
