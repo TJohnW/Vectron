@@ -32,7 +32,7 @@ define([
         model: AamapObject,
 
         initialize: function(options) {
-
+            
         },
 
         // override Collection.add

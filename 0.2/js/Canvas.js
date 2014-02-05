@@ -49,6 +49,7 @@ define([
 
         events: {
             mousemove: function (event) {
+                // canvas.x starts from 50 (i.e. toolbar width)
                 // TODO check this bug
                 var toolbarWidth = $('#main-toolbar').outerWidth();
                 Mediator.pub('cursor:moved', event.clientX - toolbarWidth, event.clientY);
@@ -72,7 +73,7 @@ define([
             screenElement = this.screen.add([drawData]);
             object.set('screenElement', screenElement);
 
-            // temp hover handling
+            // hover handling, there's better way for this
             screenElement.mouseover(function() {
                 Mediator.pub('canvasObject:mouseover', object);
             });

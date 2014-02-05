@@ -47,13 +47,14 @@ define(['geometry', 'Mediator'], function(geometry, Mediator) {
             this.$el
                 .append(this.x.$el)
                 .append(this.y.$el);
-
-            Mediator.sub('cursor:moved', this.updateCursor, this);
         },
 
-        updateCursor: function (x, y) {
-            this.x.set(x);
-            this.y.set(y);
+        // Backbone.Mediator automatic subscriptions
+        subscriptions: {
+            'cursor:moved': function (x, y) {
+                this.x.set(x);
+                this.y.set(y);
+            }
         }
     });
 

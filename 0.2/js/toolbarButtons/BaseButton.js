@@ -29,16 +29,12 @@ define(['Mediator'], function(Mediator) {
         events: {
             click: function(event) {
                 event.preventDefault();
-                // mapTools listen to a toggle event and send back their
-                // new status to this.setActive
                 Mediator.pub('tool:select', this.name);
             }
         },
 
         initialize: function(options) {
             this.name = this.$el.data('name');
-            // start disabled during development
-            //this.setEnabled(false);
         },
 
         setEnabled: function (enabled) {

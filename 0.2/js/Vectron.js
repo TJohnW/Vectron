@@ -38,7 +38,7 @@ define([
 
         initialize: function() {
             this.canvas = new Canvas({
-                el: $('.canvas-container .canvas')
+                el: this.$('.canvas-container .canvas')
             });
 
             this.map = new Aamap();

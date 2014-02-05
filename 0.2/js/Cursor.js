@@ -25,6 +25,8 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 define(['Mediator'], function(Mediator) {
 
+	// Not used yet
+
     var Cursor = Backbone.Model.extend({
         initialize: function () {
             

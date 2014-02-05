@@ -34,9 +34,27 @@ define([], function() {
         }
         this.x = x;
         this.y = y;
+    }
+
+    Point.prototype = {
+        getDistanceFromSegment: function(segment) {
+            
+        }
+    };
+
+    function Segment (start, end) {
+        this.start = start;
+        this.end = end;
+    }
+
+    Segment.prototype = {
+        getDistanceFromPoint: function (point) {
+            
+        }
     };
 
     return {
-        Point: Point
+        Point: Point,
+        Segment: Segment
     };
 });
