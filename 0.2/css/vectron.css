@@ -1,0 +1,91 @@
+.canvas-container {
+  position: absolute;
+  left: 50px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #000;
+}
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.toolbar {
+  position: absolute;
+  width: 50px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-right: 1px solid #474747;
+  background: #333;
+}
+
+.toolbar .tools-group {
+  margin: 0;
+  padding: 10px 10px 0;
+}
+
+.toolbar .tools-group li {
+  height: 30px;
+  width: 30px;
+  background: #393939;
+  display: block;
+}
+
+.toolbar .tools-group li .tool {
+  display: block;
+  width: 30px;
+  height: 30px;
+  line-height: 24px;
+  text-align: center;
+  color: #EEE;
+  font-size: 28px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.toolbar .tools-group li .tool:hover {
+  color:#FFF;
+  background-color:#1b1b1b;
+  text-decoration:none;
+}
+
+.toolbar .tools-group li .tool.active {
+  background-color:#1b1b1b;
+}
+.toolbar .tools-group li .tool.disabled {
+  opacity: 0.3;
+  cursor: no-drop;
+  color: #ccc;
+}
+
+
+#tool-select {
+  background-image:url('../images/SelectTool.png');
+}
+#tool-wall {
+  background-image:url('../images/ObjectTools/WallTool.png');
+}
+#tool-zone {
+  background-image:url('../images/ObjectTools/ZoneBase.png');
+}
+#tool-spawn {
+  background-image:url('../images/ObjectTools/SpawnTool.png');
+}
+
+.info {
+  background-color: rgba(255, 255, 255, 0.19);
+  color: #fff;
+  padding: 5px 20px;
+  font-size: 11px;
+  position: absolute;
+}
+.info .var {
+  margin: 0 10px;
+  width: 50px;
+  display: inline-block;
+}
