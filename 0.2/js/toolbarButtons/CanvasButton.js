@@ -23,13 +23,28 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-define(['backbone'], function() {
+define(['toolbarButtons/BaseButton', 'Mediator'], function(BaseButton, Mediator) {
 
-    var ClassName = Backbone.View.extend({
-        initialize: function(options) {
-            ClassName.__super__.initialize.apply(this, arguments);
+    var CanvasButton = BaseButton.extend({
+        onClick: function () {
+            // ex: canvas:zoom-in / canvas:zoom-out
+            Mediator.pub('canvas:' + this.name);
+        /*
+        },
+
+        initialize: function (options) {
+            CanvasButton.__super__.initialize.apply(this, arguments);
+        },
+
+        subscriptions: {
+
+        },
+
+        updateStatus: function (tool) {
+
+        */
         }
     });
 
-    return ClassName;
+    return CanvasButton;
 });

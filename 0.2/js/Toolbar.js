@@ -25,33 +25,39 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 define([
     'toolbarButtons/BaseButton',
+    'toolbarButtons/ToolButton',
+    'toolbarButtons/CanvasButton',
     'Mediator'
-], function(BaseButton, Mediator) {
+], function(BaseButton, ToolButton, CanvasButton, Mediator) {
+
+    var buttonTypes = {
+        tool: ToolButton,
+        canvas: CanvasButton
+    };
 
     var Toolbar = Backbone.View.extend({
         initialize: function(options) {
             this.buttons = {};
-            this.$('.tool')
+            this.$('.button')
                 .each(this.createButton.bind(this))
-                .tooltip({placement: 'right', color: '#f00'});
+                .tooltip({placement: 'right'});
         },
 
         createButton: function(index, el) {
-            var tool = new BaseButton({
-                el: el
-            });
-            this.buttons[tool.name] = tool;
-        },
+            var $el = $(el),
+                type = $el.data('type'),
+                buttonParams = {el: $el},
+                button = null;
 
-        subscriptions: {
-            'tool:updateStatus': 'updateButtonStatus'
-        },
-
-        updateButtonStatus: function (tool) {
-            var button = this.buttons[tool.name];
-            if (button) {
-                button.setActive(tool.active);
+            try {
+                // create specific button type if possible
+                button = new (buttonTypes[type])(buttonParams);
+            } catch (err) {
+                // otherwise create basic button
+                button = new BaseButton(buttonParams);
             }
+
+            return this.buttons[button.name] = button;
         }
     });
 

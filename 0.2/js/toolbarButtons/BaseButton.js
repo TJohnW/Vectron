@@ -29,12 +29,18 @@ define(['Mediator'], function(Mediator) {
         events: {
             click: function(event) {
                 event.preventDefault();
-                Mediator.pub('tool:select', this.name);
+                if (_.isFunction(this.onClick)) {
+                    this.onClick();
+                };
             }
         },
 
         initialize: function(options) {
             this.name = this.$el.data('name');
+            this.type = this.$el.data('type');
+
+            // listen to event, ex: 'button:zoom-in-enable'
+            Mediator.sub('button:' + this.name + '-enable', this.setEnabled, this);
         },
 
         setEnabled: function (enabled) {

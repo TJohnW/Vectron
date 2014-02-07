@@ -38,7 +38,7 @@ define([
 
         initialize: function() {
             this.canvas = new Canvas({
-                el: this.$('.canvas-container .canvas')
+                el: this.$('.canvas-container')
             });
 
             this.map = new Aamap();
@@ -58,9 +58,8 @@ define([
 
             this.aamapTools.selectTool('select');
 
-
-
             // testing map/canvas
+            /*
             var zone = aamapObjects.createZone(200, 200, 100);
             this.map.add(zone);
 
@@ -68,6 +67,7 @@ define([
             this.map.add(zone2);
 
             this.map.remove(zone2);
+            */
         },
 
         initShortcuts: function () {
@@ -85,6 +85,14 @@ define([
 
             Mousetrap.bind('z', function (event) {
                 Mediator.pub('tool:select', 'zone');
+            }.bind(this));
+
+            Mousetrap.bind('+', function (event) {
+                Mediator.pub('canvas:zoom-in');
+            }.bind(this));
+
+            Mousetrap.bind('-', function (event) {
+                Mediator.pub('canvas:zoom-out');
             }.bind(this));
         }
     });

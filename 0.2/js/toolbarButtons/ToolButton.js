@@ -23,13 +23,30 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-define(['backbone'], function() {
+define(['toolbarButtons/BaseButton', 'Mediator'], function(BaseButton, Mediator) {
 
-    var ClassName = Backbone.View.extend({
-        initialize: function(options) {
-            ClassName.__super__.initialize.apply(this, arguments);
+    var ToolButton = BaseButton.extend({
+        /*
+        initialize: function (options) {
+            ToolButton.__super__.initialize.apply(this, arguments);
+        },
+        */
+
+        onClick: function () {
+            // ask for tool selection
+            Mediator.pub('tool:select', this.name);
+        },
+
+        subscriptions: {
+            'tool:updateStatus': 'updateStatus'
+        },
+
+        updateStatus: function (tool) {
+            if (tool.name == this.name) {
+                this.setActive(tool.active);
+            };
         }
     });
 
-    return ClassName;
+    return ToolButton;
 });

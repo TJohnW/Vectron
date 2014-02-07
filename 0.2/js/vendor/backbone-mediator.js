@@ -73,6 +73,10 @@
           i--;
         }
       }
+
+      if (appConfig.development && appConfig.debugMediator) {
+        console.log(channel, args);
+      }
     },
 
     /**

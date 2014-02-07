@@ -23,12 +23,14 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-define(['backbone'], function() {
+define(['path/to/ParentClass'], function(ParentClass) {
 
-    var ClassName = Backbone.View.extend({
+    var ClassName = ParentClass.extend({
+    	/*
         initialize: function(options) {
             ClassName.__super__.initialize.apply(this, arguments);
         }
+    	*/
     });
 
     return ClassName;

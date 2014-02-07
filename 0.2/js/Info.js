@@ -43,17 +43,23 @@ define(['geometry', 'Mediator'], function(geometry, Mediator) {
         initialize: function(options) {
             this.x = new LabeledValue('x: ', 0);
             this.y = new LabeledValue('y: ', 0);
+            this.zoom = new LabeledValue('zoom: ', 1);
 
             this.$el
                 .append(this.x.$el)
-                .append(this.y.$el);
+                .append(this.y.$el)
+                .append(this.zoom.$el);
         },
 
         // Backbone.Mediator automatic subscriptions
         subscriptions: {
-            'cursor:moved': function (x, y) {
-                this.x.set(x);
-                this.y.set(y);
+            'cursor:moved': function (cursor) {
+                this.x.set(cursor.x);
+                this.y.set(cursor.y);
+            },
+
+            'canvas:zoom-changed': function (value) {
+                this.zoom.set(value);
             }
         }
     });

@@ -8,15 +8,27 @@
         <link href="css/vectron.css" rel="stylesheet">
     </head>
     <body class="noscroll" id="vectron">
-
+        <div class="canvas-container"></div>
+        <div class="info"></div>
         <div id="main-toolbar" class="toolbar">
             <ul class="tools-group">
                 <li>
                     <a
                         href="#"
-                        class="tool"
+                        class="button"
+                        data-name="settings"
+                        id="btn-settings"
+                        title="Settings and Controls"></a>
+                </li>
+            </ul>
+            <ul class="tools-group">
+                <li>
+                    <a
+                        href="#"
+                        class="button"
+                        data-type="tool"
                         data-name="select"
-                        id="tool-select"
+                        id="btn-select"
                         title="Select objects"></a>
                 </li>
             </ul>
@@ -24,33 +36,51 @@
                 <li>
                     <a
                         href="#"
-                        class="tool"
+                        class="button"
+                        data-type="tool"
                         data-name="wall"
-                        id="tool-wall"
+                        id="btn-wall"
                         title="Wall"></a>
                 </li>
                 <li>
                     <a
                         href="#"
-                        class="tool"
+                        class="button"
+                        data-type="tool"
                         data-name="zone"
-                        id="tool-zone"
+                        id="btn-zone"
                         title="Zone"></a>
                 </li>
                 <li>
                     <a
                         href="#"
-                        class="tool"
+                        class="button"
+                        data-type="tool"
                         data-name="spawn"
-                        id="tool-spawn"
+                        id="btn-spawn"
                         title="Spawn point"></a>
                 </li>
             </ul>
-        </div>
-
-        <div class="canvas-container">
-            <div class="info"></div>
-            <div class="canvas"></div>
+            <ul class="tools-group">
+                <li>
+                    <a
+                        href="#"
+                        class="button"
+                        data-type="canvas"
+                        data-name="zoom-in"
+                        id="btn-zoom-in"
+                        title="Zoom In"></a>
+                </li>
+                <li>
+                    <a
+                        href="#"
+                        class="button"
+                        data-type="canvas"
+                        data-name="zoom-out"
+                        id="btn-zoom-out"
+                        title="Zoom Out"></a>
+                </li>
+            </ul>
         </div>
 
         <script

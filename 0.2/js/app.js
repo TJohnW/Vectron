@@ -25,9 +25,12 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 // global config for conditional debugging and logging
 window.appConfig = {
-    development: false,
+    version: '2.0.2',
+
     production: false,
-    version: '2.0.2'
+    development: false,
+
+    debugMediator: false
 };
 
 // avoid global variables with encapsulation
