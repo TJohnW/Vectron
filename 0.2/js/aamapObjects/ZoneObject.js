@@ -25,6 +25,14 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 define(['aamapObjects/AamapObject'], function(AamapObject) {
 
+    var zoneColors = {
+           death: '#ff0000', // red
+             win: '#00ff00', // green
+        fortress: '#62bef6', // lt blue
+          target: '#ff00ff', // purple
+          rubber: '#ff8800'  // orange
+    };
+
     var ZoneObject = AamapObject.extend({
         initialize: function (options) {
             ZoneObject.__super__.initialize.apply(this, arguments);
@@ -32,14 +40,11 @@ define(['aamapObjects/AamapObject'], function(AamapObject) {
             this.type = 'zone';
         },
 
-        getDrawData: function () {
-            return {
-                type: 'circle',
-                cx: this.get('x'),
-                cy: this.get('y'),
-                r: this.get('radius'),
-                stroke: '#f00'
-            };
+        getColor: function () {
+            if (zoneColors[this.get('effect')]) {
+                return zoneColors[this.get('effect')];
+            }
+            return '#fff';
         }
     });
 

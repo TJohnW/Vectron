@@ -7,28 +7,28 @@ body.noscroll {
 
 .canvas-container {
 	position: absolute;
-	top: 26px;
+	top: 0;
 	left: 50px;
 	bottom: 0;
-	right: 0;
+	right: 0px;
 }
 
 .info {
-	background-color: #333;
+	padding: 10px;
+	font-size: 12px;
 	color: #eee;
-	padding: 5px 20px;
-	font-size: 11px;
+	background-color: #333;
 	position: absolute;
-	left: 51px;
 	top: 0px;
+	bottom: 0px;
 	right: 0;
-	height: 25px;
-	border-bottom: 1px solid #474747;
 }
 .info .var {
-	margin: 0 10px;
-	width: 100px;
-	display: inline-block;
+	display: block;
+	overflow: hidden;
+	width: 80px;
+	word-break: break-all;
+	height: 16px;
 }
 
 .toolbar {

@@ -37,10 +37,33 @@ define([], function() {
     }
 
     Point.prototype = {
+        add: function (point) {
+            this.x += point.x;
+            this.y += point.y;
+            return this;
+        },
+
+        subtract: function (point) {
+            this.x -= point.x;
+            this.y -= point.y;
+            return this;
+        },
+
+        clone: function () {
+            return new Point(this.x, this.y);
+        },
+
+        toString: function () {
+            return this.x + ',' + this.y;
+        },
+
         getDistanceFromSegment: function(segment) {
-            
+
         }
     };
+
+
+
 
     function Segment (start, end) {
         this.start = start;
@@ -53,8 +76,29 @@ define([], function() {
         }
     };
 
+
+
+    function PathBuilder() {
+        var string = '';
+
+        this.moveTo = function (x, y) {
+            string += 'M' + x + ' ' + y;
+            return this;
+        };
+
+        this.lineTo = function (x, y) {
+            string += 'L' + x + ' ' + y;
+            return this;
+        };
+
+        this.getString = function () {
+            return string;
+        };
+    }
+
     return {
         Point: Point,
-        Segment: Segment
+        Segment: Segment,
+        PathBuilder: PathBuilder
     };
 });

@@ -66,6 +66,7 @@ window.appConfig = {
             raphael: 'vendor/raphael-min',
             mousetrap: 'vendor/mousetrap.min',
             marknote: 'vendor/marknote',
+            mousewheel: 'vendor/jquery.mousewheel',
             vectron: 'Vectron'
         },
 

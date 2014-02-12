@@ -34,7 +34,7 @@ define(['toolbarButtons/BaseButton', 'Mediator'], function(BaseButton, Mediator)
 
         onClick: function () {
             // ask for tool selection
-            Mediator.pub('tool:select', this.name);
+            Mediator.publish('tool:select', this.name);
         },
 
         subscriptions: {

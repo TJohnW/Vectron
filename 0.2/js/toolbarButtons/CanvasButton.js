@@ -28,7 +28,7 @@ define(['toolbarButtons/BaseButton', 'Mediator'], function(BaseButton, Mediator)
     var CanvasButton = BaseButton.extend({
         onClick: function () {
             // ex: canvas:zoom-in / canvas:zoom-out
-            Mediator.pub('canvas:' + this.name);
+            Mediator.publish('canvas:' + this.name);
         /*
         },
 

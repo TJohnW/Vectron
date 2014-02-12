@@ -39,14 +39,14 @@ define([
         add: function (object) {
             Aamap.__super__.add.apply(this, arguments);
 
-            Mediator.pub('aamap:addedObject', object);
+            Mediator.publish('aamap:addedObject', object);
             return this;
         },
 
         remove: function(object) {
             Aamap.__super__.remove.apply(this, arguments);
 
-            Mediator.pub('aamap:removedObject', object);
+            Mediator.publish('aamap:removedObject', object);
             return this;
         }
     });

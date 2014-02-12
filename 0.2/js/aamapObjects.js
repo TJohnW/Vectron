@@ -28,11 +28,12 @@ define([
 ], function(ZoneObject) {
 
     return {
-        createZone: function(x, y, radius) {
+        createZone: function(x, y, radius, effect) {
             return new ZoneObject({
                 x: x,
                 y: y,
-                radius: radius
+                radius: radius,
+                effect: effect
             });
         }
     };

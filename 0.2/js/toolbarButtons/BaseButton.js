@@ -40,7 +40,7 @@ define(['Mediator'], function(Mediator) {
             this.type = this.$el.data('type');
 
             // listen to event, ex: 'button:zoom-in-enable'
-            Mediator.sub('button:' + this.name + '-enable', this.setEnabled, this);
+            Mediator.subscribe('button:' + this.name + '-enable', this.setEnabled, this);
         },
 
         setEnabled: function (enabled) {

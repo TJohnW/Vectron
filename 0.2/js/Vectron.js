@@ -31,17 +31,15 @@ define([
     'Toolbar',
     'Info',
     'Mediator',
+    'geometry',
     'mousetrap'
-], function(Canvas, Aamap, aamapObjects, AamapTools, Toolbar, Info, Mediator) {
+], function(Canvas, Aamap, aamapObjects, AamapTools, Toolbar, Info, Mediator, geometry) {
 
     var Vectron = Backbone.View.extend({
 
         initialize: function() {
-            this.canvas = new Canvas({
-                el: this.$('.canvas-container')
-            });
-
-            this.map = new Aamap();
+            this.currentMap = new Aamap();
+            this.maps = [this.currentMap];
 
             this.aamapTools = new AamapTools();
 
@@ -58,41 +56,64 @@ define([
 
             this.aamapTools.selectTool('select');
 
+            this.canvas = new Canvas({
+                el: this.$('.canvas-container')
+            });
+
             // testing map/canvas
-            /*
-            var zone = aamapObjects.createZone(200, 200, 100);
-            this.map.add(zone);
+            var death = aamapObjects.createZone(0, 0, 10, 'death');
+            this.currentMap.add(death);
 
-            var zone2 = aamapObjects.createZone(200, 200, 50);
-            this.map.add(zone2);
+            var win = aamapObjects.createZone(250, -250, 250, 'win');
+            this.currentMap.add(win);
 
-            this.map.remove(zone2);
-            */
+            var rubber = aamapObjects.createZone(250, -250, 50, 'rubber');
+            this.currentMap.add(rubber);
+
+            var fortress = aamapObjects.createZone(-250, 250, 250, 'fortress');
+            this.currentMap.add(fortress);
+
+            var target = aamapObjects.createZone(-250, 250, 50, 'target');
+            this.currentMap.add(target);
+        },
+
+        events: {
+            keydown: function (event) {
+                if (event.keyCode == '32') {
+                    Mediator.publish('canvas:pan-start');
+                }
+            },
+
+            keyup: function (event) {
+                if (event.keyCode == '32') {
+                    Mediator.publish('canvas:pan-stop');
+                }
+            }
         },
 
         initShortcuts: function () {
             Mousetrap.bind('v', function (event) {
-                Mediator.pub('tool:select', 'select');
+                Mediator.publish('tool:select', 'select');
             }.bind(this));
 
             Mousetrap.bind('s', function (event) {
-                Mediator.pub('tool:select', 'spawn');
+                Mediator.publish('tool:select', 'spawn');
             }.bind(this));
 
             Mousetrap.bind('w', function (event) {
-                Mediator.pub('tool:select', 'wall');
+                Mediator.publish('tool:select', 'wall');
             }.bind(this));
 
             Mousetrap.bind('z', function (event) {
-                Mediator.pub('tool:select', 'zone');
+                Mediator.publish('tool:select', 'zone');
             }.bind(this));
 
             Mousetrap.bind('+', function (event) {
-                Mediator.pub('canvas:zoom-in');
+                Mediator.publish('canvas:zoom-in');
             }.bind(this));
 
             Mousetrap.bind('-', function (event) {
-                Mediator.pub('canvas:zoom-out');
+                Mediator.publish('canvas:zoom-out');
             }.bind(this));
         }
     });

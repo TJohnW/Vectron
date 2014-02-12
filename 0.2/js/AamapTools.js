@@ -41,7 +41,7 @@ define([
 
         this.activeTool = null;
 
-        Mediator.sub('tool:select', this.selectTool, this);
+        Mediator.subscribe('tool:select', this.selectTool, this);
     }
 
     AamapTools.prototype = {

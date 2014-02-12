@@ -36,7 +36,7 @@ define(['Mediator'], function(Mediator) {
                 this.active = active;
             }
 
-            Mediator.pub('tool:updateStatus', this);
+            Mediator.publish('tool:updateStatus', this);
 
             return this;
         }
