@@ -115,6 +115,10 @@ define([
             Mousetrap.bind('-', function (event) {
                 Mediator.publish('canvas:zoom-out');
             }.bind(this));
+
+            Mousetrap.bind('x', function (event) {
+                Mediator.publish('canvas:snap');
+            }.bind(this));
         }
     });
 

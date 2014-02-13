@@ -41,6 +41,9 @@ define(['Mediator'], function(Mediator) {
 
             // listen to event, ex: 'button:zoom-in-enable'
             Mediator.subscribe('button:' + this.name + '-enable', this.setEnabled, this);
+
+            // listen to event, ex: 'button:zoom-in-active'
+            Mediator.subscribe('button:' + this.name + '-active', this.setActive, this);
         },
 
         setEnabled: function (enabled) {

@@ -30,6 +30,7 @@ define(['aamapTools/BaseTool'], function(BaseTool) {
             SelectTool.__super__.initialize.apply(this, arguments);
 
             this.name = 'select';
+            this.allowSnap = false;
         }
     });
 

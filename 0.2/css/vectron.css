@@ -10,7 +10,7 @@ body.noscroll {
 	top: 0;
 	left: 50px;
 	bottom: 0;
-	right: 0px;
+	right: 100px;
 }
 
 .info {
@@ -95,6 +95,12 @@ body.noscroll {
 #btn-spawn {
 	background-image:url('../images/ObjectTools/SpawnTool.png');
 }
+#btn-snap {
+	background-image:url('../images/Lock/Unlock.png');
+}
+	#btn-snap.active {
+		background-image:url('../images/Lock/Lock.png');
+	}
 #btn-zoom-in {
 	background-image:url('../images/Zoom/ZoomIn.png');
 }

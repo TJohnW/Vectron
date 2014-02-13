@@ -28,6 +28,7 @@ define(['Mediator'], function(Mediator) {
     return Backbone.Model.extend({
         initialize: function (options) {
             this.active = false;
+            this.allowSnap = true;
         },
 
         setActive: function (active) {
@@ -36,7 +37,7 @@ define(['Mediator'], function(Mediator) {
                 this.active = active;
             }
 
-            Mediator.publish('tool:updateStatus', this);
+            Mediator.publish('tool:status-changed', this);
 
             return this;
         }

@@ -26,23 +26,10 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 define(['toolbarButtons/BaseButton', 'Mediator'], function(BaseButton, Mediator) {
 
     var CanvasButton = BaseButton.extend({
+
         onClick: function () {
             // ex: canvas:zoom-in / canvas:zoom-out
             Mediator.publish('canvas:' + this.name);
-        /*
-        },
-
-        initialize: function (options) {
-            CanvasButton.__super__.initialize.apply(this, arguments);
-        },
-
-        subscriptions: {
-
-        },
-
-        updateStatus: function (tool) {
-
-        */
         }
     });
 

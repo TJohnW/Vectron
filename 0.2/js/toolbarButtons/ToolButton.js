@@ -38,7 +38,7 @@ define(['toolbarButtons/BaseButton', 'Mediator'], function(BaseButton, Mediator)
         },
 
         subscriptions: {
-            'tool:updateStatus': 'updateStatus'
+            'tool:status-changed': 'updateStatus'
         },
 
         updateStatus: function (tool) {

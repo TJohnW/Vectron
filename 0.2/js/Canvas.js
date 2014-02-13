@@ -42,6 +42,11 @@ define([
             this.gridStep = 10;
             this.gridStart = new geometry.Point;
 
+            this.snapTo = {
+                grid: false,
+                objects: false
+            };
+
             // canvas anchor point to handle panning
             this.anchor = new geometry.Point;
 
@@ -59,6 +64,12 @@ define([
             this.updateCursorPos(0, 0);
             this.createCursorPointer();
 
+            // temp centering
+            var centerX = this.canvasSize.width / 2;
+            var centerY = -this.canvasSize.height / 2;
+            this.setAnchor(centerX, centerY);
+            this.setZoom(10);
+
             this.render();
         },
 
@@ -72,22 +83,23 @@ define([
             'canvas:pan-start': function () {
                 if (! this.cursorPanStart) {
                     this.cursorPanStart = this.cursorPos.clone();
-                    //console.log('panStart', this.cursorPanStart.toString());
                 }
             },
 
             'canvas:pan-stop': function () {
                 this.cursorPanStart = null;
             },
+
+            'canvas:snap': function () {
+                this.snapTo.grid = !this.snapTo.grid;
+                Mediator.publish('button:snap-active', this.snapTo.grid);
+            }
         },
 
         events: {
             resize: 'updateCanvasSize',
 
             mousemove: function (event) {
-                this.cursorPointer.x.transform('T' + event.offsetX + ' 0');
-                this.cursorPointer.y.transform('T 0 ' + event.offsetY);
-
                 if (this.cursorPanStart) {
                     // move canvas
                     var panTo = this
@@ -98,9 +110,10 @@ define([
                     this.render();
                 } else {
                     // update cursor
-                    this.updateCursorPos(event.offsetX, event.offsetY)
+                    this.updateCursorPos(event.offsetX, event.offsetY);
                 }
 
+                this.updateCursorPointer();
                 this.updateMousePos(event.offsetX, event.offsetY);
             },
 
@@ -120,9 +133,55 @@ define([
             Mediator.publish('canvas:mouse-moved', this.mousePos);
         },
 
+        /**
+         * @x, y: mouse pos
+         */
         updateCursorPos: function (x, y) {
-            this.cursorPos = this.screenToMap(x, y);
+            this.realPos = this.cursorPos = this.screenToMap(x, y);
+
+            if (this.snapTo.grid && ! this.snapLocked) {
+                // store original cursor position for adjustPan()
+                this.realPos = this.cursorPos.clone();
+
+                this.snapToGrid();
+            }
+
             Mediator.publish('canvas:cursor-moved', this.cursorPos);
+        },
+
+        snapToGrid: function () {
+            var halfStep = this.gridStep / 2,
+                adjust = new geometry.Point(
+                    this.cursorPos.x % this.gridStep,
+                    this.cursorPos.y % this.gridStep
+                );
+
+            if (this.cursorPos.x >= 0 && adjust.x >= halfStep) {
+                adjust.x -= this.gridStep;
+            } else if (this.cursorPos.x < 0 && adjust.x < -halfStep) {
+                adjust.x += this.gridStep;
+            }
+
+            if (this.cursorPos.y >= 0 && adjust.y >= halfStep) {
+                adjust.y -= this.gridStep;
+            } else if (this.cursorPos.y < 0 && adjust.y < -halfStep) {
+                adjust.y += this.gridStep;
+            }
+
+            this.cursorPos.subtract(adjust);
+        },
+
+        // move cross
+        updateCursorPointer: function () {
+            if (! this.cursorPointer)
+                return;
+
+            var screenPos = this.mapToScreen(this.cursorPos.x, this.cursorPos.y);
+            screenPos.x = Math.round(screenPos.x);
+            screenPos.y = Math.round(screenPos.y);
+
+            this.cursorPointer.x.transform('T' + screenPos.x + ' 0');
+            this.cursorPointer.y.transform('T 0 ' + screenPos.y);
         },
 
         /**
@@ -191,12 +250,12 @@ define([
             if (this.cursorPointer) {
                 this.cursorPointer.x.remove();
                 this.cursorPointer.y.remove();
-            } else {
-                this.cursorPointer = {};
             }
 
+            this.cursorPointer = {};
+
             var paper = this.paper,
-                color = '#ddd';
+                color = '#fff';
 
             function pointerPath (pathBuilder) {
                 return paper
@@ -273,7 +332,7 @@ define([
                 // target point is current mouse pos
                 targetX = this.mousePos.x;
                 targetY = this.mousePos.y;
-                realTarget = this.cursorPos;
+                realTarget = this.realPos;
             } else {
                 // target point is screen center
                 targetX = this.canvasSize.width / 2;
@@ -288,7 +347,7 @@ define([
 
         setZoom: function (zoomTo, targetMouse) {
             // call adjustPan before setting new zoom
-            // because it uses this.zoom (called by screenToMap)
+            // because it depends on this.zoom original value
             this.adjustPan(zoomTo, targetMouse);
 
             this.zoom = zoomTo;
