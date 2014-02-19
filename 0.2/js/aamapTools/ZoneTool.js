@@ -23,13 +23,51 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-define(['aamapTools/BaseTool'], function(BaseTool) {
+define([
+    'aamapTools/BaseTool',
+    'Mediator',
+    'aamapObjects'
+], function(BaseTool, Mediator, aamapObjects) {
+    'use strict';
 
     var ZoneTool = BaseTool.extend({
         initialize: function (options) {
             ZoneTool.__super__.initialize.apply(this, arguments);
 
-            this.name = 'zone';
+            this.set('name', 'zone');
+        },
+
+        connect: function () {
+            Mediator.subscribe('canvas:mousedown', this.startMakeZone, this);
+            Mediator.subscribe('canvas:mouseup', this.makeZone, this);
+        },
+
+        disconnect: function () {
+            Mediator.unsubscribe('canvas:mousedown', this.startMakeZone, this);
+            Mediator.unsubscribe('canvas:mouseup', this.makeZone, this);
+        },
+
+        startMakeZone: function (canvasInterface) {
+            var cursorPos = canvasInterface.getCursorPos(this.get('allowSnap'));
+            this.center = cursorPos;
+        },
+
+        makeZone: function (canvasInterface) {
+            if (!this.center) {
+                return;
+            }
+
+            var cursorPos = canvasInterface.getCursorPos(this.get('allowSnap'));
+            var radius = cursorPos.getDistanceFromPoint(this.center);
+
+            var zone = aamapObjects.createZone(
+                this.center.x,
+                this.center.y,
+                radius,
+                'death'
+            );
+
+            Mediator.publish('tool:createdObject', zone);
         }
     });
 

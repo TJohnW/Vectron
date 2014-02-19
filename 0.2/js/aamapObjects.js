@@ -26,6 +26,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 define([
     'aamapObjects/ZoneObject'
 ], function(ZoneObject) {
+    'use strict';
 
     return {
         createZone: function(x, y, radius, effect) {

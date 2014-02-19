@@ -29,6 +29,7 @@ define([
     'toolbarButtons/CanvasButton',
     'Mediator'
 ], function(BaseButton, ToolButton, CanvasButton, Mediator) {
+    'use strict';
 
     var buttonTypes = {
         tool: ToolButton,

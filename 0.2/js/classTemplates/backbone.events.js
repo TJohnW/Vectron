@@ -24,6 +24,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 define(['backbone'], function() {
+    'use strict';
 
     function ClassName(options) {
 

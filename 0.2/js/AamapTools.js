@@ -30,8 +30,9 @@ define([
     'aamapTools/ZoneTool',
     'Mediator'
 ], function(SelectTool, SpawnTool, WallTool, ZoneTool, Mediator) {
+    'use strict';
 
-    AamapTools = function() {
+    var AamapTools = function() {
         this.tools = {
             select: new SelectTool(),
             spawn: new SpawnTool(),
@@ -41,16 +42,16 @@ define([
 
         this.activeTool = null;
 
-        Mediator.subscribe('tool:select', this.selectTool, this);
+        Mediator.subscribe('tool:connect', this.selectTool, this);
     }
 
     AamapTools.prototype = {
         selectTool: function (toolName) {
             var tool = this.tools[toolName];
 
-            if (tool && tool.active == false) { 
+            if (tool && tool.get('active') == false) { 
                 this.deselectCurrent();
-                this.activeTool = tool.setActive(true);
+                this.activeTool = tool.set('active', true);
             }
 
             return this;
@@ -58,7 +59,7 @@ define([
 
         deselectCurrent: function () {
             if (this.activeTool) {
-                this.activeTool.setActive(false);
+                this.activeTool.set('active', false);
                 this.activeTool = null;
             }
         }

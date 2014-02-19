@@ -12,7 +12,7 @@
 - map pan [space]
 - map zoom-in button [+] or mousewheel up
 - map zoom-out button [-] or mousewheel down
-- toggle snap cursor to grid [x]
+- snap cursor to grid [x]
 
 ### TODO
 - select/edit tool - [del] to remove

@@ -24,6 +24,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 define([], function() {
+    'use strict';
 
     function Point(x, y) {
         if (x === undefined || isNaN(x)) {
@@ -59,6 +60,14 @@ define([], function() {
 
         getDistanceFromSegment: function(segment) {
 
+        },
+
+        getDistanceFromPoint: function (point) {
+            // pythagoras
+            return Math.sqrt(
+                Math.pow(this.x - point.x, 2) +
+                Math.pow(this.y - point.y, 2)
+            );
         }
     };
 

@@ -24,6 +24,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 define(['path/to/ParentClass'], function(ParentClass) {
+    'use strict';
 
     var ClassName = ParentClass.extend({
     	/*

@@ -23,7 +23,11 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-define(['toolbarButtons/BaseButton', 'Mediator'], function(BaseButton, Mediator) {
+define([
+    'toolbarButtons/BaseButton',
+    'Mediator'
+], function(BaseButton, Mediator) {
+    'use strict';
 
     var CanvasButton = BaseButton.extend({
 

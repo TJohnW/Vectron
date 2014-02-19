@@ -23,7 +23,11 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-define(['toolbarButtons/BaseButton', 'Mediator'], function(BaseButton, Mediator) {
+define([
+    'toolbarButtons/BaseButton',
+    'Mediator'
+], function(BaseButton, Mediator) {
+    'use strict';
 
     var ToolButton = BaseButton.extend({
         /*
@@ -34,7 +38,7 @@ define(['toolbarButtons/BaseButton', 'Mediator'], function(BaseButton, Mediator)
 
         onClick: function () {
             // ask for tool selection
-            Mediator.publish('tool:select', this.name);
+            Mediator.publish('tool:connect', this.name);
         },
 
         subscriptions: {
@@ -42,8 +46,8 @@ define(['toolbarButtons/BaseButton', 'Mediator'], function(BaseButton, Mediator)
         },
 
         updateStatus: function (tool) {
-            if (tool.name == this.name) {
-                this.setActive(tool.active);
+            if (tool.get('name') == this.name) {
+                this.setActive(tool.get('active'));
             };
         }
     });

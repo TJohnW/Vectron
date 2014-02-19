@@ -24,6 +24,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 define(['geometry', 'Mediator'], function(geometry, Mediator) {
+    'use strict';
 
     function LabeledValue(name, value) {
         this.$el = $('<span class="var"/>');

@@ -35,6 +35,7 @@ window.appConfig = {
 
 // avoid global variables with encapsulation
 (function() {
+    'use strict';
 
     if (window.location.host == 'localhost') {
         appConfig.development = true;
@@ -103,6 +104,11 @@ window.appConfig = {
         });
 
         $('[rel=tooltip]').tooltip();
+
+        // trigger window resize globally
+        $(window).resize(function () {
+            Mediator.publish('window:resize');
+        }.bind(this));
 
     });
 })();

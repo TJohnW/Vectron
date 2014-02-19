@@ -24,6 +24,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 define(['Mediator'], function(Mediator) {
+    'use strict';
 
     var AamapObject = Backbone.Model.extend({
 

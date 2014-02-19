@@ -27,6 +27,7 @@ define([
     'aamapObjects/AamapObject',
     'Mediator'
 ], function(AamapObject, Mediator) {
+    'use strict';
 
     var Aamap = Backbone.Collection.extend({
         model: AamapObject,

@@ -34,6 +34,7 @@ define([
     'geometry',
     'mousetrap'
 ], function(Canvas, Aamap, aamapObjects, AamapTools, Toolbar, Info, Mediator, geometry) {
+    'use strict';
 
     var Vectron = Backbone.View.extend({
 
@@ -51,6 +52,7 @@ define([
                 el: this.$('.info')
             });
 
+
             // temporary, must move to event handler
             this.initShortcuts();
 
@@ -59,6 +61,7 @@ define([
             this.canvas = new Canvas({
                 el: this.$('.canvas-container')
             });
+
 
             // testing map/canvas
             var death = aamapObjects.createZone(0, 0, 10, 'death');
@@ -80,7 +83,9 @@ define([
         events: {
             keydown: function (event) {
                 if (event.keyCode == '32') {
-                    Mediator.publish('canvas:pan-start');
+                    if (! this.canvas.isPanning()) {
+                        Mediator.publish('canvas:pan-start');
+                    }
                 }
             },
 
@@ -91,21 +96,27 @@ define([
             }
         },
 
+        subscriptions: {
+            'tool:createdObject': function (object) {
+                this.currentMap.add(object);
+            }
+        },
+
         initShortcuts: function () {
             Mousetrap.bind('v', function (event) {
-                Mediator.publish('tool:select', 'select');
+                Mediator.publish('tool:connect', 'select');
             }.bind(this));
 
             Mousetrap.bind('s', function (event) {
-                Mediator.publish('tool:select', 'spawn');
+                Mediator.publish('tool:connect', 'spawn');
             }.bind(this));
 
             Mousetrap.bind('w', function (event) {
-                Mediator.publish('tool:select', 'wall');
+                Mediator.publish('tool:connect', 'wall');
             }.bind(this));
 
             Mousetrap.bind('z', function (event) {
-                Mediator.publish('tool:select', 'zone');
+                Mediator.publish('tool:connect', 'zone');
             }.bind(this));
 
             Mousetrap.bind('+', function (event) {

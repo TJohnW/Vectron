@@ -29,6 +29,7 @@ define([
     'Mediator',
     'mousewheel'
 ], function(geometry, Raphael, Mediator) {
+    'use strict';
 
     var Canvas = Backbone.View.extend({
 
@@ -42,6 +43,8 @@ define([
             this.gridStep = 10;
             this.gridStart = new geometry.Point;
 
+            this.cursorSize = 10;
+
             this.snapTo = {
                 grid: false,
                 objects: false
@@ -49,12 +52,12 @@ define([
 
             // canvas anchor point to handle panning
             this.anchor = new geometry.Point;
+            this.cursorPanStart = null;
 
-            this.updateCanvasSize();
             this.paper = new Raphael(
                 this.el,
-                this.canvasSize.width,
-                this.canvasSize.height
+                this.$el.width(),
+                this.$el.height()
             );
 
             this.objects = this.paper.set();
@@ -65,8 +68,8 @@ define([
             this.createCursorPointer();
 
             // temp centering
-            var centerX = this.canvasSize.width / 2;
-            var centerY = -this.canvasSize.height / 2;
+            var centerX = this.paper.width / 2;
+            var centerY = -this.paper.height / 2;
             this.setAnchor(centerX, centerY);
             this.setZoom(10);
 
@@ -93,12 +96,12 @@ define([
             'canvas:snap': function () {
                 this.snapTo.grid = !this.snapTo.grid;
                 Mediator.publish('button:snap-active', this.snapTo.grid);
-            }
+            },
+
+            'window:resize': 'updateCanvasSize'
         },
 
         events: {
-            resize: 'updateCanvasSize',
-
             mousemove: function (event) {
                 if (this.cursorPanStart) {
                     // move canvas
@@ -124,6 +127,35 @@ define([
                 } else if (event.deltaY < 0) {
                     this.zoomOut(Math.abs(event.deltaY), true);
                 };
+            },
+
+            // trigger filtered events for external use
+            click: function (event) {
+                Mediator.publish('canvas:click', this.externalInterface());
+            },
+
+            mousedown: function (event) {
+                Mediator.publish('canvas:mousedown', this.externalInterface());
+            },
+
+            mouseup: function (event) {
+                Mediator.publish('canvas:mouseup', this.externalInterface());
+            }
+        },
+
+        externalInterface: function () {
+            if (this._externalInterface) {
+                return this._externalInterface;
+            }
+
+            return this._externalInterface = {
+                getCursorPos: function (allowSnap) {
+                    if (allowSnap) {
+                        return this.cursorPos;
+                    } else {
+                        return this.realPos;
+                    }
+                }.bind(this)
             }
         },
 
@@ -149,12 +181,17 @@ define([
             Mediator.publish('canvas:cursor-moved', this.cursorPos);
         },
 
+        isPanning: function () {
+            return this.cursorPanStart != null;
+        },
+
         snapToGrid: function () {
-            var halfStep = this.gridStep / 2,
-                adjust = new geometry.Point(
-                    this.cursorPos.x % this.gridStep,
-                    this.cursorPos.y % this.gridStep
-                );
+            var halfStep = this.gridStep / 2;
+
+            var adjust = new geometry.Point(
+                this.cursorPos.x % this.gridStep,
+                this.cursorPos.y % this.gridStep
+            );
 
             if (this.cursorPos.x >= 0 && adjust.x >= halfStep) {
                 adjust.x -= this.gridStep;
@@ -180,8 +217,8 @@ define([
             screenPos.x = Math.round(screenPos.x);
             screenPos.y = Math.round(screenPos.y);
 
-            this.cursorPointer.x.transform('T' + screenPos.x + ' 0');
-            this.cursorPointer.y.transform('T 0 ' + screenPos.y);
+            this.cursorPointer.x.transform('T' + screenPos.x + ' ' + screenPos.y);
+            this.cursorPointer.y.transform('T' + screenPos.x + ' ' + screenPos.y);
         },
 
         /**
@@ -213,16 +250,21 @@ define([
         removeObject: function (object) {
             object.get('canvasElement').remove();
             this.render();
+
+            return this;
         },
 
         updateCanvasSize: function() {
-            return this.canvasSize = {
-                width: this.$el.width(),
-                height: this.$el.height()
-            }
+            this.paper.setSize(this.$el.width(), this.$el.height());
+
+            this.createCursorPointer();
+
+            return this;
         },
 
         createGrid: function () {
+            if (! this.paper) return;
+
             var pathBuilder = new geometry.PathBuilder;
 
             for (var x = -this.gridSize; x <= this.gridSize; x += this.gridStep) {
@@ -236,6 +278,10 @@ define([
                 pathBuilder
                     .moveTo(-this.gridSize, y)
                     .lineTo(this.gridSize, y);
+            }
+
+            if (this.grid) {
+                this.grid.remove();
             }
 
             // render grid
@@ -265,15 +311,15 @@ define([
 
             // vertical line
             var pathBuilder = new geometry.PathBuilder()
-                .moveTo(0, 0)
-                .lineTo(0, this.canvasSize.height);
+                .moveTo(0, this.cursorSize)
+                .lineTo(0, -this.cursorSize);
 
             this.cursorPointer.x = pointerPath(pathBuilder);
 
             // horizontal line
             pathBuilder = new geometry.PathBuilder()
-                .moveTo(0, 0)
-                .lineTo(this.canvasSize.width, 0);
+                .moveTo(-this.cursorSize, 0)
+                .lineTo(this.cursorSize, 0);
 
             this.cursorPointer.y = pointerPath(pathBuilder);
         },
@@ -335,8 +381,8 @@ define([
                 realTarget = this.realPos;
             } else {
                 // target point is screen center
-                targetX = this.canvasSize.width / 2;
-                targetY = this.canvasSize.height / 2;
+                targetX = this.paper.width / 2;
+                targetY = this.paper.height / 2;
                 realTarget = this.screenToMap(targetX, targetY);
             }
 
@@ -381,8 +427,8 @@ define([
         },
 
         getCurrentCenter: function () {
-            var x = this.canvasSize.width / 2 + this.anchor.x;
-            var y = this.canvasSize.height / 2 + this.anchor.y;
+            var x = this.paper.width / 2 + this.anchor.x;
+            var y = this.paper.height / 2 + this.anchor.y;
             return new geometry.Point(x, y);
         },
 

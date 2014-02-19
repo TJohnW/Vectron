@@ -24,22 +24,29 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 define(['Mediator'], function(Mediator) {
+    'use strict';
 
     return Backbone.Model.extend({
-        initialize: function (options) {
-            this.active = false;
-            this.allowSnap = true;
+        defaults: {
+            name: 'base',
+            active: false,
+            allowSnap: true
         },
 
-        setActive: function (active) {
-            // status changed?
-            if (active != this.active) {
-                this.active = active;
-            }
-
-            Mediator.publish('tool:status-changed', this);
-
+        initialize: function (options) {
+            this.on('change active', function () {
+                if (this.get('active')) {
+                    this.connect();
+                } else {
+                    this.disconnect();
+                }
+                Mediator.publish('tool:status-changed', this);
+            });
             return this;
-        }
+        },
+
+        connect: function () {},
+
+        disconnect: function () {}
     });
 });

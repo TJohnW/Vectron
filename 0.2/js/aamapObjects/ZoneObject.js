@@ -24,6 +24,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 define(['aamapObjects/AamapObject'], function(AamapObject) {
+    'use strict';
 
     var zoneColors = {
            death: '#ff0000', // red
