@@ -22,18 +22,16 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-var version = '0.1';
-
 requirejs.config({
-    baseUrl: 'js/vectron-' + version,
+    baseUrl: 'js',
     paths: {
-        jquery: '../jquery',
-        bootstrap: '../bootstrap.min',
-        underscore: '../underscore-min',
-        backbone: '../backbone-min',
-        raphael: '../raphael-min',
-        mousetrap: '../mousetrap.min',
-        marknote: '../marknote',
+        jquery: 'libs/jquery',
+        bootstrap: 'libs/bootstrap.min',
+        underscore: 'libs/underscore-min',
+        backbone: 'libs/backbone-min',
+        raphael: 'libs/raphael-min',
+        mousetrap: 'libs/mousetrap.min',
+        marknote: 'libs/marknote',
         vectron: 'Vectron'
     },
 
