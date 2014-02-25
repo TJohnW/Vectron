@@ -24,7 +24,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 define([
     'AamapObjects/Wall',
-    'Tools/WallPoint',
+    'tools/WallPoint',
     'AamapObjects/Zone'
 ], function(Wall, WallPoint, Zone) {
 

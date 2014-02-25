@@ -23,7 +23,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 define([
-    'Tools/WallPoint',
+    'tools/WallPoint',
     'AamapObjects/Wall',
     'AamapObjects/Zone',
     'AamapObjects/Spawn',

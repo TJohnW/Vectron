@@ -26,7 +26,7 @@ define([
     'jquery',
     'raphael',
     'Settings',
-    'Gui',
+    'GUI',
     'Cursor',
     'Aamap',
     'Tools',

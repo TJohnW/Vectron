@@ -22,7 +22,7 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-define(['Tools/WallPoint', 'AamapObjects/Wall'], function(WallPoint, Wall) {
+define(['tools/WallPoint', 'AamapObjects/Wall'], function(WallPoint, Wall) {
 
     function WallTool(vectron) {
 

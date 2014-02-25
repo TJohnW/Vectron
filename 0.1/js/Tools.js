@@ -23,10 +23,10 @@ along with Vectron.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 define([
-    'Tools/SelectTool',
-    'Tools/SpawnTool',
-    'Tools/WallTool',
-    'Tools/ZoneTool'
+    'tools/SelectTool',
+    'tools/SpawnTool',
+    'tools/WallTool',
+    'tools/ZoneTool'
 ], function(SelectTool, SpawnTool, WallTool, ZoneTool) {
 
 	return {
