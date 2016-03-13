@@ -1,10 +1,12 @@
-<html>  
-    <head>  
+<html>
+    <head>
+        <meta charset="utf-8">
         <title>Vectron</title>
 
         <!-- Bootstrap -->
         <link href="./css/bootstrap.min.css" rel="stylesheet">
         <link href="./css/vectron.css" rel="stylesheet">
+        <link href="./css/shepherd-theme-arrows.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,700,600' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="./js/jquery.js"></script>
         <script type="text/javascript" src="./js/raphael-min.js"></script>
@@ -28,11 +30,14 @@
         <script type="text/javascript" src="./js/vectron-0.2/_vectron/settings.js"></script>
         <script type="text/javascript" src="./js/vectron-0.2/vectron.js"></script>
 
+        <script type="text/javascript" src="./js/tether.js"></script>
+        <script type="text/javascript" src="./js/shepherd.js"></script>
+
         <script type="text/javascript">
             $('[data-toggle="tooltip"]').tooltip();
         </script>
 
-    </head>  
+    </head>
     <body class="noscroll">
         <div id="control_box">
             <h1>Vectron <small>Map editor</small></h1>
@@ -205,7 +210,7 @@
                 <li>
                     <a class="toolbar-toolScaleDown" href="#" rel="tooltip" data-trigger="hover" data-placement="right" data-original-title="Scale Down"></a>
                 </li>
-                
+
             </ul>
             <ul>
 
@@ -240,8 +245,9 @@
         </div>
 
         <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="./js/tour.js"></script>
         <script>
         $('[rel=tooltip]').tooltip();
         </script>
-    </body>  
+    </body>
 </html>
